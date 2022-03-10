@@ -1,71 +1,180 @@
+<div>
 {{> header}}
 
-<!--<div class="bg-cover w-full" style="background-image: url('https://gl-m.linker-cdn.net/article/2021/May/6ebeb4bb7b40799a08a26d0989ec62cf.jpg'); height: 600px;">
-</div>-->
+<!--<div class="bg-cover w-full pt-16" 
+    style="background-image: url('https://gl-m.linker-cdn.net/article/2021/May/6ebeb4bb7b40799a08a26d0989ec62cf.jpg'); 
+    height: 600px;">-->
+<div class="pt-16 bg-gray-200">
+<div class="text-center">
+    <h1 class="text-3xl font-bold"> 
+        <span class="text-blue-500"> Ichhar </span>
+        est un site d'annonces
+    </h1>
+    <p class="font-bold">Que cherchez-vous aujourd'hui?</p>
+</div>
 
-<table>
+<table class="w-96 h-40 mx-auto">
     <tr>
         <td>
-            <input type="text" class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <input id="search" type="text" name="search"
+            class="h-12 block w-48 py-2 px-3 border-r bg-white rounded-md shadow-sm focus:outline-none 
+            focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="que cherchez-vous?">
         </td>
+        
         <td>
-            <select id="sous_categorie" name="sous_categorie" autocomplete="sous_categorie"
-            class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <select id="type" name="type" autocomplete="type"
+            class="h-12 block w-40 py-2 px-3 border-r bg-white rounded-md shadow-sm focus:outline-none 
+            focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <option>Type</option>
+            <option>Vente</option>
+            <option>Location</option>
+            <option>Echange</option>
+            </select>
+        </td>
+
+        <td>
+            <select id="categorie" name="categorie" autocomplete="categorie"
+            class="h-12 block w-40 py-2 px-3 border-r bg-white rounded-md shadow-sm focus:outline-none 
+            focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <option>Catégories</option>
             <option>Véhicule</option>
             <option>Immobilier</option>
             <option>Loisir</option>
             </select>
         </td>
+
         <td>
-            <select id="sous_categorie" name="sous_categorie" autocomplete="sous_categorie"
-            class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-            <option>Véhicule</option>
-            <option>Immobilier</option>
-            <option>Loisir</option>
+            <select id="localisation" name="localisation" autocomplete="localisation"
+            class="h-12 block w-40 py-2 px-3 border-r bg-white rounded-md shadow-sm focus:outline-none 
+            focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <option>Localisation</option>
+            <option>Kairouan</option>
+            <option>Djerba</option>
+            <option>Tozeur</option>
+            <option>Nabeul</option>
+            <option>Sfax</option>
+            <option>Monastir</option>
             </select>
         </td>
+
         <td>
-            <select id="sous_categorie" name="sous_categorie" autocomplete="sous_categorie"
-            class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-            <option>Véhicule</option>
-            <option>Immobilier</option>
-            <option>Loisir</option>
-            </select>
+            <button class="flex justify-center gap-3 h-12 w-48 py-4 px-3 border-r bg-gary-900 rounded-md shadow-sm 
+             sm:text-sm bg-gray-900">
+            
+                <a href="#" class="block text-white font-bold" style="font-size: medium;">  Rechercher  </a>
+                
+                <svg class="text-white h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+                width="512px" height="512px">
+                <path
+                d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+                </svg>
+            
+            </button>
         </td>
+
     </tr>
 </table>
 
-<div class="grid grid-cols-4 group">
-        <div class="mt-2">
-            <input type="text" class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-        </div>
+<div class="flex h-40 mx-auto justify-center mt-8 mb-10 space-x-4 products-slider" style="width: 900px;">
+<div class="absolute mt-9 left-64 z-10 flex items-center">
+    <button class="swiper-button-prev bg-white -ml-2 lg:-ml-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
+      <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-left w-6 h-6"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+    </button>
+  </div>
 
-        <div class="mt-2">
-            <select id="sous_categorie" name="sous_categorie" autocomplete="sous_categorie"
-            class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-            <option>Véhicule</option>
-            <option>Immobilier</option>
-            <option>Loisir</option>
-            </select>
-        </div>
-
-        <div class="mt-2">
-            <select id="sous_categorie" name="sous_categorie" autocomplete="sous_categorie"
-            class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-            <option>Véhicule</option>
-            <option>Immobilier</option>
-            <option>Loisir</option>
-            </select>
-        </div>
-
-        <div class="mt-2">
-            <select id="sous_categorie" name="sous_categorie" autocomplete="sous_categorie"
-            class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-            <option>Véhicule</option>
-            <option>Immobilier</option>
-            <option>Loisir</option>
-            </select>
-        </div>
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/electronique.png" alt=""></img>
+        <p class="font-semibold">Electronique</p>
     </div>
 
+    <div class="mt-4">
+        <img class="w-20 h-20" class="w-20 h-20" src="images/vehicule.png" alt="">
+        <p class="font-semibold">Véhicule</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/immobilier.png" alt="">
+        <p class="font-semibold">Immobilier</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/emploi.png" alt="">
+        <p class="font-semibold">Emploi</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/loisir.png" alt="">
+        <p class="font-semibold">Loisir</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/habillement.png" alt="">
+        <p class="font-semibold">Habillement</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/maisonjardin.png" alt="">
+        <p class="font-semibold">Maison et jardin</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/points.png" alt="">
+        <p class="font-semibold">Autre</p>
+    </div>
+
+  <div class="absolute mt-9 right-60 z-10 flex items-center">
+    <button class="swiper-button-next bg-white -mr-2 lg:-mr-4 flex justify-center items-center w-10 h-10 rounded-full shadow focus:outline-none">
+      <svg viewBox="0 0 20 20" fill="currentColor" class="chevron-right w-6 h-6"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+    </button>
+  </div>
+</div>
+
+<!--<div class="flex h-40 mx-auto justify-center mt-8 space-x-4" style="width: 800px;">
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/electronique.png" alt=""></img>
+        <p class="font-semibold">Electronique</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" class="w-20 h-20" src="images/vehicule.png" alt="">
+        <p class="font-semibold">Véhicule</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/immobilier.png" alt="">
+        <p class="font-semibold">Immobilier</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/emploi.png" alt="">
+        <p class="font-semibold">Emploi</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/loisir.png" alt="">
+        <p class="font-semibold">Loisir</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/habillement.png" alt="">
+        <p class="font-semibold">Habillement</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="images/maisonjardin.png" alt="">
+        <p class="font-semibold">Maison et jardin</p>
+    </div>
+
+    <div class="mt-4">
+        <img class="w-20 h-20" src="" alt="">
+        <p class="font-semibold">Autre</p>
+    </div>
+
+</div>
+
+</div>-->
+
 {{> footer}}
+</div>
