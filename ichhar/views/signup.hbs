@@ -1,59 +1,67 @@
 <body class="bg-gray-50">
-  
-<div class="grid grid-cols-2 gap-8 mx-auto bg-white rounded-lg shadow-xl mt-8" style="width: 800px; height: 710px;">
-    <p class="text-2xl font-bold text-gray-700 ml-80 mt-6">
+  <form action="/signup" method="POST" 
+    class="grid grid-cols-2 gap-8 mx-auto bg-white rounded-lg shadow-xl mt-8"
+    style="width: 800px; height: 590px;">
+
+     <h1 class="text-2xl font-bold text-gray-700 ml-80 mt-6">
       S'inscrire
-    </p><br>
-    <div class="pl-12 mb-8">
+    </h1><br>
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const msg = urlParams.get('msg')
+      if (msg == "errorsignup") {
+        document.write('<h2 class="text-red-600 font-bold text-center">This Email is already in use</h2>');
+      }
+      if (msg == "fillfields") {
+        document.write('<h2 class="text-red-600 font-bold text-center">Please fill up the fields</h2>');
+      }
+      if (msg == "passwordsdoesntmatch") {
+        document.write('<h2 class="text-red-600 font-bold text-center">Passwords do not match</h2>');
+      }
+    </script><br>
+
+    <div class="pl-12">
       <div class="w-96">
-        <label class="block text-sm font-medium text-gray-700 mb-2">
-          Cin
-        </label>
-        <input type="text"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-          placeholder="Cin" />
-      </div>
-      <div class="mt-4 w-96">
           <label class="block text-sm font-medium text-gray-700 mb-2">
-            Nom
+            Cin
           </label>
           <input type="text"
             class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-            placeholder="Nom" />
-        </div>
-        <div class="mt-4 w-96">
-          <label class="block text-sm font-medium text-gray-700 mb-2">
-            Prénom
-          </label>
-          <input type="text"
-            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600 "
-            placeholder="Prénom" />
-        </div>
-      <div class="mt-4 w-96">
-        <label class="block text-sm font-medium text-gray-700 mb-2">
-          Email
-        </label>
-        <input type="email"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-          placeholder="Email Address" />
+            placeholder="Cin" 
+            name="cin"/>
       </div>
 
-      <div class="mt-4 w-96"> 
+      <div class="mt-4 w-96">
         <label class="block text-sm font-medium text-gray-700 mb-2">
-          Mot de passe 
+          Nom
         </label>
         <input type="text"
           class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-          placeholder="Mot de passe" />
+          placeholder="Nom"
+          name="name" />
       </div>
+
       <div class="mt-4 w-96">
         <label class="block text-sm font-medium text-gray-700 mb-2">
-          Confirmer Mot de passe
+          Prénom
         </label>
         <input type="text"
           class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600 "
-          placeholder="Confirmer Mot de passe" />
+          placeholder="Prénom" 
+            name="lastname"/>
       </div>
+
+      <div class="mt-4 w-96">
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Ville
+        </label>
+        <input type="text"
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+          placeholder="Téléphone" 
+            name="ville"/>
+      </div>
+
     </div>
 
     <div>
@@ -63,76 +71,109 @@
         </label>
         <input type="text"
           class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-          placeholder="Téléphone" />
+          placeholder="Téléphone" 
+            name="phone"/>
       </div>
+
       <div class="mt-4 w-96">
         <label class="block text-sm font-medium text-gray-700 mb-2">
-          Numéro de carte
+          Email
         </label>
-        <input type="text"
+        <input type="email"
           class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-          placeholder=" Numéro de carte" />
+          placeholder="Email Address" 
+          name="email"/>
       </div>
+
+      <div class="mt-4 w-96"> 
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Mot de passe 
+        </label>
+        <input type="password"
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+          placeholder="Mot de passe" 
+          name="password"/>
+      </div>
+
       <div class="mt-4 w-96">
         <label class="block text-sm font-medium text-gray-700 mb-2">
-          Code
+          Confirmer Mot de passe
         </label>
-        <input type="text"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-          placeholder=" Code" />
-      </div>
-      <div class="mt-4 w-96">
-        <label class="block text-sm font-medium text-gray-700 mb-2">
-          Montant
-        </label>
-        <input type="text"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-          placeholder=" Montant" />
-      </div>
-      
-      <div class="flex justify-center mt-10 mr-28">
-          <div class="form-check mr-20">
-            <input class="form-check-input h-4 w-4 border border-gray-300 rounded-sm 
-            bg-white checked:bg-gray-600 checked:border-gray-600 focus:outline-none transition duration-200 
-            mt-3 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
-                type="checkbox" value="" id="flexCheckDefault">
-            <img src="images/9876.jpg" class="w-16">
-            </label>
-          </div>
-
-          <div class="form-check">
-            <input class="form-check-input h-4 w-4 border border-gray-300 rounded-sm 
-            bg-white checked:bg-gray-600 checked:border-gray-600 focus:outline-none transition duration-200 
-            mt-3 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
-                type="checkbox" value="" id="flexCheckChecked">
-           <img src="images/12365.jpg" class="w-16">
-          </div>
+        <input type="password"
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600 "
+          placeholder="Confirmer Mot de passe" 
+          name="confirmpassword"/>
       </div>
 
-      <button class="w-32 px-12 py-1.5 mt-12 leading-5 transition-colors duration-150 bg-gray-200 
-      border border-transparent border-2 shadow-md rounded-md 
-      focus:outline-none focus:shadow-outline-gray ml-20">
-        <a href="#" class="block text-sm font-medium text-center text-gray-900">Payer</a>
-      </button>     
-    </div>
-
-    
-    <div class="pb-96 ml-60">
-        <button
-            class="w-72 px-4 py-2 text-sm font-medium text-center text-white 
-            transition-colors duration-150 bg-gray-600 border border-transparent 
-            rounded-lg active:bg-gray-600  hover:bg-gray-800" href="/">
-            S'inscrire
-        </button>
-
-        <div class="mt-2 ml-5 w-96">
-            <p class="block text-sm font-medium text-gray-700">Avez vous déjà un compte! 
-                <a href="/signin" class=" text-sm font-medium text-blue-600 hover:underline"> 
-                S'identifier
-                </a>
-            </p>
+        <!--<div class="mt-4 w-96">
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Numéro de carte
+          </label>
+          <input type="text"
+            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+            placeholder=" Numéro de carte" />
         </div>
-    </div>
-</div>
+        <div class="mt-4 w-96">
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Code
+          </label>
+          <input type="text"
+            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+            placeholder=" Code" />
+        </div>
+        <div class="mt-4 w-96">
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Montant
+          </label>
+          <input type="text"
+            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+            placeholder=" Montant" />
+        </div>
+        
+        <div class="flex justify-center mt-10 mr-28">
+            <div class="form-check mr-20">
+              <input class="form-check-input h-4 w-4 border border-gray-300 rounded-sm 
+              bg-white checked:bg-gray-600 checked:border-gray-600 focus:outline-none transition duration-200 
+              mt-3 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
+                  type="checkbox" value="" id="flexCheckDefault">
+              <img src="images/9876.jpg" class="w-16">
+              </label>
+            </div>
 
+            <div class="form-check">
+              <input class="form-check-input h-4 w-4 border border-gray-300 rounded-sm 
+              bg-white checked:bg-gray-600 checked:border-gray-600 focus:outline-none transition duration-200 
+              mt-3 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" 
+                  type="checkbox" value="" id="flexCheckChecked">
+            <img src="images/12365.jpg" class="w-16">
+            </div>
+        </div>
+
+        <button class="w-32 px-12 py-1.5 mt-12 leading-5 transition-colors duration-150 bg-gray-200 
+        border border-transparent border-2 shadow-md rounded-md 
+        focus:outline-none focus:shadow-outline-gray ml-20">
+          <a href="#" class="block text-sm font-medium text-center text-gray-900">Payer</a>
+        </button>     
+      </div>-->
+    </div>
+
+    <div class="ml-60 mb-6">
+          <button
+          type="submit"
+              class="w-72 px-4 py-2 text-sm font-medium text-center text-white 
+              transition-colors duration-150 bg-gray-600 border border-transparent 
+              rounded-lg active:bg-gray-600  hover:bg-gray-800" href="#">
+              S'inscrire
+          </button>
+
+          <div class="mt-2 ml-5 w-96">
+              <p class="block text-sm font-medium text-gray-700">Avez vous déjà un compte! 
+                  <a href="/signin" class=" text-sm font-medium text-blue-600 hover:underline"> 
+                  S'identifier
+                  </a>
+              </p>
+          </div>
+    </div>
+
+  </form>  
 </body>
