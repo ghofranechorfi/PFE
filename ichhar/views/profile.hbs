@@ -1,0 +1,41 @@
+
+<script type = "text/javascript">
+
+function afficherannonces() {
+  document.getElementById("annonces").style.display="block";
+  document.getElementById("reglages").style.display="none";
+}
+
+function afficherreglages() {
+  document.getElementById("annonces").style.display="none";
+  document.getElementById("reglages").style.display="block";
+}
+
+</script>
+
+<div>
+{{> header}}
+
+  <div class="flex justify-center mt-1/2" style="height:593px">
+    <!-- Row -->
+    <div class="xl:w-3/4 lg:w-11/12 flex">
+      {{#each userinfo}}
+      <!-- Col -->
+      <div class="bg-gray-200 hidden lg:block lg:w-80 bg-cover">
+        {{> sidebarprofile}}
+      </div>
+      <!-- Col -->
+      <div class="w-full lg:w-7/12  p-5 lg:rounded-l-none">
+        <div id="annonces" style="display: block;">
+            {{> annonces}}
+        </div>
+
+        <div id="reglages" style="display: none;">
+          {{> reglages}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,595 @@
+{{> header}}
+<div class='grid grid-cols-12'>
+    <div class="col-span-3 text-white font-sans font-bold bg-gray-200 min-h-screen pl-7">
+        <div class="grid grid-rows-6 grid-flow-col min-h-screen items-center justify-items-start ">
+           
+            <div class="mb-48">  
+                <p class=" mt-6 text-3xl text-bold text-black ml-8 ">Les categories</p>  
+                <select id="Véhicule" name="Véhicule" autocomplete="Véhicule" 
+                    class="mt-8 h-12 w-54 py-2 px-3 bg-transparent 
+                    text-center text-lg ml-7 text-black text-semibold">
+                        <option>Véhicule</option>
+                        <option>Voiture</option>
+                        <option>Moto</option>
+                        <option>Bateau</option>
+                        <option>Camions</option>
+                        <option>Engins</option>
+                        <option>Pièces et accessoires</option>
+                        <option>Remorque et caravane</option>
+                </select>
+
+                <select id="Immobilier" name="Immobilier" autocomplete="Immobilier" 
+                    class="mt-2 h-12 w-54 py-2 px-3 bg-transparent 
+                    text-center text-lg ml-7 text-black text-semibold">
+                    <option>Immobilier</option>
+                    <option>Appartements</option>
+                    <option>Maisons et Villas</option>
+                    <option>Locations de vacances</option>
+                    <option>Bureaux et Plateaux</option>
+                    <option>Terrains et Fermes</option>
+                    <option>Magasins</option>
+                    <option>Remorque et caravane</option>
+                </select>
+
+                <select id="Habillements" name="Habillements" autocomplete="Habillements" 
+                      class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
+                     text-center text-lg ml-7 text-black text-semibold">
+                    <option>Habillements</option>
+                    <option>vetments</option>
+                    <option>Chaussures</option>
+                    <option>montres et bijoux</option>
+                    <option>sacs et accessoires</option>
+                    <option>produits de beauté</option>
+                </select>
+                      <select id="Emploi" name="Emploi" autocomplete="Emploi" 
+                          class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
+                     text-center text-lg ml-7 text-black text-semibold">
+                    <option>Emploi</option>
+                    <option>offre d'emploi</option>
+                    <option>demande d'emploi</option>
+                    <option>Services</option>
+                    <option>cours et formation</option>
+                </select>
+                      <select id="Maison et jardins" name="Maison et jardins" autocomplete="Maison et jardins" 
+                          class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
+                     text-center text-lg ml-7 text-black text-semibold">
+                    <option>Maison et jardins</option>
+                    <option>electroménager</option>
+                    <option>meubles et décoration</option>
+                    <option>jardin </option>
+                    <option>outils de bricolage</option>
+                </select>
+                      <select id="Loisir" name="Loisir" autocomplete="Loisir" 
+                          class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
+                     text-center text-lg ml-7 text-black text-semibold">
+                    <option>Loisir</option>
+                    <option>vélos </option>
+                    <option>sports et loisir</option>
+                    <option>animaux</option>
+                    <option>films, livres et magasins</option>
+                    <option>voyages</option>
+                    <option>arts et collections</option>
+                    <option>instruments de musique</option>
+                </select>
+                 <select id="Electronique" name="Electronique" autocomplete="Electronique" 
+                     class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
+                     text-center text-lg ml-7 text-black text-semibold">
+                    <option>Electronique</option>
+                    <option>Téléphone </option>
+                    <option>ordinateurs</option>
+                    <option>jeux vidéos</option>
+                    <option>appareils photos</option>
+                    <option>télévision</option>
+                    <option>tablette</option>
+                    <option>accesoires informatiques</option>
+                </select>
+                
+            </div>
+        </div>         
+    </div>
+
+    <!-- Second column image -->
+    <div class="banner col-span-9 text-white font-sans font-bold">
+      <main class="mt-8">
+                
+        <div class="container mx-auto px-6">
+        
+            <select  class="h-8 w-24 border-r bg-gray-50 rounded-md shadow-lg
+             text-center text-black" style="margin-left: 850px;">
+                    <option>Trier par</option>
+                    <option>le plus récent</option>
+                    <option>prix le plus bas</option>
+                    <option>prix le plus élévé</option>
+            </select>
+
+            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmGoSmArktm1N--tytUpeUmXIN1zLZ32X5GA&usqp=CAU')">
+
+                    </div>
+                    <div class="px-5 py-3">
+                        
+                        <h3 class="text-gray-700 uppercase">Voiture </h3>
+                        <span class="text-gray-500 mt-2">10.000 DT</span>
+                    </div>
+                     <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                     <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1524592094714-0f0654e20314?ixlib=rb-1.2.1&auto=format&fit=crop&w=689&q=80')">
+         
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">Montre</h3>
+                        <span class="text-gray-500 mt-2">30 DT</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                      <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                   
+                </div>
+
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('data:image/jpeg;base64,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')">
+                     
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">Villa</h3>
+                        <span class="text-gray-500 mt-2">500DT / mois</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')">
+                      
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">fossil watch</h3>
+                        <span class="text-gray-500 mt-2">$180</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')">
+                      
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">braun watch</h3>
+                        <span class="text-gray-500 mt-2">$49</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1526045431048-f857369baa09?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')">
+                      
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">rolex watch</h3>
+                        <span class="text-gray-500 mt-2">$86</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1495857000853-fe46c8aefc30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')">
+                      
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">MVMtx watch</h3>
+                        <span class="text-gray-500 mt-2">$100</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1444881421460-d838c3b98f95?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=889&q=80')">
+                      
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">breitling watch</h3>
+                        <span class="text-gray-500 mt-2">$180</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')">
+                       
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">Classic watch</h3>
+                        <span class="text-gray-500 mt-2">$123</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1524592094714-0f0654e20314?ixlib=rb-1.2.1&auto=format&fit=crop&w=689&q=80')">
+                     
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">Old watch</h3>
+                        <span class="text-gray-500 mt-2">$95</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')">
+                       
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">Classic watch</h3>
+                        <span class="text-gray-500 mt-2">$125</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')">
+                   
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">fossil watch</h3>
+                        <span class="text-gray-500 mt-2">$180</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1434056886845-dac89ffe9b56?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')">
+                        
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">braun watch</h3>
+                        <span class="text-gray-500 mt-2">$49</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1526045431048-f857369baa09?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')">
+                       
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">rolex watch</h3>
+                        <span class="text-gray-500 mt-2">$86</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1495857000853-fe46c8aefc30?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')">
+                    
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">MVMtx watch</h3>
+                        <span class="text-gray-500 mt-2">$100</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+                <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+                    <div class="flex items-end justify-end h-56 w-full bg-cover"
+                        style="background-image: url('https://images.unsplash.com/photo-1444881421460-d838c3b98f95?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=889&q=80')">
+                   
+                    </div>
+                    <div class="px-5 py-3">
+                        <h3 class="text-gray-700 uppercase">breitling watch</h3>
+                        <span class="text-gray-500 mt-2">$180</span>
+                    </div>
+                       <button
+                            class="p-2 rounded-full bg-gray-600 text-white ml-12  mb-2 hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                           </svg>
+                        </button>
+                         <button
+                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                     </svg>
+                    </button>
+                        <button
+                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+                </div>
+            </div>
+           
+        </div>
+    </main>
+    </div>    
+</div>
+{{> footer}}

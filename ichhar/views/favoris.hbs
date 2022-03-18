@@ -1,13 +1,15 @@
 {{> header}}
 
-<h1 class="ml-80 mt-8 mb-2 text-gray-900 font-semibold">Liste des annonces favoris</h1>
+<h1 class="ml-80 mt-6 mb-4 text-gray-900 font-semibold
+text-xl">Vos annonces favoris</h1>
 
-<div class="bg-gray-50 mx-auto border rounded-lg shadow-lg
+<div class="mx-auto border rounded-lg shadow-xl
             text-gray-900" style="width: 750px; height: 500px">
     
     <div class="pl-6 mt-2 mb-2 gap-8 flex font-semibold">
         <div class="w-10">id</div>
         <div class="w-10">titre</div>
+        <div class="w-10">image</div>
         <div class="w-52">description</div>
         <div class="w-20">prix</div>
     </div>
@@ -16,13 +18,15 @@
     
     {{#each userData}}
     <div class="pl-6">
-        <div class="card flex gap-8">
+        <div class="flex gap-8">
         <div class="w-10">{{this.id}}</div>
         <div class="w-10">{{this.titre}}</div>
+        <div class="w-10"><img src="{{this.photo_url}}" alt=""></div>
         <div class="w-52">{{this.description}}</div>
         <div class="w-20">{{this.prix}}</div>
         <div>
-            <button class="bg-gray-900 text-white font-bold p-2 border rounded-lg ">Supprimer</button>
+            <button class="bg-gray-50 hover:bg-gray-300 text-black font-semibold p-2 
+            border rounded-lg ">Supprimer</button>
         </div>
         </div>
     </div>

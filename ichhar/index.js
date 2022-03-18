@@ -6,12 +6,12 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 const port = 3000
 const path = require('path');
-const { render } = require('express/lib/response');
 
 const hbs = handlebars.create({
   layoutsDir: __dirname + '/views/layouts/',
   extname: 'hbs'
 });
+
 app.use(express.static('public'));
 
 //database connection
@@ -41,17 +41,14 @@ app.use(session({
     saveUninitialized: true
 }));
 
-
+//page d'accueil
 app.get('/', function (req, res) {
     res.render('main', {layout: 'index'});
 });
 
+//sign in
 app.get('/signin', (req, res) => {
     res.render('signin', {layout: 'index'});
-})
-
-app.get('/signup', (req, res) => {
-    res.render('signup', {layout: 'index'});
 })
 
 app.post('/signin', function(request, response) {
@@ -61,7 +58,7 @@ app.post('/signin', function(request, response) {
 	// Ensure the input fields exists and are not empty
 	if (email && password) {
 		// Execute SQL query that'll select the account from the database based on the specified email and password
-		con.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
+		con.query('SELECT * FROM utilisateur WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
 			// If there is an issue with the query, output the error
 			if (error) throw error;
 			// If the account exists
@@ -69,6 +66,7 @@ app.post('/signin', function(request, response) {
 				// Authenticate the user
 				request.session.loggedin = true;
 				request.session.email = email;
+				console.log(request.session.loggedin);
 				// Redirect to home page
 				response.redirect('/');
 			} else {
@@ -77,17 +75,22 @@ app.post('/signin', function(request, response) {
 			response.end();
 		});
 	} else {
-		response.send('Please enter email and Password!');
+		response.redirect('/signin?msg=fillfields');
 		response.end();
 	}
 });
 
+//signup
+app.get('/signup', (req, res) => {
+    res.render('signup', {layout: 'index'});
+})
+
 app.post('/signup', function(request, response){
 
-	var sql = "INSERT INTO `users`(`cin`,`name`,`lastname`,`ville`,`phone`,`email`, `password`) VALUES ('"+request.body.cin+"','"+request.body.name+"','"+request.body.lastname+"','"+request.body.ville+"','"+request.body.phone+"','"+request.body.email+"','"+request.body.password+"')";
+	var sql = "INSERT INTO `utilisateur`(`cin`,`nom`,`prenom`,`ville`,`telephone`,`email`, `password`) VALUES ('"+request.body.cin+"','"+request.body.nom+"','"+request.body.prenom+"','"+request.body.ville+"','"+request.body.telephone+"','"+request.body.email+"','"+request.body.password+"')";
 
-	if (request.body.cin && request.body.name && request.body.lastname && request.body.ville && request.body.phone && request.body.email && request.body.password && request.body.confirmpassword){
-		con.query('SELECT * FROM users WHERE email = ?', [request.body.email], function(error, results) {
+	if (request.body.cin && request.body.nom && request.body.prenom && request.body.ville && request.body.telephone && request.body.email && request.body.password && request.body.confirmpassword){
+		con.query('SELECT * FROM utilisateur WHERE email = ?', [request.body.email], function(error, results) {
 			if(error) throw error;
 			if (results.length > 0 ) {
 				response.redirect('/signup?msg=errorsignup');
@@ -112,6 +115,7 @@ app.post('/signup', function(request, response){
 	}
 })
 
+//favoris
 app.get('/favoris/:id', (req, res) => {
 	res.render('favoris', {layout: 'index'});
 })
@@ -122,12 +126,20 @@ app.get('/favoris', function(req, res, next) {
     if (err) throw err;
     res.render('favoris', { layout:'index', title: 'favoris', userData: data});
   });
-});
-
-app.get('/profil', (req, res) => {
-    res.render('profil', {layout: 'index'});
 })
 
+//profile
+app.get('/profile/:nom/', (req, res) => {
+    con.query("SELECT * FROM utilisateur where nom = ?" , req.params.nom, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        res.render('profile', 
+        {layout: 'index',
+        userinfo: result});
+    });
+})
+
+//add an ad
 app.get('/add-ads', (req, res) => {
     res.render('addADS', {layout: 'index'});
 })
@@ -148,6 +160,11 @@ app.post('/add-ads', (request, response) => {
 		response.redirect('/add-ads?msg=fillfields');
 		response.end();
 	}
+})
+
+//add an ad
+app.get('/categories', (req, res) => {
+    res.render('categorie', {layout: 'index'});
 })
 
 app.listen(port, () => {

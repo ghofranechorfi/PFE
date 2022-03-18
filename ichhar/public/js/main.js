@@ -1,27 +1,14 @@
-var swiper = new Swiper(".products-slider", {
-    loop: true,
-    grabeCursor: true,
-    spaceBetween: 20,
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-    breakpoints: {
-        0: {
-            slidesPerView: 1,
-
-        },
-        550: {
-            slidesPerView: 2,
-
-        },
-        850: {
-            slidesPerView: 3,
-
-        },
-        1200: {
-            slidesPerView: 4,
-
-        },
-    },
-});
+Handlebars.registerHelper( "when",function(operand_1, operator, operand_2, options) {
+    var operators = {
+     'eq': function(l,r) { return l == r; },
+     'noteq': function(l,r) { return l != r; },
+     'gt': function(l,r) { return Number(l) > Number(r); },
+     'or': function(l,r) { return l || r; },
+     'and': function(l,r) { return l && r; },
+     '%': function(l,r) { return (l % r) === 0; }
+    }
+    , result = operators[operator](operand_1,operand_2);
+  
+    if (result) return options.fn(this);
+    else  return options.inverse(this);
+  });

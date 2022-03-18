@@ -12,7 +12,10 @@
               const urlParams = new URLSearchParams(queryString);
               const msg = urlParams.get('msg')
               if (msg == "errorlogin") {
-                document.write('<h2 class="text-red-600 font-bold">Erreur login</h2>');
+                document.write('<p class="text-red-600 font-bold">Erreur login</p>');
+              }
+              else if (msg == "fillfields") {
+                document.write('<p class="text-red-600 font-bold">Please fill up the fields</p>');
               }
 
             </script>
