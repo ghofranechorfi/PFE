@@ -1,11 +1,89 @@
-<div>
+<div class="flex-wrap space-x-72">
 
 {{> sidebar}}
 
 <div>
     <div>
         {{> header}}
-        <h1 class="text-2xl font-semibold p-6">Liste des clients</h1>
+            <h1 class="text-xl font-semibold pt-6 pb-6">Liste des clients</h1>
+            
+            <table class="items-center bg-transparent border-collapse" style="width: 900px;">
+                <thead>
+                    <tr>
+                        <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            ID
+                        </th>
+                        
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            CIN
+                        </th>
+
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            NOM
+                        </th>
+
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            prénom
+                        </th>
+
+                        <th class="px-5 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            email
+                        </th>
+
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            téléphone
+                        </th>
+
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            ville
+                        </th>
+
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+
+                {{#each userinfo}}
+                <tbody>
+                    <tr>
+                        <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                            {{id}}
+                        </th>
+                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                {{cin}}
+                            </td>
+
+                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                {{nom}}
+                            </td>
+
+                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                {{prenom}}
+                            </td>
+                                    
+                            <td class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                {{email}}
+                            </td>
+                                    
+                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                {{telephone}}
+                            </td>
+                                    
+                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                {{ville}}
+                            </td>
+
+                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center
+                                bg-gradient-to-r from-blue-400 to-blue-600 hover:to-blue-200"> Supprimer </button>
+                            </td>
+                    </tr>            
+                </tbody>
+                {{/each}}
+                
+            </table>
+
     </div> 
 </div>
 

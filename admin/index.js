@@ -2,47 +2,122 @@ const express = require('express');
 var mysql = require('mysql');
 const handlebars = require('express-handlebars');
 const app = express();
-const port = 3000
+var bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
+var session = require('express-session');
+const port = 3001;
 const path = require('path');
 
 const hbs = handlebars.create({
     layoutsDir: __dirname + '/views/layouts/',
     extname: 'hbs'
+  });
+  
+  app.use(express.static('public'));
+  
+  //database connection
+  var con = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "",
+      database: "pfe"
+    });
+    con.connect(function(err) {
+      if (err) throw err;
+      console.log("Connected!");
+    });
+  
+  app.engine('hbs', hbs.engine);
+  app.set('view engine', 'hbs');
+  app.set('views', './views');
+  
+  //app.use(express.bodyParser());
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  
+  // cookie parser middleware
+  app.use(cookieParser());
+  
+  //session
+  app.use(session({
+      secret: "123456789",
+      resave: true,
+      saveUninitialized: true
+  }));
+
+
+app.get('/ichhar-admin/home', (request, response) => {
+    response.render('main', {
+        layout : 'index',
+        loggedin: request.session.loggedin
+    });
 });
 
-app.use(express.static('public'));
-
-app.engine('hbs', hbs.engine);
-app.set('view engine', 'hbs');
-app.set('views', './views');
-
-app.get('/ichhar-admin/accueil', (req, res) => {
-    res.render('main', {layout : 'index'});
+app.get('/ichhar-admin/signin', (request, response) => {
+    response.render('signin', {
+        layout : 'index',
+        loggedin: request.session.loggedin
+    });
 });
 
-app.get('/ichhar-admin/signin', (req, res) => {
-    res.render('signin', {layout : 'index'});
+app.post('/ichhar-admin/signin', function(request, response) {
+	let email = request.body.email;
+	let password = request.body.password;
+	if (email && password) {
+		con.query('SELECT * FROM utilisateur WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
+			if (error) throw error;
+			// If the account exists
+			if (results.length > 0) {
+				// Authenticate the user
+				request.session.loggedin = true;
+				request.session.email = email;
+				// Redirect to home page
+				response.redirect('/ichhar-admin/home');
+			} else {
+				response.redirect('/signin?msg=errorlogin');
+			}			
+			response.end();
+		});
+	} else {
+		response.redirect('/signin?msg=fillfields');
+		response.end();
+	}
 });
 
-app.get('/ichhar-admin/signup', (req, res) => {
-    res.render('signup', {layout : 'index'});
+app.get('/ichhar-admin/clients', (request, response) => {
+    con.query("SELECT * FROM utilisateur", function (err, result, fields) {
+        if (err) throw err;
+			response.render('clients', {
+			layout: 'index',
+            loggedin: request.session.loggedin,
+			userinfo: result
+		});
+    });
 });
 
-app.get('/ichhar-admin/clients', (req, res) => {
-    res.render('clients', {layout : 'index'});
+app.get('/ichhar-admin/categories', (request, response) => {
+    con.query("SELECT * FROM categorie" ,function (err, result, fields) {
+        if (err) throw err;
+			response.render('categories', {
+			layout: 'index',
+            loggedin: request.session.loggedin,
+			catinfo: result
+		});
+    });
 });
 
-app.get('/ichhar-admin/abonnements', (req, res) => {
-    res.render('abonnements', {layout : 'index'});
+app.get('/ichhar-admin/annonces', (request, response) => {
+    con.query("SELECT * FROM annonce" ,function (err, result, fields) {
+        if (err) throw err;
+			response.render('annonces', {
+			layout: 'index',
+            loggedin: request.session.loggedin,
+			annonceinfo: result
+		});
+    });
 });
 
-app.get('/ichhar-admin/annonces', (req, res) => {
-    res.render('annonces', {layout : 'index'});
-});
 
-app.get('/ichhar-admin/categories', (req, res) => {
-    res.render('categories', {layout : 'index'});
-});
 
 app.get('/ichhar-admin/profil', (req, res) => {
     res.render('profil', {layout : 'index'});

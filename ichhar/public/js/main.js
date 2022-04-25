@@ -1,4 +1,4 @@
-Handlebars.registerHelper( "when",function(operand_1, operator, operand_2, options) {
+Handlebars.registerHelper( "when", function(operand_1, operator, operand_2, options) {
     var operators = {
      'eq': function(l,r) { return l == r; },
      'noteq': function(l,r) { return l != r; },
@@ -9,6 +9,12 @@ Handlebars.registerHelper( "when",function(operand_1, operator, operand_2, optio
     }
     , result = operators[operator](operand_1,operand_2);
   
-    if (result) return options.fn(this);
-    else  return options.inverse(this);
+    if (result) 
+      return options.fn(this);
+    else  
+      return options.inverse(this);
   });
+
+  Handlebars.registerHelper('print_person', function () {
+    return this.firstname + ' ' + this.lastname
+})
