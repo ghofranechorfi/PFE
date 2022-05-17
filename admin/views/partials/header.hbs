@@ -1,5 +1,5 @@
 <!--NAVBAR-->
-<div class="h-full m-3 space-x-64 bg-gray-50" style="width:1060px;">
+<div class="hidden md:block md:space-x-64 md:bg-gray-50 md:w-full" >
 
   <div class="flex h-20 p-auto shadow-md">
     
@@ -35,38 +35,45 @@
       </button>
     </div>
 
-  
-    <div class="mt-4" style="padding-left: 400px;">
-      {{#if loggedin}}
-        <a href="/ichhar-admin/profil" class="ml-28">Administrateur</a>
-      {{else}}
-        <button class="ml-28 bg-white border border-white rounded-md py-1 px-2 hover:bg-gray-300" style="width: 150px; height: 35px">
-          <a href="/ichhar-admin/signin" class="font-medium flex gap-3"> 
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            se connecter 
-          </a>
-        </button>
-      {{/if}} 
-    </div>
 
+
+    <div class="flex">  
+            {{#if loggedin}}
+              <button id="dropdownDefault" data-dropdown-toggle="profile" style="margin-left:520px;"
+                  class="text-black bg-transparent w-44 h-10 mt-4 focus:outline-none font-medium rounded-lg text-sm 
+                  px-4 py-2 text-center inline-flex items-center mb-4" type="button"> Administrateur 
+                  <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+              </button>
+              <!-- Dropdown menu -->
+              <div id="profile" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-56">
+                  <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownDefault">
+                      <li>
+                          <a href="/test1/{{session.userinfo.nom}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mon compte</a>
+                      </li>
+                      <li>
+                          <a href="/favoris" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notification</a>
+                      </li>
+                      <li>
+                          <a href="/logout" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Se déconnecter</a>
+                  </li>
+                  </ul>
+              </div>
+            {{else}}
+                <button class="bg-gray-400 md:mt-4 md:h-9 md:w-36 md:p-1 md:border md:rounded-md md:text-white" style="margin-left:520px;">
+                    <a href="/ichhar-admin/signin" class="md:font-semibold md:text-sm md:flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-2 text-white md:mt-0 md:ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Se connecter         
+                    </a>
+                </button> 
+            {{/if}}  
+        </div>
+
+
+  
+    
   </div>
 
 </div>
-
-
-<script type="text/javascript">
-/* Function for dropdowns */
-      function openDropdown(event, dropdownID) {
-        let element = event.target;
-        while (element.nodeName !== "A") {
-          element = element.parentNode;
-        }
-        Popper.createPopper(element, document.getElementById(dropdownID), {
-          placement: "bottom-start",
-        });
-        document.getElementById(dropdownID).classList.toggle("hidden");
-        document.getElementById(dropdownID).classList.toggle("block");
-      }
-</script>

@@ -1,4 +1,4 @@
-<div class="w-40 h-40 bg-gray-600 flex mx-auto rounded-full mt-14">
+<div class="w-40 h-40 flex mx-auto rounded-full mt-14" >
   <img class="h-40 w-40 rounded-full mx-auto" src="{{this.photo_url}}" />
 </div>
 
@@ -9,7 +9,7 @@
 <p class="text-md text-center text-semibold text-black mt-2">A rejoint depuis {{this.date_creation}}</p>
 <hr class="mt-9 border-gray-300">
 
-<div class="flex bg-gray-200 hover:bg-gray-300 p-2">
+<div class="flex p-2" style="background-color: #f2f2f2;">
   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-5 ml-14" 
     fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path
@@ -22,7 +22,7 @@
   <!--onclick="afficherannonces()"-->
 </div>
 
-<div class="flex bg-gray-200 hover:bg-gray-300 p-2">
+<div class="flex p-2" style="background-color: #f2f2f2;">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     class="h-6 w-6 mt-5 ml-14"
@@ -42,8 +42,8 @@
       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
     ></path>
   </svg>
-  <a href="/profile/{{nom}}/reglages" class="text-md text-black mt-5 ml-2"> Réglages</a>
+  <a href="/profile/{{nom}}/reglages" class="text-md text-black mt-5 ml-2 mb-6"> Réglages</a>
   <!--onclick="afficherreglages()"-->
 </div>
 
-<p class="text-red-600 text-center">Supprimer mon compte</p>
+<a href="#" class="ml-10 text-red-600 font-semibold text-md">Supprimer mon compte</a>

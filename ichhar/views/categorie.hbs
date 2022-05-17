@@ -1,11 +1,11 @@
 {{> header}}
 <div class='grid grid-cols-12'>
-    <div class="col-span-3 font-sans font-bold bg-gray-200 pl-7">
-        <div class="grid grid-rows-6 grid-flow-col min-h-screen items-center justify-items-start ">
+    <div class="col-span-3 font-sans font-bold  ml-5 mt-5 w-72 mb-96" style="background-color: #f2f2f2; height:500px">
+        <div class="grid grid-rows-4 grid-flow-col min-h-screen items-center justify-items-start ">
            
-            <div class="mb-48">  
-                <p class=" mt-6 text-3xl text-bold text-black ml-8 ">Les categories</p>  
-                <select id="Véhicule" name="Véhicule" autocomplete="Véhicule" 
+            <div>  
+                <p class=" mt-6 text-xl text-bold text-black ml-20 ">Les categories</p>  
+                <select id="vehicule" name="vehicule" autocomplete="vehicule" 
                     class="mt-8 h-12 w-54 py-2 px-3 bg-transparent 
                     text-center text-lg ml-7 text-black text-semibold">
                         <option>Véhicule</option>
@@ -41,36 +41,7 @@
                     <option>sacs et accessoires</option>
                     <option>produits de beauté</option>
                 </select>
-                      <select id="Emploi" name="Emploi" autocomplete="Emploi" 
-                          class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
-                     text-center text-lg ml-7 text-black text-semibold">
-                    <option>Emploi</option>
-                    <option>offre d'emploi</option>
-                    <option>demande d'emploi</option>
-                    <option>Services</option>
-                    <option>cours et formation</option>
-                </select>
-                      <select id="Maison et jardins" name="Maison et jardins" autocomplete="Maison et jardins" 
-                          class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
-                     text-center text-lg ml-7 text-black text-semibold">
-                    <option>Maison et jardins</option>
-                    <option>electroménager</option>
-                    <option>meubles et décoration</option>
-                    <option>jardin </option>
-                    <option>outils de bricolage</option>
-                </select>
-                      <select id="Loisir" name="Loisir" autocomplete="Loisir" 
-                          class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
-                     text-center text-lg ml-7 text-black text-semibold">
-                    <option>Loisir</option>
-                    <option>vélos </option>
-                    <option>sports et loisir</option>
-                    <option>animaux</option>
-                    <option>films, livres et magasins</option>
-                    <option>voyages</option>
-                    <option>arts et collections</option>
-                    <option>instruments de musique</option>
-                </select>
+
                  <select id="Electronique" name="Electronique" autocomplete="Electronique" 
                      class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
                      text-center text-lg ml-7 text-black text-semibold">
@@ -107,7 +78,7 @@
 
                 {{#each catinfo}}
                 <div class="mt-6 w-72 ">
-                    <a href="/annonce/:nom/:id">
+                    <a href="/annonce/{{this.id}}">
                     <div class="rounded-md shadow-md overflow-hidden">
                         
                         <div class="flex items-end justify-end h-56 w-full bg-cover">

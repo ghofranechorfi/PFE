@@ -2,13 +2,13 @@
 {{> header}}
   <div class="flex justify-center mt-1/2" style="height:593px">
     <div class="xl:w-3/4 lg:w-11/12 flex">
-      {{#each userinfo}}
+      {{#each userChosenInfo}}
 
-      <div class="bg-gray-200 hidden lg:block lg:w-80 bg-cover">
+      <div class="hidden lg:block lg:w-80 bg-cover mt-1" style="background-color: #f2f2f2;">
         {{> sidebarprofile}}
       </div>
 
-      <div class="w-full lg:w-7/12  p-5 lg:rounded-l-none">
+      <div class="w-full lg:w-7/12  p-5 lg:rounded-l-none" >
         
         <div id="reglages">
           {{> reglages}}

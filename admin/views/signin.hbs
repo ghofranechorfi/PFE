@@ -1,18 +1,19 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="px-8 py-6 mt-2 text-left bg-white shadow-lg" style="width: 500px; height:400px">
-        <h3 class="text-3xl font-bold font-sans text-center text-gray-600 mt-5">se connecter</h3>
-        <form action="/ichhar-admin/signin" method="post">
-            <script>
-                const queryString = window.location.search;
-                const urlParams = new URLSearchParams(queryString);
-                const msg = urlParams.get('msg')
+    <div class="px-8 py-6 mt-2 text-left rounded-lg bg-white shadow-lg md:w-2/6 md:h-2/4" >
+        <h3 class="text-3xl font-bold font-sans text-center text-gray-600 mt-5">Se connecter</h3>
+        <script>
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const msg = urlParams.get('msg')
                 if (msg == "errorlogin") {
                     document.write('<p class="text-red-600 font-bold">Erreur login</p>');
                 }
                 else if (msg == "fillfields") {
                     document.write('<p class="text-red-600 font-bold">Please fill up the fields</p>');
                 }
-            </script>
+        </script>
+
+        <form action="/ichhar-admin/signin" method="POST">
             <div class="mt-9">
                 <div>
                     <label class="block text-md font-medium text-gray-700 mb-2" for="email">Email<label>

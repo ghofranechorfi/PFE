@@ -1,9 +1,7 @@
 <body class="bg-gray-50">
   <form action="/signup" method="POST" 
-    class="grid grid-cols-2 gap-8 mx-auto bg-white rounded-lg shadow-xl mt-8"
-    style="width: 800px; height: 590px;">
-
-     <h1 class="text-2xl font-bold text-gray-700 ml-80 mt-6">
+    class="h-full w-96 bg-white rounded-lg shadow-xl mt-6 mb-6 md:mt-8 ml-10 md:w-3/5 md:grid md:grid-cols-2 md:gap-4 md:mx-auto">
+     <h1 style="color: #393e46;" class="text-2xl text-center pt-6 font-bold md:ml-80 ">
       S'inscrire
     </h1><br>
     <script>
@@ -11,116 +9,127 @@
       const urlParams = new URLSearchParams(queryString);
       const msg = urlParams.get('msg')
       if (msg == "errorsignup") {
-        document.write('<h2 class="text-red-600 font-bold text-center">This Email is already in use</h2>');
+        document.write('<h2 class="text-red-600 font-bold text-center text-xs">Email déjà existant</h2>');
       }
       if (msg == "fillfields") {
-        document.write('<h2 class="text-red-600 font-bold text-center">Please fill up all the fields</h2>');
+        document.write('<h2 class="text-red-600 font-bold text-center text-xs">Tous les champs doivent etre remplis</h2>');
       }
       if (msg == "passwordsdoesntmatch") {
-        document.write('<h2 class="text-red-600 font-bold text-center">Passwords do not match</h2>');
+        document.write('<h2 class="text-red-600 font-bold text-center text-xs">Les mots de passes ne se correspant pas</h2>');
       }
-
-
-
-
-      
+      if (msg == 'usernamealreadyinuse') {
+        document.write('<h2 class="text-red-600 font-bold text-center text-xs">Nom d`utilisateur déjà existant</h2>');
+      }
+      if (msg == 'invalidcinnumber') {
+        document.write('<h2 class="text-red-600 font-bold text-center text-xs">cin invalide</h2>');
+      }
+      if (msg == 'numberinuse') {
+        document.write('<h2 class="text-red-600 font-bold text-center text-xs">Numéro de téléphone invalid</h2>');
+      }
     </script>
-    
-    
-    
     
     <br>
 
-    <div class="pl-12">
-      <div class="w-96">
+    <div class="pl-14 md:pl-20">
+      <div class="w-64">
           <label class="block text-sm font-medium text-gray-700 mb-2">
             Cin
           </label>
           <input type="text"
-            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600"
             placeholder="Cin" 
             name="cin"/>
       </div>
 
-      <div class="mt-4 w-96">
+      <div class="mt-4 w-64">
         <label class="block text-sm font-medium text-gray-700 mb-2">
           Nom
         </label>
         <input type="text"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600"
           placeholder="Nom"
           name="nom" />
       </div>
 
-      <div class="mt-4 w-96">
+      <div class="mt-4 w-64">
         <label class="block text-sm font-medium text-gray-700 mb-2">
           Prénom
         </label>
         <input type="text"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600 "
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 "
           placeholder="Prénom" 
             name="prenom"/>
       </div>
 
-      <div class="mt-4 w-96">
+      <div class="mt-4 w-64">
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Nom d'utilisateur
+          </label>
+          <input type="text"
+            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600"
+            placeholder="nom d'utilisateur" 
+            name="nom_utilisateur"/>
+      </div>
+
+      <div class="mt-4 w-64">
         <label class="block text-sm font-medium text-gray-700 mb-2">
           Ville
         </label>
         <input type="text"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-          placeholder="Téléphone" 
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600"
+          placeholder="ville" 
             name="ville"/>
       </div>
 
     </div>
 
-    <div>
-      <div class="w-96">
+    <div class="pl-14 mt-4 md:pl-0 md:mt-0">
+      <div class="w-64">
         <label class="block text-sm font-medium text-gray-700 mb-2">
           Téléphone
         </label>
         <input type="text"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600"
           placeholder="Téléphone" 
             name="telephone"/>
       </div>
 
-      <div class="mt-4 w-96">
+      <div class="mt-4 w-64">
         <label class="block text-sm font-medium text-gray-700 mb-2">
           Email
         </label>
         <input type="email"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600"
           placeholder="Email Address" 
           name="email"/>
       </div>
 
-      <div class="mt-4 w-96"> 
+      <div class="mt-4 w-64"> 
         <label class="block text-sm font-medium text-gray-700 mb-2">
           Mot de passe 
         </label>
         <input type="password"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600"
           placeholder="Mot de passe" 
           name="password"/>
       </div>
 
-      <div class="mt-4 w-96">
+      <div class="mt-4 w-64">
         <label class="block text-sm font-medium text-gray-700 mb-2">
           Confirmer Mot de passe
         </label>
         <input type="password"
-          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600 "
+          class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600 "
           placeholder="Confirmer Mot de passe" 
           name="confirmpassword"/>
       </div>
 
-        <!--<div class="mt-4 w-96">
+        <!--<div class="mt-4 w-64">
           <label class="block text-sm font-medium text-gray-700 mb-2">
             Numéro de carte
           </label>
           <input type="text"
-            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600"
             placeholder=" Numéro de carte" />
         </div>
         <div class="mt-4 w-96">
@@ -128,7 +137,7 @@
             Code
           </label>
           <input type="text"
-            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+            class="w-72 px-4 py-2 text-sm border rounded-md focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600"
             placeholder=" Code" />
         </div>
         <div class="mt-4 w-96">
@@ -167,16 +176,16 @@
       </div>-->
     </div>
 
-    <div class="ml-60 mb-6">
+    <div class="mt-6 w-64 pl-14 md:ml-60 md:mb-6">
           <button
           type="submit"
-              class="w-72 px-4 py-2 text-sm font-medium text-center text-white 
+              style="background-color: #00b906;" class="w-72 px-4 py-2 text-sm font-medium text-center text-white 
               transition-colors duration-150 bg-blue-900 border border-transparent 
               rounded-lg active:bg-blue-600  hover:bg-blue-800" href="#">
               S'inscrire
           </button>
 
-          <div class="mt-2 ml-5 w-96">
+          <div class="mt-2 ml-5 w-96 pb-4">
               <p class="block text-sm font-medium text-gray-700">Avez vous déjà un compte! 
                   <a href="/signin" class=" text-sm font-medium text-blue-600 hover:underline"> 
                   S'identifier

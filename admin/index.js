@@ -11,40 +11,41 @@ const path = require('path');
 const hbs = handlebars.create({
     layoutsDir: __dirname + '/views/layouts/',
     extname: 'hbs'
-  });
+});
   
-  app.use(express.static('public'));
+app.use(express.static('public'));
   
   //database connection
-  var con = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "",
-      database: "pfe"
-    });
-    con.connect(function(err) {
-      if (err) throw err;
-      console.log("Connected!");
-    });
-  
-  app.engine('hbs', hbs.engine);
-  app.set('view engine', 'hbs');
-  app.set('views', './views');
-  
-  //app.use(express.bodyParser());
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  
-  // cookie parser middleware
-  app.use(cookieParser());
-  
-  //session
-  app.use(session({
-      secret: "123456789",
-      resave: true,
-      saveUninitialized: true
-  }));
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "pfe"
+});
 
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+  
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
+app.set('views', './views');
+  
+//app.use(express.bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+  
+// cookie parser middleware
+app.use(cookieParser());
+  
+//session
+app.use(session({
+        secret: "123456789",
+        resave: true,
+        saveUninitialized: true
+    })
+);
 
 app.get('/ichhar-admin/home', (request, response) => {
     response.render('main', {
@@ -66,26 +67,35 @@ app.post('/ichhar-admin/signin', function(request, response) {
 	if (email && password) {
 		con.query('SELECT * FROM utilisateur WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
 			if (error) throw error;
-			// If the account exists
 			if (results.length > 0) {
-				// Authenticate the user
 				request.session.loggedin = true;
 				request.session.email = email;
-				// Redirect to home page
 				response.redirect('/ichhar-admin/home');
-			} else {
+			} 
+            else {
 				response.redirect('/signin?msg=errorlogin');
 			}			
 			response.end();
 		});
-	} else {
+	} 
+    else {
 		response.redirect('/signin?msg=fillfields');
 		response.end();
 	}
 });
 
+//logout
+app.get('/ichhar_admin/logout', function(request,response){
+	if (request.session.loggedin) {
+        delete request.session.loggedin;
+		response.redirect('/ichhar-admin/home');
+    } else {
+        response.json({result: 'ERROR', message: 'User is not logged in.'});
+    }
+}); 
+
 app.get('/ichhar-admin/clients', (request, response) => {
-    con.query("SELECT * FROM utilisateur", function (err, result, fields) {
+    con.query("SELECT * FROM utilisateur WHERE status = 1", function (err, result, fields) {
         if (err) throw err;
 			response.render('clients', {
 			layout: 'index',
@@ -117,10 +127,22 @@ app.get('/ichhar-admin/annonces', (request, response) => {
     });
 });
 
-
+app.get('/ichhar-admin/annoncesattentes', (request, response) => {
+    con.query("SELECT * FROM annonce WHERE status = 0" ,function (err, result, fields) {
+        if (err) throw err;
+			response.render('annonceattente', {
+			layout: 'index',
+            loggedin: request.session.loggedin,
+			annonceattenteinfo: result,
+		});
+    });
+});
 
 app.get('/ichhar-admin/profil', (req, res) => {
-    res.render('profil', {layout : 'index'});
+    res.render('profil', {
+        layout : 'index',
+        loggedin: request.session.loggedin,
+    });
 });
 
 app.listen(port, () => console.log(`App listening to port ${port}`));

@@ -1,13 +1,13 @@
 <div class="bg-gray-100">
   {{>header}}
 
-<form method="" action="/add-ads/step1/step2/payement" class="flex justify-center items-center pt-16 pb-20">
-  <div class="h-auto w-80 bg-white p-3 rounded-lg shadow-xl">
-    <p class="text-xl font-semibold pt-6">Détails de payement </p>
-    <div class="input_text mt-6 relative">
+<form method="post" action="/add-ads/step1/step2/payement"  class="flex justify-center items-center pt-14 pb-20">
+  <div class="bg-white p-3 rounded-lg shadow-xl" style="width: 600px; height:480px">
+    <p class="text-xl font-semibold pt-6 pb-6 text-center">Détails de payement </p>
+    <div class="input_text mt-6 relative ml-24">
       <input
         type="text"
-        class="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b"
+        class="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-96 border-b"
         placeholder="nom et prérom"
       />
       <span class="absolute left-0 text-sm -top-4">Nom et Prénom</span>
@@ -16,10 +16,10 @@
       </svg>
     </div>
 
-    <div class="input_text mt-6 relative">
+    <div class="input_text mt-6 relative ml-24">
       <input
         type="text"
-        class="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b"
+        class="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-96 border-b"
         placeholder="20 DT"
       />
       <span class="absolute left-0 text-sm -top-4">Montant </span>
@@ -28,10 +28,10 @@
       </svg>
     </div>
 
-    <div class="input_text mt-8 relative">
+    <div class="input_text mt-8 relative ml-24">
       <input
         type="text"
-        class="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b"
+        class="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-96 border-b"
         placeholder="0000 0000 0000 0000"
         data-slots="0"
         data-accept="\d"
@@ -44,10 +44,10 @@
 
     </div>
 
-    <div class="input_text mt-8 relative">
+    <div class="input_text mt-8 relative ml-24">
       <input
         type="password"
-        class="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-full border-b"
+        class="h-12 pl-7 outline-none px-2 focus:border-blue-900 transition-all w-96 border-b"
         placeholder="****"
         data-slots="0"
         data-accept="\d"
@@ -60,10 +60,12 @@
 
     </div>
 
-    <div class="flex justify-center mt-4">
-      <button
-        class="outline-none h-10 w-4 bg-blue-400 text-white mb-3 
-        hover:bg-blue-500 rounded-lg w-1/2 cursor-pointer transition-all">Payer</button>
+    <div class="flex justify-center mt-7">
+      <button class="h-9 w-32 p-1 border rounded-md bg-blue-900 hover:bg-white text-white" style="background-color: #00b906;">
+        <a href="/add-ads/step1/step2/payement" class="font-semibold text-sm">
+          Payer
+        </a>
+      </button> 
     </div>
 
   </div>

@@ -1,90 +1,90 @@
-<div class="flex-wrap space-x-72">
-
-{{> sidebar}}
-
 <div>
-    <div>
-        {{> header}}
-            <h1 class="text-xl font-semibold pt-6 pb-6">Liste des annonces</h1>
-            
-            <table class="items-center bg-transparent border-collapse" style="width: 900px;">
-                <thead>
-                    <tr>
-                        <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                            ID
-                        </th>
-                        
-                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                            TITRE
-                        </th>
+    <div class="md:flex">
+        <div>
+            {{> sidebar}}
+        </div>
+        
+        <div class="md:w-full">
+            {{> header}}
+            <h1 class="text-xl font-semibold p-6">Liste des annonces</h1>   
+            <table class="w-96 md:w-4/5 ml-6 items-center bg-transparent border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                                ID
+                            </th>
+                            
+                            <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                                TITRE
+                            </th>
 
-                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                            DESCRIPTION
-                        </th>
+                            <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                                DESCRIPTION
+                            </th>
 
-                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                            PHOTO
-                        </th>
+                            <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                                PHOTO
+                            </th>
 
-                        <th class="px-5 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                            TYPE
-                        </th>
+                            <th class="px-5 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                                TYPE
+                            </th>
 
-                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                            PRIX
-                        </th>
+                            <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                                PRIX
+                            </th>
 
-                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                            Téléphone
-                        </th>
+                            <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                                Téléphone
+                            </th>
 
-                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
+                            <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
 
-                {{#each annonceinfo}}
-                <tbody>
-                    <tr>
-                        <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                            {{id}}
-                        </th>
-                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {{titre}}
-                            </td>
+                    {{#each annonceinfo}}
+                    <tbody>
+                        <tr>
+                            <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                {{id}}
+                            </th>
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    {{titre}}
+                                </td>
 
-                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {{description}}
-                            </td>
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    {{description}}
+                                </td>
 
-                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                <img class="w-16 h-16" src="{{photo_url}}" alt="">
-                            </td>
-                                    
-                            <td class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {{type}}
-                            </td>
-                                    
-                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {{prix}}
-                            </td>
-                                    
-                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {{telephone}}
-                            </td>
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    <img class="w-16 h-16" src="{{photo_url}}" alt="">
+                                </td>
+                                        
+                                <td class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    {{type}}
+                                </td>
+                                        
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    {{prix}}
+                                </td>
+                                        
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    {{telephone}}
+                                </td>
 
-                            <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center
-                                bg-gradient-to-r from-blue-400 to-blue-600 hover:to-blue-200"> Supprimer </button>
-                            </td>
-                    </tr>            
-                </tbody>
-                {{/each}}
-                
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                                    <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center
+                                    " style="background-color: #497285;"> Supprimer </button>
+                                </td>
+                        </tr>            
+                    </tbody>
+                    {{/each}}
+                    
             </table>
-
-    </div> 
+        </div>
+    </div>
 </div>
 
-</div>
+

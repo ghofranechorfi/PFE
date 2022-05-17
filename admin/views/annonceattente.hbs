@@ -1,0 +1,55 @@
+<div>
+    <div class="md:flex">
+        <div>
+            {{> sidebar}}
+        </div>
+
+        <div class="md:w-full">
+            {{> header}}
+            <h1 class="text-2xl font-semibold p-6 pl-10">Liste des annonces en attente</h1>
+            <div class="md:grid md:grid-cols-3">
+                {{#each annonceattenteinfo}}
+                        <div class="ml-10 mb-4 w-96 h-80 md:h-96 md:w-80 bg-white rounded-lg border border-gray-200 
+                        shadow-lg">
+                            <a href="#">
+                                <img class="rounded-t-lg mx-auto mt-2 h-20 md:h-32" src="{{this.photo_url}}" alt="" />
+                            </a>
+                            <div class="p-5">
+                                <a href="#">
+                                    <h5 class="mb-2 text-lg md:text-2xl font-bold tracking-tight text-gray-900">{{this.titre}}</h5>
+                                </a>
+                                <p class="mb-3 font-normal text-gray-700">{{this.description}}</p>
+                                <p class="mb-3 font-normal text-gray-700">Situé à : {{this.ville}}</p>
+                                <p class="mb-3 font-normal text-gray-700">{{this.prix}} DT</p>
+                                <a href="#" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-green-800">
+                                Approuver
+                                </a>
+                                <a href="#" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-red-800">
+                                Refuser
+                                </a>
+                            </div>
+                    </div> 
+                {{/each}}
+            </div>
+        </div>      
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
