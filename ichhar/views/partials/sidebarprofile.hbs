@@ -1,12 +1,12 @@
 <div class="w-40 h-40 flex mx-auto rounded-full mt-14" >
-  <img class="h-40 w-40 rounded-full mx-auto" src="{{this.photo_url}}" />
+  <img class="h-40 w-40 rounded-full mx-auto" src="{{userInfo.photo_url}}" />
 </div>
 
 <p class="text-3xl text-center text-bold text-black mt-4">
-  {{this.nom}}
-  {{this.prenom}}
+  {{userInfo.nom}}
+  {{userInfo.prenom}}
 </p>
-<p class="text-md text-center text-semibold text-black mt-2">A rejoint depuis {{this.date_creation}}</p>
+<p class="text-md text-center text-semibold text-black mt-2">A rejoint depuis {{userInfo.date_creation}}</p>
 <hr class="mt-9 border-gray-300">
 
 <div class="flex p-2" style="background-color: #f2f2f2;">
@@ -18,7 +18,7 @@
       d="M4 6h16M4 10h16M4 14h16M4 18h16"
     ></path>
   </svg>
-  <a href="/profile/{{nom}}/annonces" class="text-md text-center text-black mt-5 ml-2 group-focus:bg-gray-900"> Mes annonces</a>
+  <a href="/profile/{{userInfo.nom_utilisateur}}/annonces" class="text-md text-center text-black mt-5 ml-2 group-focus:bg-gray-900"> Mes annonces</a>
   <!--onclick="afficherannonces()"-->
 </div>
 
@@ -42,7 +42,7 @@
       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
     ></path>
   </svg>
-  <a href="/profile/{{nom}}/reglages" class="text-md text-black mt-5 ml-2 mb-6"> Réglages</a>
+  <a href="/profile/{{userInfo.nom_utilisateur}}" class="text-md text-black mt-5 ml-2 mb-6"> Réglages</a>
   <!--onclick="afficherreglages()"-->
 </div>
 

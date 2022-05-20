@@ -65,7 +65,7 @@
             {{#if loggedin}}
             <button id="dropdownDefault" data-dropdown-toggle="profile" style="color:#00b906" 
                 class="text-black bg-transparent  focus:outline-none font-medium rounded-lg text-sm 
-                px-4 py-2 text-center inline-flex items-center mb-4" type="button"> Profile 
+                px-4 py-2 text-center inline-flex items-center mb-4" type="button"> {{userInfo.nom}} {{userInfo.prenom}} 
                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
@@ -73,7 +73,7 @@
             <div id="profile" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
                     <li>
-                        <a href="/test1/{{session.userinfo.nom}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mon compte</a>
+                        <a href="/profile/{{userInfo.nom_utilisateur}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mon compte</a>
                     </li>
                     <li>
                         <a href="/favoris" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Notification</a>

@@ -1,8 +1,8 @@
-<div class="bg-gray-50">
+<div class="bg-gray-100">
 
 {{> header}}
 
-<p class="ml-96 mt-5 font-semibold font-sans text-gray-700">Ajouter une annonce</p>
+<p class="ml-16 pt-5 md:ml-96 mt-5 font-semibold font-sans text-gray-700">Ajouter une annonce > niveau 2 </p>
 <script>
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -13,30 +13,30 @@
 
 </script>
 
-    <form action="/add-ads/step1/step2" method="" class="pb-5">
+    <form action="/add-ads/step1/step2" method="get" class="pb-20 md:pb-20">
 
-        <div class="gap-4 bg-white mt-2 pt-5 ml-96 pl-9 mb-12 rounded-lg shadow-xl" style="width: 650px; height:460px">
+        <div class="w-3/4 h-5/6 mx-auto gap-4 bg-white mt-4 pt-5 md:ml-96 pl-9 mb-12 rounded-lg shadow-xl md:w-2/5" >
 
-            <div class="mt-10 ml-32">
+            <div class="mt-6 ml-8 md:mt-10 md:ml-20">
                 <div>
                     <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
-                    <input type="text" name="nom" class="py-1.5 px-3 border rounded-md mt-1 block w-80">
+                    <input type="text" name="nom" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
                 <div class="mt-4">
                     <label for="marque" class="block text-sm font-medium text-gray-700">Superficie</label>
-                    <input type="text" name="marque" class="py-1.5 px-3 border rounded-md mt-1 block w-80">
+                    <input type="text" name="marque" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
                 <div class="mt-4">
                     <label for="modele" class="block text-sm font-medium text-gray-700">Nombre des chambres</label>
-                    <input type="text" name="modele" class="py-1.5 px-3 border rounded-md mt-1 block w-80">
+                    <input type="text" name="modele" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
             </div>
 
-            <div class="mt-10 ml-56">    
-                <button class="h-9 w-32 p-1 border rounded-md bg-blue-900 hover:bg-white text-white" style="background-color: #00b906;">
+            <div class="mt-10 ml-24 pb-5 md:ml-44">    
+                <button class="h-9 w-32 p-1 border rounded-md text-white" style="background-color: #00b906;">
                     <a href="/add-ads/step1/step2/payement" class="font-semibold text-sm">
                     Suivant
                     </a>

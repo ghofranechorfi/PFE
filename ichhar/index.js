@@ -55,7 +55,6 @@ app.use(session({
 
 //page d'accueil
 app.get('/', function (request, response) {
-	console.log(request.session.userInfo);
 	response.render('main', {
 		layout: 'index',
 		loggedin: request.session.loggedin,
@@ -88,6 +87,8 @@ app.post('/signin', function (request, response) {
 				request.session.email = email;
 				request.session.nom_utilisateur = results[0].nom_utilisateur;
 				request.session.userInfo = results[0];
+				request.session.id = results[0].id;
+				console.log("user's id is : " + results[0].id);
 				// Redirect to home page
 				response.redirect('/');
 			} else {
@@ -184,22 +185,18 @@ app.get('/logout', function (request, response) {
 });
 
 ///////////teeeeeeeeeeeest
-app.get('/test/:nom_utilisateur', (request, response) => {
-	con.query("SELECT nom_utilisateur FROM utilisateur where email = ?", [request.session.email], function (err, result, fields) {
-		if (err) throw err;
-		if (result == 1) {
-			console.log(result);
-			response.render('profile', {
+app.get('/test/id', (request, response) => {
+	var sql0 = "SELECT * FROM utilisateur"
+	con.query(sql0, function (error, results, fields) {
+		console.log(results[2].nom);
+		if (request.session.userInfo.id === results[0].id) {
+			response.render('contact', {
 				layout: 'index',
 				loggedin: request.session.loggedin,
-				email1: request.session.email,
-				datefinal: request.session.datefinal,
-				nom_utilisateur: request.session.nom_utilisateur,
-				userinfo: result,
-				session: request.session,
-			})
+				userInfo: request.session.userInfo,
+			});
 		}
-	});
+	})
 })
 
 ///////////teeeeeeeeeeeest
@@ -254,7 +251,33 @@ app.get('/profile/:nom', (request, response) => {
 	});
 });
 
-app.get('/profile/:nom/annonces', (request, response) => {
+app.post('/profile/:nom_utilisateur/reglages', (request, response) => {
+	var sql = "UPDATE utilisateur set cin = '" + request.body.cin + "' , nom = '" + request.body.nom + "' , nom_utilisateur = '" + request.body.nom_utilisateur+ "', prenom = '" + request.body.prenom + "' , email = '" + request.body.email + "' , password = '" + request.body.password + "', telephone = '" + request.body.telephone + "' WHERE cin = ?";
+	let sql0 = `UPDATE utilisateur SET cin = ?, nom = ?, prenom = ?, nom_utilisateur = ?, email = ?, password = ?, telephone = ?, WHERE cin = ?`;
+	con.query(sql0, [request.body.cin, request.body.nom, request.body.prenom, request.body.nom_utilisateur, request.body.email, request.body.password, request.body.telephone], function (err, result) {
+		if (err) throw err;
+		else {
+			//if (request.body.password != request.body.c_password) {
+			//response.redirect('/profile/reglages?msg=passwordsdonotmatch');
+			//} 
+			//else {
+			var sql1 = "SELECT * FROM utilisateur WHERE cin = ?"
+			con.query(sql1, [request.body.cin], function (err, result) {
+				request.session.cin = result[0].cin;
+				request.session.userInfo = result[0];
+				console.log(result.affectedRows + " Record(s) updated.");
+				console.log(result);
+			})
+			// SELECT * FROM UTILISATEUR WHERE CIN = ?
+			// request.body.cin
+			//}
+		}
+		response.end();
+	});
+
+});
+
+app.get('/profile/:nom_utilisateur/annonces', (request, response) => {
 	sql = "SELECT * FROM utilisateur where nom = ?"
 	sql1 = "SELECT titre, description, prix, annonce.photo_url FROM utilisateur, annonce where utilisateur.id = annonce.utilisateur_id"
 	con.query(sql1, function (err, result, fields) {
@@ -285,46 +308,6 @@ app.get('/profile/:nom/annonces', (request, response) => {
 
 });
 
-app.get('/profile/:nom/reglages', (request, response) => {
-	con.query("SELECT * FROM utilisateur where nom = ?", request.params.nom, function (err, result, fields) {
-		if (err) throw err;
-		console.log(result);
-		response.render('profile', {
-			layout: 'index',
-			loggedin: request.session.loggedin,
-			userInfo: request.session.userInfo,
-			nom: request.params.nom,
-			userinfo: result
-		});
-	});
-});
-
-app.post('/profile/:nom/reglages', (request, response) => {
-	var sql = "UPDATE utilisateur set cin = '" + request.body.cin + "' , nom = '" + request.body.nom + "' , prenom = '" + request.body.prenom + "' , email = '" + request.body.email + "' , password = '" + request.body.password + "', telephone = '" + request.body.telephone + "' WHERE nom = ?";
-
-	con.query(sql, [request.body.nom], function (err, result) {
-		if (err) throw err;
-		else {
-			//if (request.body.password != request.body.c_password) {
-			//response.redirect('/profile/reglages?msg=passwordsdonotmatch');
-			//} 
-			//else {
-			var sql1 = "SELECT * FROM utilisateur WHERE cin = ?"
-			con.query(sql1, [request.body.cin], function (err, result) {
-				request.session.cin = result[0].cin;
-				request.session.userInfo = result[0];
-				console.log(result.affectedRows + " Record(s) updated.");
-				console.log(result);
-			})
-			// SELECT * FROM UTILISATEUR WHERE CIN = ?
-			// request.body.cin
-			//}
-		}
-		response.end();
-	});
-
-});
-
 //add an adv
 app.get('/add-ads/step1', (request, response) => {
 	if (request.session.loggedin == true) {
@@ -339,24 +322,33 @@ app.get('/add-ads/step1', (request, response) => {
 });
 
 app.post('/add-ads/step1', (request, response) => {
-	var sql0 = "SELECT id FROM utilisateur";
-	var sql = "INSERT INTO `annonce`(`utilisateur_id`,`titre`,`description`,`photo_url`,`prix`,`ville`,`telephone`) VALUES ('" + utilisateur_id + "'," + request.body.titre + "','" + request.body.description + "','" + request.body.photo_url + "','" + request.body.prix + "','" + request.body.ville + "','" + request.body.telephone + "')";
-	if (request.body.titre && request.body.description && request.body.photo_url && request.body.prix && request.body.ville && request.body.telephone) {
-		con.query(sql, function (error, results, fields) {
-			if (error) throw error;
-			else {
-				response.redirect('/add-ads/step1/step2')
-			}
-		})
-		response.end()
-	} else {
-		response.redirect('/add-ads?msg=fillfields');
-		response.end();
-	}
+	var sql0 = "SELECT * FROM utilisateur"
+	var sql = "INSERT INTO `annonce`(`status`,`titre`,`description`,`photo_url`,`prix`,`ville`,`telephone`) VALUES ('0','" + request.body.titre + "','" + request.body.description + "','" + request.body.photo_url + "','" + request.body.prix + "','" + request.body.ville + "','" + request.body.telephone + "') where utilisateur_id = ?";
+	//console.log(request.session.userInfo.id)
+	con.query(sql0, function (error, results, fields) {
+		console.log(results);
+		if (request.body.titre && request.body.description && request.body.photo_url && request.body.prix && request.body.ville && request.body.telephone) {
+			con.query(sql, [request.session.userInfo.id], function (error, results, fields) {
+				if (error) throw error;
+				else {
+					response.redirect('/add-ads/step1/step2')
+				}
+			})
+			response.end()
+		} else {
+			response.redirect('/add-ads/step1?msg=fillfields');
+			response.end();
+		}
+	})
 });
 
 app.get('/add-ads/step1/step2', (request, response) => {
-	
+	//delete it after
+	response.render('addADS4', {
+		layout: 'index',
+		loggedin: request.session.loggedin,
+		userInfo: request.session.userInfo,
+	})
 	if (request.query.categorie == 'vehicule'){
 		response.render('addADS1', {
 			layout: 'index',
@@ -418,7 +410,6 @@ app.post('/add-ads', (request, response) => {
 
 //contact 
 app.get('/contact', (request, response) => {
-
 	response.render('contact', {
 		layout: 'index',
 		userInfo: request.session.userInfo,

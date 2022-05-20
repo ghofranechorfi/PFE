@@ -1,8 +1,7 @@
-<h3 class="pt-4 text-2xl text-center">Mes informations</h3>
-<form action="/profile/{{userinfo.nom_utilisateur}}/reglages" method="post" class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
+<h3 class="pt-2 text-2xl text-center">Mes informations</h3>
+<form action="/profile/{{userInfo.nom_utilisateur}}/reglages" method="post" class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
 
   <div class="mt-4 grid grid-cols-2 gap-8">
-    
     <script>
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
@@ -14,33 +13,40 @@
 
     <div>
       <label class="block mb-2 text-sm font-bold text-gray-700" for="nom">Nom</label>
-      <input id="nom" name="nom" type="text" value="{{this.nom}}" class="w-full px-3 py-2 mb-3 text-sm leading-tight 
+      <input id="nom" name="nom" type="text" value="{{userInfo.nom}}" class="w-full px-3 py-2 mb-3 text-sm leading-tight 
       text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"/>
     </div>
 
     <div>
       <label class="block mb-2 text-sm font-bold text-gray-700" for="prenom">Prénom</label>
-      <input id="prenom" name="prenom" type="text" value="{{this.prenom}}" class="w-full px-3 py-2 mb-3 text-sm 
+      <input id="prenom" name="prenom" type="text" value="{{userInfo.prenom}}" class="w-full px-3 py-2 mb-3 text-sm 
       leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"/>
     </div>
 
   </div>
-
-  <div class="mb-1">
+<div class="mt-1 grid grid-cols-2 gap-8">
+  <div>
     <label class="block mb-2 text-sm font-bold text-gray-700" for="cin">CIN</label>
-    <input id="cin" name="cin" type="text" value="{{this.cin}}" class="w-full px-3 py-2 mb-3 text-sm leading-tight 
+    <input id="cin" name="cin" type="text" value="{{userInfo.cin}}" class="w-full px-3 py-2 mb-3 text-sm leading-tight 
     text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"/>
   </div>
 
+  <div>
+    <label class="block mb-2 text-sm font-bold text-gray-700" for="cin">Nom d'utilisateur</label>
+    <input id="cin" name="cin" type="text" value="{{userInfo.nom_utilisateur}}" class="w-full px-3 py-2 mb-3 text-sm leading-tight 
+    text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"/>
+  </div>
+</div>
+
   <div class="mb-1">
     <label class="block mb-2 text-sm font-bold text-gray-700" for="telephone">Numérode télephone</label>
-    <input name="telephone" id="telephone" type="text" placeholder="+216" value="{{this.telephone}}" class="w-full px-3 py-2 mb-3 text-sm 
+    <input name="telephone" id="telephone" type="text" placeholder="+216 ** *** ***" value="{{userInfo.telephone}}" class="w-full px-3 py-2 mb-3 text-sm 
       leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"/>
   </div>
 
   <div class="mb-1">
     <label class="block mb-2 text-sm font-bold text-gray-700" for="email">Email</label>
-    <input name="email" id="email" type="email" value="{{this.email}}" class="w-full px-3 py-2 mb-3 text-sm leading-tight 
+    <input name="email" id="email" type="email" value="{{userInfo.email}}" class="w-full px-3 py-2 mb-3 text-sm leading-tight 
     text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"/>
   </div>
 
@@ -48,13 +54,13 @@
 
     <div class="mb-4 md:mr-2 md:mb-0">
       <label class="block mb-2 text-sm font-bold text-gray-700" for="password">Password</label>
-      <input name="password" id="password" type="text" value="{{this.password}}" class="w-full px-3 py-2 mb-3 text-sm 
+      <input name="password" id="password" type="text" value="{{userInfo.password}}" class="w-full px-3 py-2 mb-3 text-sm 
       leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"/>
     </div>
 
     <div class="md:ml-2">
       <label class="block mb-2 text-sm font-bold text-gray-700" for="c_password">Confirm Password</label>
-      <input name="c-password" id="c_password" type="text" value="{{this.password}}" class="w-full px-3 py-2 mb-3 
+      <input name="c-password" id="c_password" type="text" value="{{userInfo.password}}" class="w-full px-3 py-2 mb-3 
       text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"/>
     </div>
 
