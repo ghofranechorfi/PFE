@@ -3,7 +3,8 @@
         <div>{{> sidebar}}</div>
         <div class="md:w-full">
             {{> header}}
-            <h1 class="text-xl font-semibold p-6">Liste des clients</h1>    
+            <h1 class="text-xl font-semibold p-6">Liste des clients</h1> 
+            <form action="/ichhar-admin/clients/delete/{{this.id}}" method="get">
                 <table class="w-96 md:w-4/5 ml-6 items-center bg-transparent border-collapse" >
                         <thead>
                             <tr>
@@ -25,6 +26,10 @@
 
                                 <th class="px-5 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
                                     email
+                                </th>
+
+                                <th class="px-5 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                                    Abonné
                                 </th>
 
                                 <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
@@ -62,6 +67,10 @@
                                     <td class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         {{email}}
                                     </td>
+
+                                    <td class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                        Oui
+                                    </td>
                                             
                                     <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                         {{telephone}}
@@ -72,13 +81,18 @@
                                     </td>
 
                                     <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                        <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center border border-blue-400 bg-blue-400" > Supprimer </button>
+                                        <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center border border-blue-400 bg-blue-400" > 
+                                            <a href="/ichhar-admin/clients/delete/{{this.id}}">
+                                                Supprimer 
+                                            </a>
+                                        </button>
                                     </td>
                             </tr>            
                         </tbody>
                         {{/each}}
                         
                 </table>
+            </form>
         </div>
     </div> 
 </div>

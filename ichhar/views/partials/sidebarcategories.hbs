@@ -1,0 +1,183 @@
+<span
+  class="absolute text-black text-4xl top-24 left-2 cursor-pointer"
+  onclick="openSidebar()"
+>
+  <i
+    class="md:hidden bi bi-filter-left px-2 rounded-md"
+    style="background-color: #f2f2f2;"
+  ></i>
+</span>
+<div
+  class="sidebar absolute md:h-full md:mt-4 md:ml-4 p-2 w-72 overflow-y-auto text-center"
+  style="background-color: #f2f2f2;">
+
+  <div class="text-gray-900 text-xl">
+    <div class="p-2.5 mt-1 flex items-center">
+      <h1 class="font-bold text-gray-700 text-[15px] ml-3">Les catégories</h1>
+      <i
+        class="bi bi-x cursor-pointer ml-28 lg:hidden"
+        onclick="openSidebar()"
+      ></i>
+    </div>
+    <div class="my-2 bg-gray-600 h-[1px]"></div>
+  </div>
+
+  <!--<div
+    class="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-300 text-white"
+  >
+    <i class="bi bi-search text-sm text-black"></i>
+    <input
+      type="text"
+      placeholder="Search"
+      class="text-[15px] ml-4 w-full bg-transparent focus:outline-none"
+    />
+  </div>-->
+
+  <div class="my-4 bg-gray-600 h-[1px]"></div>
+    <div
+        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
+        onclick="dropdown()"
+    >
+        <div class="flex justify-between w-full items-center">
+        <span class="text-[15px] ml-4 text-black font-bold">Véhicule</span>
+        <span class="text-sm text-black rotate-180" id="arrow">
+            <i class="bi bi-chevron-down"></i>
+        </span>
+        </div>
+    </div>
+    <div
+        class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
+        id="submenu"
+    >
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Voiture
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Moto
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Camions
+        </h1>
+    </div>
+
+    <!--//////////////-->
+    <div class="my-4 bg-gray-600 h-[1px]"></div>
+    <div
+        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
+        onclick="dropdown1()"
+    >
+        <div class="flex justify-between w-full items-center">
+        <span class="text-[15px] ml-4 text-black font-bold">Immobilier</span>
+        <span class="text-sm text-black rotate-180" id="arrow">
+            <i class="bi bi-chevron-down"></i>
+        </span>
+        </div>
+    </div>
+    <div
+        class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
+        id="submenu1"
+    >
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Appartements
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Maisons et Villas
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Terrains et Fermes
+        </h1>
+    </div>
+
+    <!--//////////////-->
+    <div class="my-4 bg-gray-600 h-[1px]"></div>
+    <div
+        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
+        onclick="dropdown2()"
+    >
+        <div class="flex justify-between w-full items-center">
+        <span class="text-[15px] ml-4 text-black font-bold">Habillement</span>
+        <span class="text-sm text-black rotate-180" id="arrow">
+            <i class="bi bi-chevron-down"></i>
+        </span>
+        </div>
+    </div>
+    <div
+        class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
+        id="submenu2"
+    >
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Vetments
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Chaussures
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Montres et bijoux
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Sacs et accessoires
+        </h1>
+    </div>
+
+
+    <!--//////////////-->
+    <div class="my-4 bg-gray-600 h-[1px]"></div>
+    <div
+        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
+        onclick="dropdown3()"
+    >
+        <div class="flex justify-between w-full items-center">
+        <span class="text-[15px] ml-4 text-black font-bold">Electronique</span>
+        <span class="text-sm text-black rotate-180" id="arrow">
+            <i class="bi bi-chevron-down"></i>
+        </span>
+        </div>
+    </div>
+    <div
+        class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
+        id="submenu3"
+    >
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Téléphones
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Ordinateurs
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Télévisions
+        </h1>
+        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
+        Accesoires informatiques
+        </h1>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+  function dropdown() {
+    document.querySelector("#submenu").classList.toggle("hidden");
+    document.querySelector("#arrow").classList.toggle("rotate-0"); 
+  } 
+  dropdown();
+
+  function dropdown1() {
+    document.querySelector("#submenu1").classList.toggle("hidden");
+    document.querySelector("#arrow").classList.toggle("rotate-0"); 
+  } 
+  dropdown1();
+
+    function dropdown2() {
+    document.querySelector("#submenu2").classList.toggle("hidden");
+    document.querySelector("#arrow").classList.toggle("rotate-0"); 
+  } 
+  dropdown2();
+
+  function dropdown3() {
+    document.querySelector("#submenu3").classList.toggle("hidden");
+    document.querySelector("#arrow").classList.toggle("rotate-0"); 
+  } 
+  dropdown3();
+
+  function openSidebar() {
+  document.querySelector(".sidebar").classList.toggle("hidden"); }
+</script>

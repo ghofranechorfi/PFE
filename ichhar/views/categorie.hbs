@@ -1,6 +1,7 @@
 {{> header}}
-<div class='grid grid-cols-12'>
-    <div class="col-span-3 font-sans font-bold  ml-5 mt-5 w-72 mb-96" style="background-color: #f2f2f2; height:500px">
+
+<div class='grid grid-cols-12 md:mb-44'>
+    <!--<div class="col-span-3 font-sans font-bold  ml-5 mt-5 w-72 mb-96" style="background-color: #f2f2f2; height:500px">
         <div class="grid grid-rows-4 grid-flow-col min-h-screen items-center justify-items-start ">
            
             <div>  
@@ -58,31 +59,33 @@
             </div>
 
         </div>         
+    </div>-->
+    <div class="col-span-3">
+        {{> sidebarcategories}}
     </div>
 
     <!-- Second column image -->
-    <div class="banner col-span-9 text-white font-sans font-bold">
+    <div class=" banner col-span-9 text-white font-sans font-bold">
         <main class="mt-8">
                 
             <div class="container mx-auto px-6">
             
-                <select  class="h-8 w-24 border-r bg-gray-50 rounded-md shadow-lg
-                text-center text-black" style="margin-left: 850px;">
+                <select  class="h-8 w-24 ml-56 md:absolute md:right-20 border-r bg-gray-50 rounded-md shadow-xl text-center text-black">
                         <option>Trier par</option>
                         <option>le plus récent</option>
                         <option>prix le plus bas</option>
                         <option>prix le plus élévé</option>
                 </select>
 
-                <div class="grid grid-cols-3 gap-4">
+                <div class="flex-rows mb-4 md:grid md:grid-cols-3 ">
 
                 {{#each catinfo}}
-                <div class="mt-6 w-72 ">
+                <div class="mt-6 md:mt-16 w-72 h-fit md:space-x-32">
                     <a href="/annonce/{{this.id}}">
-                    <div class="rounded-md shadow-md overflow-hidden">
+                    <div class="border rounded-md shadow-md overflow-hidden">
                         
                         <div class="flex items-end justify-end h-56 w-full bg-cover">
-                            <img class="w-full h-56" src="{{this.photo_url}}" alt="">
+                            <img class="md:rounded-md mx-auto w-64 h-56 pt-2" src="{{this.photo_url}}" alt="">
                         </div>
                         <div class="px-5 py-3">
                             
@@ -123,6 +126,8 @@
 
             </div>
         </main>
-    </div>    
+    </div>  
+
 </div>
+
 {{> footer}}

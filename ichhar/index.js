@@ -7,12 +7,7 @@ const cookieParser = require("cookie-parser");
 var session = require('express-session');
 const port = 3000
 const path = require('path');
-const {
-	request
-} = require('http');
-const {
-	response
-} = require('express');
+
 
 const hbs = handlebars.create({
 	layoutsDir: __dirname + '/views/layouts/',
@@ -37,6 +32,13 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
+//session
+app.use(session({
+	secret: "123456789",
+	resave: true,
+	saveUninitialized: true
+}));
+
 //app.use(express.bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -46,19 +48,14 @@ app.use(bodyParser.urlencoded({
 // cookie parser middleware
 app.use(cookieParser());
 
-//session
-app.use(session({
-	secret: "123456789",
-	resave: true,
-	saveUninitialized: true
-}));
+
 
 //page d'accueil
 app.get('/', function (request, response) {
 	response.render('main', {
 		layout: 'index',
 		loggedin: request.session.loggedin,
-		userInfo: request.session.userInfo
+		userInfo: request.session.userInfo,
 	});
 });
 
@@ -80,8 +77,8 @@ app.post('/signin', function (request, response) {
 		con.query('SELECT * FROM utilisateur WHERE email = ? AND password = ?', [email, password], function (error, results, fields) {
 			// If there is an issue with the query, output the error
 			if (error) throw error;
-			// If the account exists
-			if (results.length > 0) {
+			// If the account exists (zedet results.status)
+			if ((results.length > 0) && (results.status == 1) ) {
 				// Authenticate the user
 				request.session.loggedin = true;
 				request.session.email = email;
@@ -182,6 +179,30 @@ app.get('/logout', function (request, response) {
 			message: 'User is not logged in.'
 		});
 	}
+});
+
+//Search
+app.get('/search', (request, response) => {
+    var titre = request.query.search;
+    var sql = "SELECT * FROM annonce WHERE status = 1 and titre LIKE '%"+titre+"'";
+    con.query(sql, function(error, result){
+        if (error) throw error;
+		if (result.length == 0) {
+            response.render('notfound', {
+                layout: 'index',
+                loggedin: request.session.loggedin,
+                userinfo: result
+            });
+        }
+		else{
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				catinfo: result
+			});
+		}
+    })
+    console.log(titre);
 });
 
 ///////////teeeeeeeeeeeest
@@ -410,17 +431,43 @@ app.post('/add-ads', (request, response) => {
 
 //contact 
 app.get('/contact', (request, response) => {
-	response.render('contact', {
-		layout: 'index',
-		userInfo: request.session.userInfo,
-
-	});
+	sql = "SELECT * FROM contact"
+	con.query(sql, function (err, results, fields) {
+		if (err) throw err;
+		else {
+			response.render('contact', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				contactinfo: results
+			});
+		}
+	})
 });
+
+app.post('/contact/add', (request, response) => {
+	sql = "INSERT INTO contact (status, message) values ( 1, ?);"
+	if (request.session.loggedin == true) {
+		con.query(sql, [request.body.message], function (err, results, fields) {
+			if (err) throw err;
+			else {
+			response.render('contact', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+			});
+			} 
+		})
+	}else {
+		return response.redirect('/signin');
+	}
+});
+
 
 //categorie
 app.get('/categories/:nom', (request, response) => {
 
-	var sql = "SELECT * FROM categorie, annonce where nom = ? and categorie.id = annonce.categorie_id"
+	var sql = "SELECT * FROM categorie, annonce where nom = ? and categorie.id = annonce.categorie_id and annonce.status = 1"
 	con.query(sql, request.params.nom, function (err, result, fields) {
 		if (err) throw err;
 		if (request.params.nom == 'vehicule') {
@@ -465,7 +512,8 @@ app.get('/categories/:nom', (request, response) => {
 
 //annonce
 app.get('/annonce/:id', (request, response) => {
-	con.query("SELECT * FROM categorie, annonce where annonce.id = ? and categorie.id = annonce.categorie_id", request.params.id, function (err, result, fields) {
+	sql = "SELECT * FROM categorie, annonce where annonce.id = ? and categorie.id = annonce.categorie_id and annonce.status = 1"
+	con.query(sql, request.params.id, function (err, result, fields) {
 		if (err) throw err;
 		console.log(result[0].id);
 		response.render('annonce', {

@@ -36,7 +36,7 @@
                                             Ajouter une nouvelle catégorie
                                         </h3>
                                         <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
-                                            <svg class="w-5 h-5 mr-10" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                                         </button>
                                     </div>
                                     <!-- Modal body -->
@@ -105,27 +105,102 @@
                     </tr>
                 </thead>
 
-                {{#each catinfo}}
+                {{#each catinfo1}}
                 <tbody>
                     <tr>
                         <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-left flex items-center">
-                            {{id}}
+                            {{this.id}}
                         </th>
                             
                         <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                            {{nom}}
+                            {{this.nom}}
                         </td>
 
                         <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                            {{description}}
+                            {{this.description}}
                         </td>
                         
                         <td class="flex gap-2 border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                            <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center
-                            border border-blue-400 bg-blue-400"> Modifier </button>
-                            <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center
-                            border border-blue-400 bg-blue-400"> Supprimer </button>
-                            <!--bg-gradient-to-r from-blue-400 to-blue-600 hover:to-blue-200-->
+<!--Button update action-->
+                           <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center border border-blue-400 bg-blue-400" data-modal-toggle="defaultModal0"> 
+                                <a href="/ichhar-admin/categories/update/{{this.id}}">
+                                Modifier 
+                                </a>
+                            </button>
+                            <!--<div id="defaultModal0" tabindex="-1" aria-hidden="true" style="width: 750px; margin:auto; margin-top: 70px"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
+                                <div class="relative p-4 w-full max-w-2md h-full md:h-auto">
+                                    <div class="relative bg-white rounded-lg shadow ">
+                                        <div class="flex justify-between items-start p-4 rounded-t border-b ">
+                                            <h3 class="text-xl font-semibold text-gray-900 ">
+                                                Modifier la catégorie
+                                            </h3>
+                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal0">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                                            </button>
+                                        </div>
+                                        <div class="mr-72 p-6 space-y-6">
+                                            <label for="noom" class="font-semibold text-md">Nom</label>
+                                            <input name="noom" class="h-8 w-56 rounded-md border border-gray-200 shadow-lg focus:ring-gray-500 focus:border-gray-500 mb-2" type="text" value="{{this.nom}}"><br>
+                                            <label for="desc" class="font-semibold text-md">Description</label>
+                                            <textarea name="desc" class="h-8 w-56 rounded-md border border-gray-200 shadow-lg focus:ring-gray-500 focus:border-gray-500 mb-2" type="text" >{{this.description}}</textarea><br>
+                                            <label for="photo_url" class="font-semibold text-md">URL du photo</label>
+                                            <textarea name="photo_url" class="h-8 w-56 rounded-md border border-gray-200 shadow-lg focus:ring-gray-500 focus:border-gray-500 mb-2" type="text" >{{this.photo_url}}</textarea>
+                                        </div>
+                                        <div class="shadow-lg items-center text-center p-6 rounded-b border-t border-gray-200 dark:border-gray-600">
+                                            <form action="/ichhar-admin/categories/update/{{this.id}}" method="get">
+                                                <button data-modal-toggle="defaultModal" type="submit" class="text-white bg-gray-700 hover:bg-gray-800 
+                                                focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 
+                                                text-center">
+                                                    Confirmer
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+<!--Button delete action-->
+                            
+                            <form method="get" action="/ichhar-admin/categories/delete/{{this.id}}">
+                                <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center
+                                border border-blue-400 bg-blue-400" type="button" data-modal-toggle="defaultModal1"> 
+                                <a href="/ichhar-admin/categories/delete/{{this.id}}">
+                                    Supprimer 
+                                </a>
+                                </button>
+                                <!-- Main modal 
+                                <div id="defaultModal1" tabindex="-1" aria-hidden="true" style="margin:auto; margin-top: 200px"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full md:w-3/6">
+                                    <div class="relative p-4 w-full max-w-2md h-full md:h-auto">
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700"> 
+                                            <div class="flex justify-between items-start p-4 rounded-t border-b">
+                                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                    êtes vous sûr de vouloir supprimer cette catégorie?
+                                                </h3>
+                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1 ml-auto inline-flex items-center" data-modal-toggle="defaultModal1">
+                                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+                                                </button>
+                                            </div>                              
+                                            <div class="md:mr-56 p-6 space-y-6">
+                                                
+                                                    <button class="w-24 shadow-lg text-white bg-red-500 mt-1 border border-gray-300 focus:outline-none font-medium rounded-lg text-sm 
+                                                        px-4 py-2 text-center inline-flex items-center mb-4" type="submit"> 
+                                                        <a href="/ichhar-admin/categories/delete/{{this.id}}">
+                                                            Supprimer
+                                                        </a>
+                                                    </button>
+
+                                                    <button class="w-24 shadow-lg text-white bg-blue-500 mt-1 border border-gray-300 focus:outline-none font-medium rounded-lg text-sm 
+                                                        px-4 py-2 text-center inline-flex items-center mb-4" type="submit"> 
+                                                        <a href="/ichhar-admin/categories">
+                                                            Annuler
+                                                        </a>
+                                                    </button>
+                                            </div>
+                                        </div>                                  
+                                    </div>
+                                </div> -->
+                            </form>    
                         </td>
                     </tr>            
                 </tbody>
