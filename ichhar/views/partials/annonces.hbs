@@ -1,25 +1,27 @@
-<h3 class="pt-4 text-2xl text-center">Mes annonces</h3>
-<form action="/profile/{{nom}}/annonces" method="get" class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-
-<div class="grid grid-cols-3 gap-4">
-  <div class="mt-6 w-56 h-56">
-
-    <div class="rounded-md shadow-md overflow-hidden">
-
-      <div class="flex items-end justify-end h-44 w-full bg-cover">
-        <img class="w-full h-44" src="{{this.photo_url}}" alt="" />
-      </div>
-
-      <div class="px-5 py-3">
-        <h3 class="text-black"> {{this.titre}} </h3>
-        <span class="text-gray-800 mt-2"> {{this.prix}} </span>
-        <br/>
-        <div class="text-gray-600 text-sm h-10">{{this.description}}</div>
-      </div>
-
-    </div>
-
-  </div>
+<div class="md:mb-6">
+  <h3 class="pt-4 text-2xl text-center">Mes annonces</h3>
 </div>
 
-</form>
+<div class="md:grid md:grid-cols-3 md:gap-20">
+  {{#each info}}
+  <form action="/profile/{{nom}}/annonces" method="get" 
+    class="h-96 w-56 rounded-lg shadow-lg overflow-hidden">
+    
+        <div class="flex items-end justify-end h-44 w-full bg-cover">
+          <img class="w-full h-44" src="{{this.photo_url1}}" alt="image de l'annonce que j'ai publiée" />
+        </div>
+
+        <div class="px-5 py-3">
+          <h3 class="text-black font-semibold"> {{this.titre}} </h3>
+          <span class="text-gray-800 mt-2"> {{this.prix}} DT </span>
+          <br/>
+          <div class="text-gray-600 text-sm h-10">{{this.description}}</div>
+        </div>
+
+        <div class="mt-4 ml-6">
+          <button class="rounded-lg text-white font-semibold text-sm bg-red-500 h-10 w-20">Modifier</button>
+          <button class="rounded-lg text-white font-semibold text-sm bg-green-500 h-10 w-20">Supprimer</button>
+        </div>
+  </form>
+  {{/each}}
+</div>

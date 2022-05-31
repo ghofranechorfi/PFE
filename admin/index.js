@@ -51,10 +51,56 @@ app.use(session({
 
 //Home page
 app.get('/ichhar-admin/home', (request, response) => {
-    response.render('main', {
-        layout : 'index',
-        loggedin: request.session.loggedin
+    sql = "SELECT COUNT(*) as nbr_utilisateur FROM utilisateur"
+    sql1 = "SELECT COUNT(*) FROM categorie"
+    sql2 = "SELECT COUNT(*) FROM annonce where status = 1"
+    sql3 = "SELECT COUNT(*) FROM annonce where status = 0"
+
+    con.query("SELECT COUNT(*) as nbr_utilisateur FROM utilisateur", function (err, result, fields) {
+        if (err) throw err;
+        response.render('main', {
+            layout : 'index',
+            loggedin: request.session.loggedin,
+            nbr_utilisateur: result,
+        });
     });
+    
+});
+
+//STATISTIQUE
+app.get('/ichhar-admin/stat', (request, response) => {
+    sql = "SELECT COUNT(*) as nbr_inscrits FROM utilisateur"
+    sql1 = "SELECT COUNT(*) as nbr_categorie FROM categorie"
+    sql2 = "SELECT COUNT(*) as nbr_annonce FROM annonce where status = 1"
+    sql3 = "SELECT COUNT(*) as nbr_annonce_attente FROM annonce where status = 0"
+    sqlf = "INSERT INTO `statistique`(`nbr-inscrits`, `nbr-categories`, `nbr-annonces`, `nbr-annoncesattentes`) values (?, ?, ?, ?)"
+
+    con.query(sqlf, result, result1, result2, result3, function (err, result)  {
+        if (err) throw err;
+        console.log("tout va bien " +  result);   
+        
+        con.query(sql, (err, result) => {
+            if (err) throw err;
+            console.log(result);   
+            
+        });
+
+        con.query(sql1, (err, result1) => {
+            if (err) throw err;
+            console.log(result1);      
+        }); 
+
+        con.query(sql2, (err, result2) => {
+            if (err) throw err;
+            console.log(result2);      
+        }); 
+
+        con.query(sql3, (err, result3) => {
+            if (err) throw err;
+            console.log(result3);      
+        });
+    });
+
 });
 
 //Display sign in page
@@ -103,21 +149,6 @@ app.get('/ichhar_admin/logout', function(request,response){
     }
 }); 
 
-//Search
-app.get('/search', (request, response) => {
-    var nom = request.query.search;
-    var sql = "SELECT * FROM utilisateur where nom LIKE '%"+nom+"' ";
-    con.query(sql, function(error, result){
-        if (error) throw error;
-        response.render('clients', {
-			layout: 'index',
-            loggedin: request.session.loggedin,
-			userinfo: result
-		});
-    })
-    console.log(nom);
-});
-
 //CLIENTS
     //Display the user's list
 app.get('/ichhar-admin/clients', (request, response) => {
@@ -148,6 +179,48 @@ app.get('/ichhar-admin/clients/delete/:id', (request, response) => {
     response.redirect('/ichhar-admin/clients'); 
 });
     //Search a user by name
+app.get('/search', (request, response) => {
+    var nom = request.query.search;
+    var sql = "SELECT * FROM utilisateur where nom LIKE '%"+nom+"' ";
+    con.query(sql, function(error, result){
+        if (error) throw error;
+        response.render('clients', {
+            layout: 'index',
+            loggedin: request.session.loggedin,
+            userinfo: result
+        });
+    })
+    console.log(nom);
+});
+
+    //Afficher la liste des clients à restaurer
+app.get('/ichhar-admin/clients-restaurer', (request, response) => {
+    sql0 = "SELECT * FROM utilisateur WHERE status = 2;"
+    con.query(sql0, function (err, result, fields) {
+        if (err) throw err;
+        response.render('restaurer-inscrit', {
+            layout: 'index',
+            loggedin: request.session.loggedin,
+            userinfo1: result
+        });
+    });
+});
+
+    //Restaurer un utilisateur
+app.get('/ichhar-admin/clients/restaurer/:id', (request, response) => {
+    userId = request.params.id;
+    sql = `UPDATE utilisateur SET status = 1 where id = ?`;
+    con.query(sql , userId,function (err, result, fields) {
+        if (err) throw err;
+        response.render('clients', {
+            layout: 'index',
+            loggedin: request.session.loggedin,
+            userinfo: result
+        });
+        return response.end();
+    });
+    response.redirect('/ichhar-admin/clients'); 
+});
 
 //CATEGORIES
     //Display the categories list
@@ -164,7 +237,7 @@ app.get('/ichhar-admin/categories', (request, response) => {
     //Add a category form
     //Add a category procedure
 
-    //Update a category form
+    //Le formulaire de mise à jour d'une catégorie
 app.get('/ichhar-admin/categories/update/:id', (request, response) => {
     userId = request.params.id;
     sql0 = "SELECT * FROM categorie WHERE status = 0 and id = ?;"
@@ -177,7 +250,7 @@ app.get('/ichhar-admin/categories/update/:id', (request, response) => {
         });
     });
 });
-    //Update a category procedures
+    //Les procédures de mise à jour d'une catégorie 
 app.post('/ichhar-admin/categories/update/:id', (request, response) => {
     userId = request.params.id;
     sql = "UPDATE categorie SET nom = '" + request.body.noom + "', description = '" + request.body.desc + "', photo_url = '" + request.body.photo_url + "' where id = ?";
@@ -193,7 +266,7 @@ app.post('/ichhar-admin/categories/update/:id', (request, response) => {
     response.redirect('/ichhar-admin/categories');
 });
 
-    //Delete a category
+    //Supprimer une catégorie
 app.get('/ichhar-admin/categories/delete/:id', (request, response) => {
     userId = request.params.id;
     sql = `UPDATE categorie SET status = 1 where id = ?`;
@@ -209,8 +282,37 @@ app.get('/ichhar-admin/categories/delete/:id', (request, response) => {
     response.redirect('/ichhar-admin/categories'); 
 });
 
-//ADVERTISMENTS
-    //Display the advertisments list
+    //Afficher la liste des catégories à restaurer
+app.get('/ichhar-admin/categories-restaurer', (request, response) => {
+    sql0 = "SELECT * FROM categorie WHERE status = 1;"
+    con.query(sql0, function (err, result, fields) {
+        if (err) throw err;
+        response.render('restaurer-categorie', {
+            layout: 'index',
+            loggedin: request.session.loggedin,
+            catinfo2: result
+        });
+    });
+});
+    
+    //Restaurer une catégorie
+app.get('/ichhar-admin/categories/restaurer/:id', (request, response) => {
+    userId = request.params.id;
+    sql = `UPDATE categorie SET status = 0 where id = ?`;
+    con.query(sql , userId,function (err, result, fields) {
+        if (err) throw err;
+        response.render('clients', {
+            layout: 'index',
+            loggedin: request.session.loggedin,
+            catinfo2: result
+        });
+        return response.end();
+    });
+    response.redirect('/ichhar-admin/categories'); 
+});
+
+//ANNONCE
+    //Afficher la liste des annonces
 app.get('/ichhar-admin/annonces', (request, response) => {
     con.query("SELECT * FROM annonce" ,function (err, result, fields) {
         if (err) throw err;
@@ -222,8 +324,8 @@ app.get('/ichhar-admin/annonces', (request, response) => {
     });
 });
 
-//ADVERTISMENTS in wait
-    //Display the advertisments in wait list
+//ANNONCE EN ATTENTE
+    //Afficher les annonces dans la liste d'attente
 app.get('/ichhar-admin/annoncesattentes', (request, response) => {
     con.query("SELECT * FROM annonce WHERE status = 0" ,function (err, result, fields) {
         if (err) throw err;
@@ -234,7 +336,6 @@ app.get('/ichhar-admin/annoncesattentes', (request, response) => {
 		});
     });
 });
-
     //Approuver une annonce
 app.get('/ichhar-admin/annoncesattentes/approuver/:id', (request, response) => {
     userId = request.params.id;
@@ -250,7 +351,6 @@ app.get('/ichhar-admin/annoncesattentes/approuver/:id', (request, response) => {
     });
     response.redirect('/ichhar-admin/annoncesattentes'); 
 });
-
     //Refuser une annonce
 app.get('/ichhar-admin/annoncesattentes/refuser/:id', (request, response) => {
     userId = request.params.id;
@@ -267,6 +367,13 @@ app.get('/ichhar-admin/annoncesattentes/refuser/:id', (request, response) => {
     response.redirect('/ichhar-admin/annoncesattentes'); 
 });
 
+//STATISTIQUE
+app.get('/ichhar-admin/profil', (req, res) => {
+    res.render('profil', {
+        layout : 'index',
+        loggedin: request.session.loggedin,
+    });
+});
 
 app.get('/ichhar-admin/profil', (req, res) => {
     res.render('profil', {

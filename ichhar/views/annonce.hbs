@@ -5,40 +5,52 @@
         <div class="container mx-auto px-6">
             <div class="md:flex md:items-center">
                 <div class="w-full h-64 md:bg-auto md:mt-10 md:w-1/2 lg:h-96">
-                    <img class="h-96 w-full border mt-4 rounded-md max-w-lg mx-auto" src="{{this.photo_url}}" alt="image de l'annonce">
+                    <img class="h-96 w-full border mt-4 rounded-md max-w-lg mx-auto" src="{{this.photo_url1}}" alt="image de l'annonce">
                 </div>
 
-                <div class="w-full h-full ml-5 mt-44 md:ml-2 md:mt-0 md:w-1/2">
+                <div class="w-full h-full ml-5 mt-44 md:ml-2 md:mt-14 md:w-1/2">
                     <div>
-                        <label class="text-gray-700 text-lg" for="count"> 
+                        <label class="text-gray-700"> 
                             <span class="text-black text-md font-bold">Titre </span>  
                             {{this.titre}}
                         </label>
                     </div>
                     <div class="mt-3">
-                        <label class="text-gray-700 text-lg" for="count"> 
+                        <label class="text-gray-700"> 
                             <span class="text-black text-md font-bold">Description </span> 
                             {{this.description}} 
                         </label>
                     </div>
-                    <div class="mt-2">
-                        <label class="text-gray-700 text-lg" for="count"> 
+                    <div class="mt-2 mb-4">
+                        <label class="text-gray-700"> 
                             <span class="text-black text-md font-bold">Prix </span> 
-                            {{this.prix}} 
+                            {{this.prix}} DT
                         </label>
                     </div>
-                    <div class="mt-3">
-                        <label class="text-gray-700 text-lg" for="count"> 
-                            <span class="text-black text-md font-bold">loacalisation </span> 
+                    <div class="">
+                        <p class="text-gray-700 text-lg font-semibold pb-2"> L'auteur: </p> 
+                        <a href="/profile/{{this.nom_utilisateur}}" class="flex">
+                            <img src="{{this.photo_url}}" class="rounded-full shadow-xl h-9 w-9" alt="">
+                            <p class="text-sm ml-2 mt-2 font-semibold"> {{nom}} {{prenom}} </p> 
+                        </a>
+                    </div>
+                    <div class="mt-1">
+                        <label class="text-gray-700"> 
+                            <span class="text-black text-sm font-semibold">loacalisation </span> 
                             {{this.ville}} 
                         </label>
                     </div>
-                    <div class="mt-3">
-                        <label class="text-gray-700 text-lg" for="count"> 
-                            <span class="text-black text-md font-bold">Numéro de Téléphone </span> 
+                    <div class="mt-1">
+                        <label class="text-gray-700"> 
+                            <span class="text-black text-sm font-semibold">Numéro de Téléphone </span> 
                             {{this.telephone}} 
                         </label>
                     </div>
+
+                    <div>
+
+                    </div>
+                    
                     <div class="flex items-center mt-6 space-x-4">
                         <button style="background-color: #636363;" class="block text-white text-sm font-medium rounded-lg focus:outline-none px-5 py-2.5 text-center">
                             <a href="/items-favoris"> Ajouter au favoris </a>

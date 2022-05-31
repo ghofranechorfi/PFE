@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 var session = require('express-session');
 const port = 3000
 const path = require('path');
+const { userInfo } = require('os');
 
 
 const hbs = handlebars.create({
@@ -49,21 +50,23 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 
 
-
 //page d'accueil
 app.get('/', function (request, response) {
 	response.render('main', {
 		layout: 'index',
 		loggedin: request.session.loggedin,
 		userInfo: request.session.userInfo,
+		userChosenInfo: request.session.userChosenInfo
 	});
+	
 });
 
 //sign in
 app.get('/signin', (request, response) => {
 	response.render('signin', {
 		layout: 'index',
-		userInfo: request.session.userInfo
+		userInfo: request.session.userInfo,
+		userChosenInfo: request.session.userChosenInfo
 	})
 });
 
@@ -73,12 +76,10 @@ app.post('/signin', function (request, response) {
 	let password = request.body.password;
 	// Ensure the input fields exists and are not empty
 	if (email && password) {
-		// Execute SQL query that'll select the account from the database based on the specified email and password
 		con.query('SELECT * FROM utilisateur WHERE email = ? AND password = ?', [email, password], function (error, results, fields) {
-			// If there is an issue with the query, output the error
 			if (error) throw error;
-			// If the account exists (zedet results.status)
-			if ((results.length > 0) && (results.status == 1) ) {
+			// If the account exists
+			if (results.length > 0 ) {
 				// Authenticate the user
 				request.session.loggedin = true;
 				request.session.email = email;
@@ -88,7 +89,8 @@ app.post('/signin', function (request, response) {
 				console.log("user's id is : " + results[0].id);
 				// Redirect to home page
 				response.redirect('/');
-			} else {
+			} 
+			else {			
 				response.redirect('/signin?msg=errorlogin');
 			}
 			response.end();
@@ -103,7 +105,8 @@ app.post('/signin', function (request, response) {
 app.get('/signup', (request, response) => {
 	response.render('signup', {
 		layout: 'index',
-		userInfo: request.session.userInfo
+		userInfo: request.session.userInfo,
+		userChosenInfo: request.session.userChosenInfo
 	});
 });
 
@@ -172,7 +175,7 @@ app.post('/signup', function (request, response) {
 app.get('/logout', function (request, response) {
 	if (request.session.loggedin) {
 		delete request.session.loggedin,
-			response.redirect('/');
+	response.redirect('/');
 	} else {
 		response.json({
 			result: 'ERROR',
@@ -185,12 +188,14 @@ app.get('/logout', function (request, response) {
 app.get('/search', (request, response) => {
     var titre = request.query.search;
     var sql = "SELECT * FROM annonce WHERE status = 1 and titre LIKE '%"+titre+"'";
-    con.query(sql, function(error, result){
+    if (titre) {
+	con.query(sql, function(error, result){
         if (error) throw error;
 		if (result.length == 0) {
             response.render('notfound', {
                 layout: 'index',
                 loggedin: request.session.loggedin,
+				userChosenInfo: request.session.userChosenInfo,
                 userinfo: result
             });
         }
@@ -202,6 +207,10 @@ app.get('/search', (request, response) => {
 			});
 		}
     })
+	} else {
+		response.redirect('/')
+		console.log ('Entrez le nom du produit')
+	}
     console.log(titre);
 });
 
@@ -238,8 +247,10 @@ app.get('/checkusername/:nom', (request, response) => {
 });
 
 //profile
-app.get('/profile/:nom', (request, response) => {
-	con.query("SELECT * FROM utilisateur where nom_utilisateur = ?", request.params.nom, function (err, result, fields) {
+app.get('/profile/:nom_utilisateur', (request, response) => {
+	sql0="SELECT * FROM utilisateur, annonce where nom_utilisateur = ? and utilisateur.id = annonce.utilisateur_id and annonce.status = 1 "
+	//sql = "SELECT * FROM utilisateur, annonce where nom_utilisateur = ?"
+	con.query(sql0, request.params.nom_utilisateur, function (err, result, fields) {
 		if (err) throw err;
 		console.log('Current Profile CIN: ' + result[0].cin);
 		if ((request.session.userInfo !== undefined) && (request.session.userInfo.cin === result[0].cin)) {
@@ -253,11 +264,10 @@ app.get('/profile/:nom', (request, response) => {
 				nom: request.session.nom,
 				userInfo: request.session.userInfo,
 				userChosenInfo: result[0],
-				session: request.session
+				session: request.session,
 			});
 		} else {
 			console.log('Its someone elses profile');
-
 			response.render('profile_other', {
 				layout: 'index',
 				loggedin: request.session.loggedin,
@@ -265,116 +275,114 @@ app.get('/profile/:nom', (request, response) => {
 				datefinal: request.session.datefinal,
 				nom: request.session.nom,
 				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
 				userChosenInfo: result[0],
-				
+				session: request.session
 			});
+
+			console.log("the nbr of results is " , result.length );
 		}	
 	});
 });
 
-app.post('/profile/:nom_utilisateur/reglages', (request, response) => {
-	var sql = "UPDATE utilisateur set cin = '" + request.body.cin + "' , nom = '" + request.body.nom + "' , nom_utilisateur = '" + request.body.nom_utilisateur+ "', prenom = '" + request.body.prenom + "' , email = '" + request.body.email + "' , password = '" + request.body.password + "', telephone = '" + request.body.telephone + "' WHERE cin = ?";
-	let sql0 = `UPDATE utilisateur SET cin = ?, nom = ?, prenom = ?, nom_utilisateur = ?, email = ?, password = ?, telephone = ?, WHERE cin = ?`;
-	con.query(sql0, [request.body.cin, request.body.nom, request.body.prenom, request.body.nom_utilisateur, request.body.email, request.body.password, request.body.telephone], function (err, result) {
-		if (err) throw err;
-		else {
-			//if (request.body.password != request.body.c_password) {
-			//response.redirect('/profile/reglages?msg=passwordsdonotmatch');
-			//} 
-			//else {
-			var sql1 = "SELECT * FROM utilisateur WHERE cin = ?"
-			con.query(sql1, [request.body.cin], function (err, result) {
-				request.session.cin = result[0].cin;
-				request.session.userInfo = result[0];
-				console.log(result.affectedRows + " Record(s) updated.");
-				console.log(result);
-			})
-			// SELECT * FROM UTILISATEUR WHERE CIN = ?
-			// request.body.cin
-			//}
-		}
-		response.end();
+app.get('/profile/:nom_utilisateur/reglages', (request, response) => {
+	response.render('profile_me', {
+		layout: 'index',
+		loggedin: request.session.loggedin,
+		email: request.session.email,
+		datefinal: request.session.datefinal,
+		nom: request.session.nom,
+		userInfo: request.session.userInfo,
+		userChosenInfo: request.session.userChosenInfo,
+		session: request.session
 	});
+});
 
+app.post('/profile/:nom_utilisateur/reglages', (request, response) => {
+	cin = request.body.cin;
+	nom = request.body.nom;
+	prenom = request.body.prenom;
+	nom_utilisateur = request.body.nom_utilisateur;
+	telephone = request.body.telephone;
+	email = request.body.email;
+	password = request.body.password;
+	c_password = request.body.c_password;
+
+	let sql0 = `UPDATE utilisateur SET nom = ?, prenom = ?, cin = ?, nom_utilisateur = ?, telephone = ?, email = ?, password = ? WHERE cin LIKE ?`;
+	if (password == c_password) {
+		con.query(sql0, [nom, prenom, cin, nom_utilisateur, telephone, email, password, cin], function (err, result, next) {
+			if (err) throw err;
+		});
+		response.redirect('/profile/:nom_utilisateur/reglages?msg=done');
+	} 
+	else {
+		response.redirect('/profile/:nom_utilisateur/reglages?msg=passwordsfail');
+	}
 });
 
 app.get('/profile/:nom_utilisateur/annonces', (request, response) => {
-	sql = "SELECT * FROM utilisateur where nom = ?"
-	sql1 = "SELECT titre, description, prix, annonce.photo_url FROM utilisateur, annonce where utilisateur.id = annonce.utilisateur_id"
-	con.query(sql1, function (err, result, fields) {
+	sql = "SELECT * FROM utilisateur, annonce where utilisateur.id = annonce.utilisateur_id and annonce.utilisateur_id = ?"
+	con.query(sql, [request.session.userInfo.id], function (err, result, fields) {
 		if (err) throw err;
-		else {
-			console.log(result);
-			response.render('profile1', {
-				layout: 'index',
-				loggedin: request.session.loggedin,
-				userInfo: request.session.userInfo,
-				nom: request.params.nom,
-				info: result,
-			});
+		if (result.length > 0 ) {
+		console.log(result);
+		response.render('profile1', {
+			layout: 'index',
+			loggedin: request.session.loggedin,
+			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
+			info: result,
+		});	
+		} else {
+			console.log('aucune annonce')
 		}
 	});
-
-
-	//con.query(sql1 , request.params.nom, function (err, result, fields) {
-	// if (err) throw err;
-	//console.log(result);
-	//response.render('profile1', {
-	//		layout: 'index',
-	//		loggedin: request.session.loggedin,
-	//		nom: request.params.nom,
-	//		userinfo1: result
-	//	});
-	//});
-
 });
 
-//add an adv
+
+//Ajouter une annonce
 app.get('/add-ads/step1', (request, response) => {
 	if (request.session.loggedin == true) {
 		response.render('addADS', {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
 		});
 	} else {
 		return response.redirect('/signin');
 	}
 });
 
-app.post('/add-ads/step1', (request, response) => {
-	var sql0 = "SELECT * FROM utilisateur"
-	var sql = "INSERT INTO `annonce`(`status`,`titre`,`description`,`photo_url`,`prix`,`ville`,`telephone`) VALUES ('0','" + request.body.titre + "','" + request.body.description + "','" + request.body.photo_url + "','" + request.body.prix + "','" + request.body.ville + "','" + request.body.telephone + "') where utilisateur_id = ?";
-	//console.log(request.session.userInfo.id)
-	con.query(sql0, function (error, results, fields) {
-		console.log(results);
-		if (request.body.titre && request.body.description && request.body.photo_url && request.body.prix && request.body.ville && request.body.telephone) {
-			con.query(sql, [request.session.userInfo.id], function (error, results, fields) {
-				if (error) throw error;
-				else {
-					response.redirect('/add-ads/step1/step2')
-				}
-			})
-			response.end()
-		} else {
-			response.redirect('/add-ads/step1?msg=fillfields');
-			response.end();
-		}
-	})
+app.get('/add-ads/step1', (request, response) => {
+	
+	let date_ob = new Date();
+	let date = ("0" + date_ob.getDate()).slice(-2);
+	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+	let year = date_ob.getFullYear();
+	let datefinal = year + "-" + month + "-" + date;
+
+	sql = "INSERT INTO `annonce`(`utilisateur_id`,`status`,`titre`,`description`,`photo_url`,`prix`,`telephone`, `categorie_id`, `date_creation`) VALUES ('"+ request.session.userInfo.id +"','0','" + request.body.titre + "','" + request.body.description + "','" + request.body.photo_url + "','" + request.body.prix + "','" + request.body.telephone + "', '3', '" + datefinal + "')";
+	if (request.body.titre && request.body.description && request.body.photo_url && request.body.prix && request.body.telephone) {
+		con.query(sql, function (error, results, fields) {
+			if (error) throw error;
+		})
+		response.end();
+		response.redirect('/add-ads/step1/step2')
+	} 
+	else {
+		response.redirect('/add-ads/step1?msg=fillfields');
+	}	
 });
 
 app.get('/add-ads/step1/step2', (request, response) => {
-	//delete it after
-	response.render('addADS4', {
-		layout: 'index',
-		loggedin: request.session.loggedin,
-		userInfo: request.session.userInfo,
-	})
+	
 	if (request.query.categorie == 'vehicule'){
 		response.render('addADS1', {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
 		})
 	}
 	if (request.query.categorie == 'immobilier'){
@@ -382,6 +390,7 @@ app.get('/add-ads/step1/step2', (request, response) => {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
 
 		})
 	}
@@ -390,6 +399,7 @@ app.get('/add-ads/step1/step2', (request, response) => {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
 
 		})
 	}
@@ -398,6 +408,7 @@ app.get('/add-ads/step1/step2', (request, response) => {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
 
 		})
 	}
@@ -408,61 +419,10 @@ app.get('/add-ads/step1/step2/payement', (request, response) => {
 	response.render('payement', {
 		layout: 'index',
 		loggedin: request.session.loggedin,
-		userInfo: request.session.userInfo
+		userInfo: request.session.userInfo,
+		userChosenInfo: request.session.userChosenInfo
 	});
 });
-
-app.post('/add-ads', (request, response) => {
-	var sql = "INSERT INTO `annonce`(`titre`,`description`,`photo_url`,`type`,`prix`,`ville`,`telephone`,`categorie`) VALUES ('" + request.body.titre + "','" + request.body.description + "','" + request.body.photo_url + "','" + request.body.type + "','" + request.body.prix + "','" + request.body.ville + "','" + request.body.telephone + "','" + request.body.categorie + "')";
-
-	if (request.body.titre && request.body.description && request.body.photo_url && request.body.type && request.body.prix && request.body.ville && request.body.telephone && request.body.categorie) {
-		con.query(sql, function (error, results, fields) {
-			if (error) throw error;
-			else {
-				response.redirect('/')
-			}
-		})
-		response.end()
-	} else {
-		response.redirect('/add-ads?msg=fillfields');
-		response.end();
-	}
-});
-
-//contact 
-app.get('/contact', (request, response) => {
-	sql = "SELECT * FROM contact"
-	con.query(sql, function (err, results, fields) {
-		if (err) throw err;
-		else {
-			response.render('contact', {
-				layout: 'index',
-				loggedin: request.session.loggedin,
-				userInfo: request.session.userInfo,
-				contactinfo: results
-			});
-		}
-	})
-});
-
-app.post('/contact/add', (request, response) => {
-	sql = "INSERT INTO contact (status, message) values ( 1, ?);"
-	if (request.session.loggedin == true) {
-		con.query(sql, [request.body.message], function (err, results, fields) {
-			if (err) throw err;
-			else {
-			response.render('contact', {
-				layout: 'index',
-				loggedin: request.session.loggedin,
-				userInfo: request.session.userInfo,
-			});
-			} 
-		})
-	}else {
-		return response.redirect('/signin');
-	}
-});
-
 
 //categorie
 app.get('/categories/:nom', (request, response) => {
@@ -475,6 +435,7 @@ app.get('/categories/:nom', (request, response) => {
 				layout: 'index',
 				loggedin: request.session.loggedin,
 				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
 				nomm: request.session.nom,
 				catinfo: result
 			});
@@ -484,6 +445,7 @@ app.get('/categories/:nom', (request, response) => {
 				layout: 'index',
 				loggedin: request.session.loggedin,
 				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
 				nomm: request.session.nom,
 				catinfo: result
 			});
@@ -493,6 +455,7 @@ app.get('/categories/:nom', (request, response) => {
 				layout: 'index',
 				loggedin: request.session.loggedin,
 				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
 				nomm: request.session.nom,
 				catinfo: result
 			});
@@ -502,25 +465,26 @@ app.get('/categories/:nom', (request, response) => {
 				layout: 'index',
 				loggedin: request.session.loggedin,
 				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
 				nomm: request.session.nom,
 				catinfo: result
 			});
 		}
-
 	});
 });
 
 //annonce
 app.get('/annonce/:id', (request, response) => {
-	sql = "SELECT * FROM categorie, annonce where annonce.id = ? and categorie.id = annonce.categorie_id and annonce.status = 1"
+	sql ="select utilisateur.photo_url, utilisateur.nom_utilisateur, utilisateur.nom, utilisateur.prenom, utilisateur.telephone, utilisateur.ville, annonce.titre, annonce.description, annonce.prix, annonce.photo_url1 from utilisateur, annonce, categorie where annonce.id = ? and categorie.id = annonce.categorie_id and annonce.status = 1 and utilisateur.id = annonce.utilisateur_id"
+	//sql1 = "SELECT * FROM categorie, annonce where annonce.id = ? and categorie.id = annonce.categorie_id and annonce.status = 1"
 	con.query(sql, request.params.id, function (err, result, fields) {
 		if (err) throw err;
-		console.log(result[0].id);
 		response.render('annonce', {
 			layout: 'index',
 			annonceinfo: result,
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
 		});
 	});
 });
@@ -534,9 +498,43 @@ app.get('/favoris', function (request, response, next) {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
 			userData: data
 		});
 	});
+});
+
+//contact 
+app.get('/contact', (request, response) => {
+	sql = "SELECT * FROM contact, utilisateur where contact.utilisateur_id = utilisateur.id"
+	con.query(sql, function (err, results, fields) {
+		if (err) throw err;
+		else {
+			response.render('contact', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				contactinfo: results
+			});
+		}
+	})
+});
+
+app.post('/contact/add', (request, response) => {
+	sql = "INSERT INTO `contact` (`utilisateur_id`, `status`, `message`) values ( '"+ request.session.userInfo.id +"', '1', '" + request.body.message + "')";
+	if (request.session.loggedin == true) {
+		con.query(sql, function (err, results, fields) {
+			if (err) throw err;
+			else{
+				response.redirect('/contact');
+			}
+		})
+		response.end();
+	}
+	else {
+		response.redirect('/signin');
+	}
 });
 
 app.listen(port, () => {

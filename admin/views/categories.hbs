@@ -7,7 +7,7 @@
         <div class="md:w-full">
             {{>header}}
             <div class="flex space-x-96">
-                <h1 class="text-xl font-semibold p-6 pr-32">Liste des catégories</h1>
+                <h1 class="text-xl font-semibold p-6 pr-8">Liste des catégories</h1>
 
                 <!--<button class="mt-4 relative group overflow-hidden px-4 h-10 rounded-full flex space-x-2 items-center
                     bg-gradient-to-r from-blue-400 to-blue-600 hover:to-blue-200">
@@ -19,8 +19,10 @@
                         </svg>
                     </div>
                 </button>-->
+                <div class="flex space-x-4">
+                    <div>
                         <!-- Modal toggle -->
-                        <button class="mt-4 relative group overflow-hidden px-4 h-10 rounded-full flex space-x-2 items-center
+                        <button class="mt-6 font-semibold text-xs relative group overflow-hidden px-4 h-8 rounded-full flex space-x-2 items-center
                         bg-gradient-to-r from-blue-400 to-blue-600 hover:to-blue-200 text-white" type="button" data-modal-toggle="defaultModal">
                             Ajouter une catégorie
                         </button>
@@ -81,7 +83,18 @@
                                 </div>
                             </div>
                         </div>
-                
+                    </div>
+
+                    <div>
+                        <button class="mt-6 font-semibold text-xs relative group overflow-hidden px-4 h-8 rounded-full flex space-x-2 items-center
+                        bg-gradient-to-r from-blue-400 to-blue-600 hover:to-blue-200 text-white" type="button" data-modal-toggle="defaultModal">
+                            <a href="/ichhar-admin/categories-restaurer">
+                                Restaurer une catégorie
+                            </a>     
+                        </button>
+                    </div>
+                </div>        
+                    
             </div>
             
             <table class="w-96 md:w-4/5 ml-6 items-center bg-transparent border-collapse">
@@ -122,7 +135,7 @@
                         
                         <td class="flex gap-2 border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
 <!--Button update action-->
-                           <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center border border-blue-400 bg-blue-400" data-modal-toggle="defaultModal0"> 
+                           <button class="text-white text-semibold px-4 h-8 rounded-full flex space-x-2 items-center border border-blue-400 bg-blue-400" data-modal-toggle="defaultModal0"> 
                                 <a href="/ichhar-admin/categories/update/{{this.id}}">
                                 Modifier 
                                 </a>
@@ -162,7 +175,7 @@
 <!--Button delete action-->
                             
                             <form method="get" action="/ichhar-admin/categories/delete/{{this.id}}">
-                                <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center
+                                <button class="text-white text-semibold px-4 h-8 rounded-full flex space-x-2 items-center
                                 border border-blue-400 bg-blue-400" type="button" data-modal-toggle="defaultModal1"> 
                                 <a href="/ichhar-admin/categories/delete/{{this.id}}">
                                     Supprimer 

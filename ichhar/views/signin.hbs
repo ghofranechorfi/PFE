@@ -9,7 +9,13 @@
                   const urlParams = new URLSearchParams(queryString);
                   const msg = urlParams.get('msg')
                   if (msg == "errorlogin") {
-                    document.write('<p class="text-red-600 font-bold text-xs">Erreur login</p>');
+                    document.write('<p class="text-red-600 font-bold text-xs">Vérifier votre email et mot de passe</p>');
+                  }
+                  if (msg == "emailincorrect") {
+                    document.write('<p class="text-red-600 font-bold text-xs">Email incorrecte</p>');
+                  }
+                  if (msg == "passwordincorrect") {
+                    document.write('<p class="text-red-600 font-bold text-xs">Mot de passe incorrecte</p>');
                   }
                   else if (msg == "fillfields") {
                     document.write('<p class="text-red-600 font-bold text-xs">Please fill up the fields</p>');

@@ -1,18 +1,19 @@
 {{> header}}
-<div class="md:flex md:mt-5 md:space-x-10">
-  <div class="mt-6 w-5/6 mx-auto md:w-3/5 md:h-full md:ml-2">
-    <h2 class="font-semibold mb-4 italic">Les remarques et les avis des utilisateurs</h2>
+<div class="md:flex md:mt-5 md:space-x-10 md:ml-3">
+  <div class="mt-4 w-5/6 mx-auto md:ml-6 md:w-3/6 md:h-full">
+    <h4 class="font-semibold mb-2 ml-3 italic text-gray-700 text-2xl">Les remarques et les avis des utilisateurs</h4>
+    <p class="text-gray-600 text-xs italic ml-3 mb-8">Veuillez utiliser ce formulaire pour donner vos avis concernant la plateforme ou déposer des propositions</p>
     {{#each contactinfo}}
-    <div>
-      <div class="flex">
-        <img src="{{this.photo_url}}" class="rounded-full" alt="">
-        <h3>{{this.id}} {{userInfo.nom}} </h3>
+      <div>
+        <div class="flex mb-2">
+          <img src="{{this.photo_url}}" class="rounded-full h-9 w-9 border" alt="photo de profile">
+          <h3 class="font-semibold pl-3 pt-1 ">{{this.nom}} {{this.prenom}} </h3>
+        </div>
+        <div class="">
+          <h4>{{this.message}}</h4>
+        </div>
+        <hr class="mt-4 mb-4 bg-gray-50 w-full h-0.5 ">
       </div>
-      <div class="">
-        <h4>{{this.message}}</h4>
-      </div>
-      <hr class="mt-2 mb-2 bg-gray-200 w-full h-0.5 ">
-    </div>
     {{/each}}
   </div>
 
@@ -42,6 +43,7 @@
   </div>
 
 </div>
+{{> footer}}
 <!--
 <body class="bg-white ">
       <div

@@ -1,0 +1,66 @@
+<div>
+    <div class="md:flex">
+        <div>
+            {{> sidebar}}
+        </div>
+
+        <div class="md:w-full">
+            {{>header}}
+
+            <h1 class="text-xl font-semibold p-6 pr-32">Liste des catégories à restaurer</h1>
+            <table class="w-96 md:w-4/5 ml-6 items-center bg-transparent border-collapse">
+                <thead>
+                    <tr>
+                        <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            ID
+                        </th>
+   
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            NOM
+                        </th>
+
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            description
+                        </th>
+
+                        <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+
+                {{#each catinfo2}}
+                <tbody>
+                    <tr>
+                        <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-left flex items-center">
+                            {{this.id}}
+                        </th>
+                            
+                        <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
+                            {{this.nom}}
+                        </td>
+
+                        <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
+                            {{this.description}}
+                        </td>
+                        
+                        <td class="flex gap-2 border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">                           
+                            <form method="get" action="/ichhar-admin/categories/restaurer/{{this.id}}">
+                                <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center
+                                border border-blue-400 bg-blue-400" type="button" data-modal-toggle="defaultModal1"> 
+                                    <a href="/ichhar-admin/categories/restaurer/{{this.id}}">
+                                        Restaurer 
+                                    </a>
+                                </button>
+                            </form>    
+                        </td>
+                    </tr>            
+                </tbody>
+                {{/each}}
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+
