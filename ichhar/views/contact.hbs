@@ -4,7 +4,7 @@
     <h4 class="font-semibold mb-2 ml-3 italic text-gray-700 text-2xl">Les remarques et les avis des utilisateurs</h4>
     <p class="text-gray-600 text-xs italic ml-3 mb-8">Veuillez utiliser ce formulaire pour donner vos avis concernant la plateforme ou déposer des propositions</p>
     {{#each contactinfo}}
-      <div>
+      <div class="mb-8">
         <div class="flex mb-2">
           <img src="{{this.photo_url}}" class="rounded-full h-9 w-9 border" alt="photo de profile">
           <h3 class="font-semibold pl-3 pt-1 ">{{this.nom}} {{this.prenom}} </h3>
@@ -12,13 +12,12 @@
         <div class="">
           <h4>{{this.message}}</h4>
         </div>
-        <hr class="mt-4 mb-4 bg-gray-50 w-full h-0.5 ">
       </div>
     {{/each}}
   </div>
 
   <div class="mt-6 w-5/6 mx-auto md:w-2/5">
-    <form action="/contact/add" method="post" class="w-full max-w-lg">
+    <form action="/contact" method="post" class="w-full max-w-lg">
        
       <div class="flex flex-wrap -mx-3 mb-6">
           <p class="text-gray-600 text-xs italic ml-3">Si vous avez des remarques concernant le site n'hesitez pas de les envoyés</p>

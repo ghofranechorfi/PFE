@@ -1,13 +1,28 @@
+{{#each userChosenInfo}}
 <div class="w-40 md:h-44 flex mx-auto rounded-full mt-14" >
-  <img class="h-40 w-40 rounded-full mx-auto" src="{{userChosenInfo.photo_url}}" />
+  <img class="h-40 w-40 rounded-full mx-auto" src="{{this.photo_url}}" />
 </div>
 
 <p class="text-3xl text-center text-bold text-black">
-  {{userChosenInfo.nom}}
-  {{userChosenInfo.prenom}}
+  {{this.nom}}
+  {{this.prenom}}
 </p>
-<p class="text-md text-center text-semibold text-black mt-2">A rejoint depuis {{userChosenInfo.date_creation}}</p>
-<hr class="mt-9 border-gray-300">
+<p class="text-md text-center text-semibold text-black mt-2">A rejoint depuis {{this.date_creation}}</p>
+
+<!--<h2 class="text-2xl text-gray-900 font-semibold mt-4 ml-4"> Informations personelles</h2>-->
+
+<div class="ml-4">
+    <p class="md:text-md font-semibold text-black mt-2">Email : 
+        <span class="font-normal"> {{this.email}} </span> 
+    </p>
+    <p class="md:text-md font-semibold text-black mt-2">Téléphone : 
+        <span class="font-normal"> {{this.telephone}} </span> 
+    </p>
+    <p class="md:text-md font-semibold text-black mt-2"> Ville : 
+        <span class="font-normal"> {{this.ville}} </span> 
+    </p>
+</div>
+{{/each}}
 
 
 

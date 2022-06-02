@@ -2,7 +2,7 @@
     
     <div class="pl-6">
         <a href="/">
-            <img src="/images/ICHHAR-bgT.png" class="mt-1 h-14 w-56 md:w-56 md:h-16" alt="">
+            <img src="/images/ICHHAR-bgT.png" class="mt-1 h-14 w-56 md:w-56 md:h-16" alt="logo">
         </a>
     </div>
 
@@ -24,20 +24,11 @@
         </form>
     </div>
 
-    <div class="flex pr-3 pt-5 gap-2 md:pt-4">
-        <!--icon favoris
-        <div class="p-1 h-8 w-8 text-gray-900 bg-gray-50 hover:text-white rounded-full shadow-lg hover:bg-blue-900">
-            <a href="/favoris">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-6 pt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-            </a>
-        </div>-->
-        
+    <div class="flex pr-3 pt-5 gap-2 md:pt-4">       
         <!--button d'ajout d'une annonce-->
         <div>
             <button class="rounded-full shadown-lg  h-8 w-8 md:h-9 md:w-44 md:p-1 md:rounded-md bg-gray-300 md:text-black"> 
-                <a href="/add-ads/step1" class="md:font-semibold md:text-sm md:flex md:gap-1"> 
+                <a href="/add-ads" class="md:font-semibold md:text-sm md:flex md:gap-1"> 
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto mt-1 md:mt-0 md:ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -50,6 +41,7 @@
                 </a>
             </button>
         </div>
+
         <!--icon user "connexion"
         <div>
             <button class="h-9 w-32 justify-center border rounded-md bg-gray-600 hover:bg-gray-700"> 
@@ -61,6 +53,7 @@
                 </a>
             </button>
         </div> -->
+
         <div class="flex">  
             {{#if loggedin}}
             <button id="dropdownDefault" data-dropdown-toggle="profile" style="color:#00b906" 
@@ -72,22 +65,26 @@
             <!-- Dropdown menu -->
             <div id="profile" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
-                    <li>
+                    <li class="flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 mt-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
                         <a href="/profile/{{userInfo.nom_utilisateur}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mon compte</a>
                     </li>
-                    <li>
+                    <li class="flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 mt-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
                         <a href="/favoris" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Favoris</a>
                     </li>
-                    <li>
+                    <li class="flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 mt-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
                         <a href="/logout" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Se déconnecter</a>
-                </li>
+                    </li>
                 </ul>
             </div>
-
-                <!--<a href="/profile/{{session.userinfo.nom}}">
-                    <img class="h-9 w-9 rounded-full bg-black" src="{{session.userinfo.photo_url}}">
-                </a>-->
-
             {{else}}
                 <button class="rounded-full h-8 w-8 md:h-9 md:w-32 md:p-1 md:border md:rounded-md md:text-white" style="background-color: #00b906">
                     <a href="/signin" class="md:font-semibold md:text-sm md:flex md:gap-1">

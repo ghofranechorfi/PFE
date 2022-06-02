@@ -56,13 +56,32 @@ app.get('/ichhar-admin/home', (request, response) => {
     sql2 = "SELECT COUNT(*) FROM annonce where status = 1"
     sql3 = "SELECT COUNT(*) FROM annonce where status = 0"
 
-    con.query("SELECT COUNT(*) as nbr_utilisateur FROM utilisateur", function (err, result, fields) {
+    response.render('main', {
+        layout : 'index',
+        loggedin: request.session.loggedin,
+        nbr_utilisateurs: request.session.result,
+        nbr_annonces: request.session.result1,
+        nbr_categories: request.session.result2,
+        nbr_annoncesattente: request.session.result3,
+    });
+
+    con.query(sql, (err, result) => {
         if (err) throw err;
-        response.render('main', {
-            layout : 'index',
-            loggedin: request.session.loggedin,
-            nbr_utilisateur: result,
-        });
+        console.log(result);   
+    });
+    con.query(sql1, (err, result1) => {
+        if (err) throw err;
+        console.log(result1);      
+    }); 
+
+    con.query(sql2, (err, result2) => {
+        if (err) throw err;
+        console.log(result2);      
+    }); 
+
+    con.query(sql3, (err, result3) => {
+        if (err) throw err;
+        console.log(result3);      
     });
     
 });
@@ -75,16 +94,13 @@ app.get('/ichhar-admin/stat', (request, response) => {
     sql3 = "SELECT COUNT(*) as nbr_annonce_attente FROM annonce where status = 0"
     sqlf = "INSERT INTO `statistique`(`nbr-inscrits`, `nbr-categories`, `nbr-annonces`, `nbr-annoncesattentes`) values (?, ?, ?, ?)"
 
-    con.query(sqlf, result, result1, result2, result3, function (err, result)  {
-        if (err) throw err;
-        console.log("tout va bien " +  result);   
-        
         con.query(sql, (err, result) => {
             if (err) throw err;
             console.log(result);   
-            
+            con.query("INSERT INTO `statistique`(`nbr-inscrits`) VALUES (?)", result[0], function (response, request){
+                if (err) throw err;
+            })
         });
-
         con.query(sql1, (err, result1) => {
             if (err) throw err;
             console.log(result1);      
@@ -99,7 +115,8 @@ app.get('/ichhar-admin/stat', (request, response) => {
             if (err) throw err;
             console.log(result3);      
         });
-    });
+        
+ 
 
 });
 

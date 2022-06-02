@@ -5,9 +5,10 @@ const app = express();
 var bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 var session = require('express-session');
+const cors = require('cors');
+
 const port = 3000
 const path = require('path');
-const { userInfo } = require('os');
 
 
 const hbs = handlebars.create({
@@ -15,7 +16,6 @@ const hbs = handlebars.create({
 	extname: 'hbs'
 });
 
-app.use(express.static('public'));
 
 //database connection
 var con = mysql.createConnection({
@@ -35,19 +35,22 @@ app.set('views', './views');
 
 //session
 app.use(session({
-	secret: "123456789",
+	secret: "123456789GHCH",
 	resave: true,
 	saveUninitialized: true
 }));
 
-//app.use(express.bodyParser());
+// parse application/json
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: false
-}));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(cors());
 
 // cookie parser middleware
 app.use(cookieParser());
+
+app.use(express.static('public'));
 
 
 //page d'accueil
@@ -276,7 +279,7 @@ app.get('/profile/:nom_utilisateur', (request, response) => {
 				nom: request.session.nom,
 				userInfo: request.session.userInfo,
 				userChosenInfo: request.session.userChosenInfo,
-				userChosenInfo: result[0],
+				userChosenInfo: result,
 				session: request.session
 			});
 
@@ -321,7 +324,7 @@ app.post('/profile/:nom_utilisateur/reglages', (request, response) => {
 });
 
 app.get('/profile/:nom_utilisateur/annonces', (request, response) => {
-	sql = "SELECT * FROM utilisateur, annonce where utilisateur.id = annonce.utilisateur_id and annonce.utilisateur_id = ?"
+	sql = "SELECT * FROM utilisateur, annonce where utilisateur.id = annonce.utilisateur_id and annonce.utilisateur_id = ? and annonce.status = 1"
 	con.query(sql, [request.session.userInfo.id], function (err, result, fields) {
 		if (err) throw err;
 		if (result.length > 0 ) {
@@ -341,7 +344,7 @@ app.get('/profile/:nom_utilisateur/annonces', (request, response) => {
 
 
 //Ajouter une annonce
-app.get('/add-ads/step1', (request, response) => {
+app.get('/add-ads', (request, response) => {
 	if (request.session.loggedin == true) {
 		response.render('addADS', {
 			layout: 'index',
@@ -349,70 +352,78 @@ app.get('/add-ads/step1', (request, response) => {
 			userInfo: request.session.userInfo,
 			userChosenInfo: request.session.userChosenInfo,
 		});
+	
 	} else {
 		return response.redirect('/signin');
 	}
 });
 
 app.get('/add-ads/step1', (request, response) => {
-	
 	let date_ob = new Date();
 	let date = ("0" + date_ob.getDate()).slice(-2);
 	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 	let year = date_ob.getFullYear();
 	let datefinal = year + "-" + month + "-" + date;
 
-	sql = "INSERT INTO `annonce`(`utilisateur_id`,`status`,`titre`,`description`,`photo_url`,`prix`,`telephone`, `categorie_id`, `date_creation`) VALUES ('"+ request.session.userInfo.id +"','0','" + request.body.titre + "','" + request.body.description + "','" + request.body.photo_url + "','" + request.body.prix + "','" + request.body.telephone + "', '3', '" + datefinal + "')";
-	if (request.body.titre && request.body.description && request.body.photo_url && request.body.prix && request.body.telephone) {
+	let titre = request.query.titre;
+	let description = request.query.description;
+	let prix = request.query.prix; 
+	let telephone = request.query.telephone; 
+	let categorie = request.query.categorie;
+	let photo1 = request.query.photo1;
+	console.log(titre, description, prix, telephone, categorie, photo1);
+
+	sql = "INSERT INTO `annonce`(`utilisateur_id`,`status`,`titre`,`description`, `photo_url1`, `prix`, `telephone`, `categorie_id`, `date_creation`) VALUES ('"+ request.session.userInfo.id +"','0','" + titre + "','" + description + "', '" + photo1 + "', '" + prix + "', '" + telephone + "', '" + categorie+ "', '" + datefinal + "')";
+	if (titre && description && prix && telephone && categorie && photo1) {
 		con.query(sql, function (error, results, fields) {
 			if (error) throw error;
-		})
-		response.end();
-		response.redirect('/add-ads/step1/step2')
+			console.log("rows affected successfully");
+			response.redirect('/add-ads/step1/step2');
+		});	
+		return response.end();	
 	} 
 	else {
-		response.redirect('/add-ads/step1?msg=fillfields');
+		return response.redirect('/add-ads?msg=fillfields');
 	}	
 });
 
 app.get('/add-ads/step1/step2', (request, response) => {
-	
-	if (request.query.categorie == 'vehicule'){
-		response.render('addADS1', {
+
+	if (request.query.categorie == '1'){
+		return response.render('addADS1', {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
 			userChosenInfo: request.session.userChosenInfo,
-		})
+		});
 	}
-	if (request.query.categorie == 'immobilier'){
-		response.render('addADS2', {
+
+	if (request.query.categorie == '2'){
+		return response.render('addADS2', {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
 			userChosenInfo: request.session.userChosenInfo,
-
-		})
+		});
 	}
-	if (request.query.categorie == 'habillement'){
-		response.render('addADS3', {
+
+	if (request.query.categorie == '3'){
+		return response.render('addADS3', {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
 			userChosenInfo: request.session.userChosenInfo,
-
-		})
+		});
 	}
-	if (request.query.categorie == 'electronique'){
-		response.render('addADS4', {
+
+	if (request.query.categorie == '5'){
+		return response.render('addADS4', {
 			layout: 'index',
 			loggedin: request.session.loggedin,
 			userInfo: request.session.userInfo,
 			userChosenInfo: request.session.userChosenInfo,
-
-		})
+		});
 	}
-
 });
 
 app.get('/add-ads/step1/step2/payement', (request, response) => {
@@ -424,7 +435,7 @@ app.get('/add-ads/step1/step2/payement', (request, response) => {
 	});
 });
 
-//categorie
+//categories
 app.get('/categories/:nom', (request, response) => {
 
 	var sql = "SELECT * FROM categorie, annonce where nom = ? and categorie.id = annonce.categorie_id and annonce.status = 1"
@@ -489,22 +500,7 @@ app.get('/annonce/:id', (request, response) => {
 	});
 });
 
-//favoris
-app.get('/favoris', function (request, response, next) {
-	var sql = 'SELECT * FROM annonce';
-	con.query(sql, function (err, data, fields) {
-		if (err) throw err;
-		response.render('favoris', {
-			layout: 'index',
-			loggedin: request.session.loggedin,
-			userInfo: request.session.userInfo,
-			userChosenInfo: request.session.userChosenInfo,
-			userData: data
-		});
-	});
-});
-
-//contact 
+//Afficher la page de contact 
 app.get('/contact', (request, response) => {
 	sql = "SELECT * FROM contact, utilisateur where contact.utilisateur_id = utilisateur.id"
 	con.query(sql, function (err, results, fields) {
@@ -521,21 +517,61 @@ app.get('/contact', (request, response) => {
 	})
 });
 
-app.post('/contact/add', (request, response) => {
-	sql = "INSERT INTO `contact` (`utilisateur_id`, `status`, `message`) values ( '"+ request.session.userInfo.id +"', '1', '" + request.body.message + "')";
+//Ajouter un commentaire
+app.post('/contact', (request, response) => {
+	let date_ob = new Date();
+	let date = ("0" + date_ob.getDate()).slice(-2);
+	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+	let year = date_ob.getFullYear();
+	let datefinal = year + "-" + month + "-" + date;
+
+	sql = "INSERT INTO `contact` (`utilisateur_id`, `status`, `message`, `date_creation`) values ( '"+ request.session.userInfo.id +"', '1', '" + request.body.message + "', '" + datefinal + "')";
 	if (request.session.loggedin == true) {
 		con.query(sql, function (err, results, fields) {
 			if (err) throw err;
-			else{
-				response.redirect('/contact');
-			}
-		})
+		});
+		response.redirect('/contact');
 		response.end();
 	}
 	else {
 		response.redirect('/signin');
 	}
 });
+
+//afficher la liste des favoris de chaque utilisateur connecté
+app.get('/favoris', function (request, response, next) {
+	var sql = 'select * from utilisateur, annonce, favoris where utilisateur.nom_utilisateur = ? and utilisateur.id = favoris.utilisateur_id and annonce.id = favoris.annonce_id';
+	con.query(sql, request.session.userInfo.nom_utilisateur ,function (err, data, fields) {
+		if (err) throw err;
+		response.render('favoris', {
+			layout: 'index',
+			loggedin: request.session.loggedin,
+			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
+			userData: data
+		});
+	});
+});
+
+//Ajouter une annonce à la liste des favoris 
+
+//Supprimer une annonce de la liste des favoris
+app.get('/favoris/delete/:id', (request, response) => {
+    itemId = request.params.id;
+	sql0 = "DELETE FROM favoris WHERE id = ?"
+    sql = `UPDATE categorie SET status = 1 where id = ?`;
+    con.query(sql0 , itemId,function (err, result, fields) {
+        if (err) throw err;
+		response.render('favoris', {
+			layout: 'index',
+            loggedin: request.session.loggedin,
+			catinfo: result
+		});
+    });
+	response.end();
+    response.redirect('/favoris'); 
+});
+
 
 app.listen(port, () => {
 	console.log(`App listening at http://localhost:${port}`)
