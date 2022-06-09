@@ -7,40 +7,45 @@
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const msg = urlParams.get('msg')
-    if (msg == "fillfields") {
-        document.write('<h2 class="text-red-600 font-bold">Please fill up all the fields</h2>');
+    if (msg == "oneinput") {
+        document.write('<h2 class="text-red-600 font-semibold md:ml-96">Vous devez remplir au moin une case </h2>');
     }
 
 </script>
 
-    <form action="/add-ads/step1/step2" method="get" class="pb-4 md:pb-8">
+    <form action="/add-ads/step1/step2" method="post" class="pb-4 md:pb-8">
 
         <div class="md:w-3/6 w-4/5 mx-auto gap-4 bg-white mt-2 pt-5 md:ml-96 pl-9  rounded-lg shadow-xl" >
 
             <div class="mt-2 ml-10 md:ml-32">
                 <div>
-                    <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
-                    <input type="text" name="nom" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                    <label for="type2" class="block text-sm font-medium text-gray-700">Type</label>
+                    <select id="type2" name="type2" class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm 
+                    focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm">
+                        <option name="1" value="vetements">Vetements</option>
+                        <option name="2" value="chaussures" >Chaussures</option>
+                        <option name="3" value="sacs_accessoires">Sacs et accessoires</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="taille" class="block text-sm font-medium text-gray-700">Taille</label>
+                    <input type="text" name="taille" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                </div>
+
+                <div class="">
+                    <label for="genre" class="block text-sm font-medium text-gray-700">Genre</label>
+                    <input type="text" name="genre" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
                 <div class="mt-4">
-                    <label for="marque" class="block text-sm font-medium text-gray-700">Taille</label>
-                    <input type="text" name="marque" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                    <label for="etat2" class="block text-sm font-medium text-gray-700">Etat</label>
+                    <input type="text" name="etat2" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
                 <div class="mt-4">
-                    <label for="modele" class="block text-sm font-medium text-gray-700">Genre</label>
-                    <input type="text" name="modele" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
-                </div>
-
-                <div class="mt-4">
-                    <label for="marque" class="block text-sm font-medium text-gray-700">Etat</label>
-                    <input type="text" name="marque" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
-                </div>
-
-                <div class="mt-4">
-                    <label for="modele" class="block text-sm font-medium text-gray-700">Couleur</label>
-                    <input type="text" name="modele" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                    <label for="couleur2" class="block text-sm font-medium text-gray-700">Couleur</label>
+                    <input type="text" name="couleur2" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
             </div>

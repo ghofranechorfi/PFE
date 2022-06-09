@@ -7,39 +7,41 @@
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const msg = urlParams.get('msg')
-    if (msg == "fillfields") {
-        document.write('<h2 class="text-red-600 font-bold">Please fill up all the fields</h2>');
+    if (msg == "oneinput") {
+        document.write('<h2 class="text-red-600 font-semibold md:ml-96">Vous devez remplir au moin une case </h2>');
     }
 
 </script>
 
-    <form action="/add-ads/step1/step2" method="get" class="pb-20 md:pb-20">
+    <form action="/add-ads/step1/step2" method="post" class="pb-20 md:pb-32">
 
         <div class="w-3/4 h-5/6 mx-auto gap-4 bg-white mt-4 pt-5 md:ml-96 pl-9 mb-12 rounded-lg shadow-xl md:w-2/5" >
 
             <div class="mt-6 ml-8 md:mt-10 md:ml-20">
                 <div>
-                    <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
-                    <input type="text" name="nom" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                    <label for="type1" class="block text-sm font-medium text-gray-700">Type</label>
+                    <select id="type1" name="type1" class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm 
+                    focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm">
+                        <option name="1" value="villa_maisons">Maison et villa</option>
+                        <option name="2" value="appartements" >Appartements</option>
+                    </select>
                 </div>
 
                 <div class="mt-4">
-                    <label for="marque" class="block text-sm font-medium text-gray-700">Superficie</label>
-                    <input type="text" name="marque" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                    <label for="superficie" class="block text-sm font-medium text-gray-700">Superficie</label>
+                    <input type="text" name="superficie" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
                 <div class="mt-4">
-                    <label for="modele" class="block text-sm font-medium text-gray-700">Nombre des chambres</label>
-                    <input type="text" name="modele" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                    <label for="nbrch" class="block text-sm font-medium text-gray-700">Nombre des chambres</label>
+                    <input type="text" name="nbrch" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
             </div>
 
             <div class="mt-10 ml-24 pb-5 md:ml-44">    
-                <button class="h-9 w-32 p-1 border rounded-md text-white" style="background-color: #00b906;">
-                    <a href="/add-ads/step1/step2/payement" class="font-semibold text-sm">
+                <button type="submit" class="h-9 w-32 p-1 border rounded-md text-white" style="background-color: #00b906;">
                     Suivant
-                    </a>
                 </button> 
             </div>
 

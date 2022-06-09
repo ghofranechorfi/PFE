@@ -1,72 +1,14 @@
 {{> header}}
 
-<div class='grid grid-cols-12 md:mb-44'>
-    <!--<div class="col-span-3 font-sans font-bold  ml-5 mt-5 w-72 mb-96" style="background-color: #f2f2f2; height:500px">
-        <div class="grid grid-rows-4 grid-flow-col min-h-screen items-center justify-items-start ">
-           
-            <div>  
-                <p class=" mt-6 text-xl text-bold text-black ml-20 ">Les categories</p>  
-                <select id="vehicule" name="vehicule" autocomplete="vehicule" 
-                    class="mt-8 h-12 w-54 py-2 px-3 bg-transparent 
-                    text-center text-lg ml-7 text-black text-semibold">
-                        <option>Véhicule</option>
-                        <option>Voiture</option>
-                        <option>Moto</option>
-                        <option>Bateau</option>
-                        <option>Camions</option>
-                        <option>Engins</option>
-                        <option>Pièces et accessoires</option>
-                        <option>Remorque et caravane</option>
-                </select>
+<div class="grid grid-cols-12 md:mb-44">
 
-                <select id="Immobilier" name="Immobilier" autocomplete="Immobilier" 
-                    class="mt-2 h-12 w-54 py-2 px-3 bg-transparent 
-                    text-center text-lg ml-7 text-black text-semibold">
-                    <option>Immobilier</option>
-                    <option>Appartements</option>
-                    <option>Maisons et Villas</option>
-                    <option>Locations de vacances</option>
-                    <option>Bureaux et Plateaux</option>
-                    <option>Terrains et Fermes</option>
-                    <option>Magasins</option>
-                    <option>Remorque et caravane</option>
-                </select>
-
-                <select id="Habillements" name="Habillements" autocomplete="Habillements" 
-                      class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
-                     text-center text-lg ml-7 text-black text-semibold">
-                    <option>Habillements</option>
-                    <option>vetments</option>
-                    <option>Chaussures</option>
-                    <option>montres et bijoux</option>
-                    <option>sacs et accessoires</option>
-                    <option>produits de beauté</option>
-                </select>
-
-                 <select id="Electronique" name="Electronique" autocomplete="Electronique" 
-                     class="mt-2 h-12 w-56 py-2 px-3 border-r bg-transparent rounded-md  
-                     text-center text-lg ml-7 text-black text-semibold">
-                    <option>Electronique</option>
-                    <option>Téléphone </option>
-                    <option>ordinateurs</option>
-                    <option>jeux vidéos</option>
-                    <option>appareils photos</option>
-                    <option>télévision</option>
-                    <option>tablette</option>
-                    <option>accesoires informatiques</option>
-                </select>
-                
-            </div>
-
-        </div>         
-    </div>-->
-    <div class="col-span-3">
+	<div class="col-span-3">
         {{> sidebarcategories}}
     </div>
-
-    <!-- Second column image -->
-    <div class=" banner col-span-9 text-white font-sans font-bold">
-        <main class="mt-8">
+	
+	<div class="banner col-span-9 text-white font-sans font-bold">
+	
+	<main class="mt-8">
                 
             <div class="container mx-auto px-6">
             
@@ -80,54 +22,135 @@
                 <div class="flex-rows mb-4 md:grid md:grid-cols-3 ">
 
                 {{#each catinfo}}
-                <div class="mt-6 md:mt-16 w-72 h-fit md:space-x-32">
-                    <a href="/annonce/{{this.id}}">
+                <div class="mt-6 md:mt-16 w-72 h-fit md:space-x-18">
+                    
                     <div class="border rounded-md shadow-md overflow-hidden">
-                        
-                        <div class="flex items-end justify-end h-56 w-full bg-cover">
-                            <img class="md:rounded-md mx-auto w-64 h-56 pt-2" src="{{this.photo_url1}}" alt="">
-                        </div>
-                        <div class="px-5 py-3">
-                            
-                            <h3 class="text-black">{{this.titre}} </h3>
-                            <span class="text-gray-800 mt-2">{{this.prix}} DT</span><br>
-                            <div class="text-black text-sm h-10 font-normal ">{{this.description}}</div>
-                        </div>
+                        <a href="/annonce/{{this.id}}">
+                            <div class="flex items-end justify-end h-56 w-full bg-cover">
+                                <img class="md:rounded-md mx-auto w-64 h-56 pt-2" src="{{this.photo_url1}}" alt="">
+                            </div>
+                            <div class="px-5 py-3">
+                                
+                                <h3 class="text-black">{{this.titre}} </h3>
+                                <span class="text-gray-800 mt-2">{{this.prix}} DT</span><br>
+                                <div class="text-black text-sm h-10 font-normal ">{{this.description}}</div>
+                            </div>
+                        </a>
 
-                        <div class="ml-20 mb-4">
-                            <button
-                                    class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                                </svg>
-                            </button>
-
-                            <button
-                            class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
-                            </svg>
-                            </button>
-
-                            <button
-                            class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                            </svg>
-                            </button>
-                        </div>
+                        <div class="flex flex-row justify-center mb-4 px-5">
+							<div class="flex flex-row justify-center w-60">
+								<div class="flex flex-row justify-center items-center reaction-box mr-8">
+									<span class="text-gray-800 mr-2 likes-count">{{this.likes}}</span>
+									<button class="btn-like text-gray-700 hover:text-green-600" >
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" /></svg>
+                                    </button>
+								</div>
+								<div class="flex flex-row justify-center items-center reaction-box">
+									<span class="text-gray-800 mr-2 dislikes-count">{{this.dislikes}}</span>
+									<button class="btn-dislike text-gray-700 hover:text-green-600" data-id="{{this.id}}">
+										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" /></svg>
+                                    </button>
+								</div>
+							</div>
+							<div class="w-40 text-right ">
+								<button class="text-gray-800 hover:text-red-600">
+                                    <a href="/favoris/add/{{id}}">
+									    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                                    </a>
+                                </button>
+							</div>
+						</div>
+							
                     </div>
-                    </a>
+                    
                 </div>   
                 {{/each}} 
                 </div>
 
             </div>
         </main>
-    </div>  
+	
+	</div>
 
 </div>
 
 {{> footer}}
+
+
+<!--{{> header}}
+
+<div class='grid grid-cols-12 md:mb-44'>
+    
+    <div class="col-span-3">
+        {{> sidebarcategories}}
+    </div>
+
+    <div class=" banner col-span-9 text-white font-sans font-bold">
+        <main class="mt-8">
+                
+            <div class="container mx-auto px-6">
+                
+                <select  class="h-8 w-24 ml-56 md:absolute md:right-20 border-r bg-gray-50 rounded-md shadow-xl text-center text-black">
+                    <option name="1" value="1">Trier par</option>
+                    <option name="2" value="2">
+                        <a href="/categories/vehicule/voitures/plusrecent"> 
+                            le plus récent
+                        </a> 
+                    </option>
+                    <option name="3" value="3">
+                        <a href="/categories/vehicule/voitures/prixbas">
+                            prix le plus bas
+                        </a>
+                    </option>
+                    <option name="4" value="4">prix le plus élévé</option>
+                </select>
+            
+                <div class="flex-rows mb-4 md:grid md:grid-cols-3 ">
+                    {{#each catinfo}}
+                        <div class="mt-6 md:mt-16 w-64 h-fit md:space-x-18">
+                            <a href="/annonce/{{this.id}}">
+                            <div class="border rounded-md shadow-md overflow-hidden">
+                                
+                                <div class="flex items-end justify-end h-56 w-full bg-cover">
+                                    <img class="md:rounded-md mx-auto w-96 h-56 pt-2" src="{{this.photo_url1}}" alt="">
+                                </div>
+                                <div class="px-5 py-3">   
+                                    <h3 class="text-black">{{this.titre}} </h3>
+                                    <span class="text-gray-800 mt-2">{{this.prix}} DT</span><br>
+                                    <div class="text-black text-sm h-10 font-normal ">{{this.description}}</div>
+                                </div>
+
+                                <div class="ml-16 mb-4">
+                                    <button class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                                        </svg>
+                                    </button>
+
+                                    <button class="p-2 rounded-full bg-gray-600 text-white hover:bg-gray-900 ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                                        </svg>
+                                    </button>
+
+                                    <button class="p-2 rounded-full bg-gray-600 text-white  hover:bg-gray-900 ">
+                                        <a href="/favoris/add/{{id}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                            </svg>
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                            </a>
+                        </div>   
+                    {{/each}} 
+                </div>
+            
+            </div>
+        </main>
+    </div>  
+
+</div>
+
+{{> footer}}-->

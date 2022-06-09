@@ -7,7 +7,7 @@
         <div class="md:w-full">
             {{> header}}
             <h1 class="text-xl font-semibold p-6">Liste des annonces</h1>   
-            <table class="w-96 md:w-4/5 ml-6 items-center bg-transparent border-collapse">
+            <table class="md:w-3/5 ml-6 items-center bg-transparent border-collapse">
                     <thead>
                         <tr>
                             <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
@@ -24,10 +24,6 @@
 
                             <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
                                 PHOTO
-                            </th>
-
-                            <th class="px-5 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                                TYPE
                             </th>
 
                             <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
@@ -59,11 +55,7 @@
                                 </td>
 
                                 <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    <img class="w-32 h-16" src="{{photo_url1}}" alt="">
-                                </td>
-                                        
-                                <td class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    {{type}}
+                                    <img class="w-28 h-16" src="{{photo_url1}}" alt="image de l'annonce ">
                                 </td>
                                         
                                 <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -81,8 +73,7 @@
                                 </td>
                         </tr>            
                     </tbody>
-                    {{/each}}
-                    
+                    {{/each}}   
             </table>
         </div>
     </div>

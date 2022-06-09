@@ -1,4 +1,20 @@
 {{> header}}
+<div id ="alert" class="md:w-full md:h-10 bg-green-50" style="display: none;">
+<p class="text-sm font-semibold p-2 color-green-800">Annonce ajoutée au favoris</p>
+</div>
+
+<script>
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const msg = urlParams.get('msg')
+    if (msg == "added") {
+        var div = document.getElementById("alert");
+        div.style.display= 'block';
+        setTimeout(function() {
+         div.style.display = 'none';
+        }, 2000);
+    }
+</script>
 
 <h1 class="ml-80 mt-6 mb-4 text-gray-900 font-semibold
 text-xl">Vos annonces favoris</h1>

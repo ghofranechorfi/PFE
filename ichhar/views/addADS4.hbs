@@ -7,39 +7,47 @@
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const msg = urlParams.get('msg')
-    if (msg == "fillfields") {
-        document.write('<h2 class="text-red-600 font-bold">Please fill up all the fields</h2>');
+    if (msg == "oneinput") {
+        document.write('<h2 class="text-red-600 font-semibold md:ml-96">Vous devez remplir au moin une case </h2>');
     }
 
 </script>
 
-    <form action="/add-ads/step1/step2" method="get" class="pb-10 md:pb-20">
+    <form action="/add-ads/step1/step2" method="post" class="pb-10 md:pb-44">
 
         <div class="w-4/5 mx-auto md:w-2/5 gap-4 bg-white mt-2 pt-5 md:ml-96 pl-9 mt-4 mb-12 rounded-lg shadow-xl" >
 
             <div class="mt-10 ml-10 md:ml-20">
                 <div>
-                    <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
-                    <input type="text" name="nom" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                    <label for="type3" class="block text-sm font-medium text-gray-700">Type</label>
+                    <select id="type3" name="type3" class="mt-1 block w-80 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm 
+                    focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm">
+                        <option name="1" value="telephones">Télephones</option>
+                        <option name="2" value="ordinateurs" >Ordinateurs</option>
+                        <option name="3" value="televisions">Télévisions</option>
+                    </select>
                 </div>
 
                 <div class="mt-4">
-                    <label for="etat" class="block text-sm font-medium text-gray-700">Etat</label>
-                    <input type="text" name="etat" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                    <label for="marque2" class="block text-sm font-medium text-gray-700">Marque</label>
+                    <input type="text" name="marque2" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
                 <div class="mt-4">
-                    <label for="couleur" class="block text-sm font-medium text-gray-700">Couleur</label>
-                    <input type="text" name="couleur" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                    <label for="etat3" class="block text-sm font-medium text-gray-700">Etat</label>
+                    <input type="text" name="etat3" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
+                </div>
+
+                <div class="mt-4">
+                    <label for="couleur3" class="block text-sm font-medium text-gray-700">Couleur</label>
+                    <input type="text" name="couleur3" class="py-1.5 px-3 border rounded-md mt-1 block w-60 md:w-80">
                 </div>
 
             </div>
 
             <div class="mt-10 pb-7 ml-24 md:ml-44">    
-                <button class="h-9 w-32 p-1 border rounded-md bg-blue-900 hover:bg-white text-white" style="background-color: #00b906;">
-                    <a href="/add-ads/step1/step2/payement" class="font-semibold text-sm">
+                <button type="submit" class="h-9 w-32 p-1 border rounded-md bg-blue-900 hover:bg-white text-white" style="background-color: #00b906;">
                     Suivant
-                    </a>
                 </button> 
             </div>
 

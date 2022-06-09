@@ -6,10 +6,10 @@
 
         <div class="md:w-full">
             {{> header}}
-            <h1 class="text-2xl font-semibold p-6 pl-10">Liste des annonces en attente</h1>
-            <div class="md:grid md:grid-cols-3">
+            <h1 class="text-xl font-semibold p-6 pl-10 italic">Liste des annonces en attente</h1>
+            <div class="md:grid md:grid-cols-3 mb-2">
                 {{#each annonceattenteinfo}}
-                        <div class="ml-10 mb-4 w-96 h-fit md:h-96 md:h-fit md:w-80 bg-white rounded-lg border border-gray-200 shadow-lg">
+                        <div class="ml-10 mb-2 w-96 h-fit md:h-full md:h-fit md:w-80 bg-white rounded-lg border border-gray-200 shadow-lg">
                             <a href="#">
                                 <img class="rounded-t-lg mx-auto mt-2 h-20 md:h-32" src="{{this.photo_url1}}" alt="" />
                             </a>
@@ -20,7 +20,15 @@
                                 <p class="mb-3 font-normal text-gray-700">{{this.description}}</p>
                                 <!--<p class="mb-3 font-normal text-gray-700">Situé à : {{this.ville}}</p>-->
                                 <p class="mb-3 font-normal text-gray-700">{{this.prix}} DT</p>
-                                <div class="flex space-x-4">
+                                
+                                <div class="mb-2">
+                                    <a href="/ichhar-admin/clients?id={{this.u_id}}" class="flex gap-3">
+                                    <img src="{{this.photo_url}}" class="h-8 w-8 rounded-full" alt="">
+                                    <p class="text-sm font-semibold mt-1"> {{this.nom}} {{this.prenom}} </p>
+                                    </a>
+                                </div>
+
+                                <div class="flex ml-10 space-x-4">
                                     <form method="post" action="/ichhar-admin/annoncesattentes/approuver/{{this.id}}">
                                     <a type="submit" href="/ichhar-admin/annoncesattentes/approuver/{{this.id}}" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-green-800">
                                     Approuver
