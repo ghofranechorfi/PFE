@@ -1,6 +1,6 @@
 <div>
 {{> header}}
-  <div class="flex justify-center mt-1/2" style="height:593px">
+  <div class="flex justify-center mt-1/2 h-full">
     <div class="xl:w-3/4 lg:w-11/12 md:flex grid grid-rows-2">
 
       <div class="md: h-full lg:block lg:w-80 bg-cover mt-1" style="background-color: #f2f2f2;">
@@ -8,9 +8,11 @@
       </div>
 
       <div class="w-full lg:w-7/12  p-5 lg:rounded-l-none" >
-        <p class="text-xl text-black font-semibold mt-2 mb-5 ml-5">Les annonces publiés :</p>
-        <div class="grid grid-cols-3 gap-64">
+      <p class="text-lg text-black font-semibold mt-2 mb-5 ml-5">Les annonces publiés par {{userChosenInfo.nom}} {{userChosenInfo.prenom}}:</p>
+        <div class="grid grid-cols-3 gap-x-64 gap-y-8">
+          {{#each userChosenInfo1}}
           {{> profileother}}
+          {{/each}}
         </div>
 
       </div>

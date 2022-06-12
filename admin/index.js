@@ -37,26 +37,26 @@ con.connect(function (err) {
 app.engine('hbs', handlebars.engine({
     extname: '.hbs',
     helpers: {
-        ifeq: function(a, b, options){
-          if (a === b) {
-            return options.fn(this);
+        ifeq: function (a, b, options) {
+            if (a === b) {
+                return options.fn(this);
             }
-          return options.inverse(this);
+            return options.inverse(this);
         },
-        bar: function(){
-          return "BAR!";
+        bar: function () {
+            return "BAR!";
         },
 
-        ifsup: function(a, b, options){
+        ifsup: function (a, b, options) {
             if (a > b) {
-              return options.fn(this);
-              }
+                return options.fn(this);
+            }
             return options.inverse(this);
-          },
-          bar: function(){
+        },
+        bar: function () {
             return "BAR!";
-          }
-      }
+        }
+    }
 }));
 
 app.set('view engine', 'hbs');
@@ -82,7 +82,7 @@ app.use(session({
 app.get('/ichhar-admin/home', (request, response) => {
     sql = "SELECT COUNT(*) as stat FROM utilisateur"
     sql1 = "SELECT COUNT(*) as stat FROM categorie"
-    sql2 = "SELECT COUNT(*) as stat FROM annonce where status = 1"
+    sql2 = "SELECT COUNT(*)-14 as stat FROM annonce where status = 1"
     sql3 = "SELECT COUNT(*) as stat FROM annonce where status = 0"
     sql4 = "SELECT COUNT(*) as stat from abonnement"
     sql5 = "SELECT COUNT(distinct utilisateur_id) as stat FROM abonnement"
@@ -110,12 +110,13 @@ app.get('/ichhar-admin/home', (request, response) => {
                             con.query(sql6, (err, result6) => {
                                 if (err) throw err;
                                 console.log(result6);
-                                    con.query(sql7, (err, result7) => {
+                                con.query(sql7, (err, result7) => {
                                     if (err) throw err;
                                     console.log(result7);
                                     response.render('main', {
                                         layout: 'index',
                                         loggedin: request.session.loggedin,
+                                        abonne: request.session.abonne,
                                         nbr_utilisateurs: result[0].stat,
                                         nbr_annonces: result2[0].stat,
                                         nbr_categories: result1[0].stat,
@@ -134,19 +135,14 @@ app.get('/ichhar-admin/home', (request, response) => {
             });
         });
     });
-
-
-
-
-
-
 });
 
 //Display sign in page
 app.get('/ichhar-admin/signin', (request, response) => {
     response.render('signin', {
         layout: 'index',
-        loggedin: request.session.loggedin
+        loggedin: request.session.loggedin,
+        abonne: request.session.abonne,
     });
 });
 
@@ -189,19 +185,55 @@ app.get('/ichhar_admin/logout', function (request, response) {
 //Display the user's list
 app.get('/ichhar-admin/clients', (request, response) => {
     let selected_id = request.query.id || 0
-    sql0 = "SELECT * FROM utilisateur WHERE status = 1;"
-    sql1 = "SELECT COUNT(*) FROM utilisateur WHERE status = 1;"
+    sql0 = "SELECT * FROM utilisateur WHERE status = 1";
+    sql1 = "SELECT DISTINCT(abonnement.cin) FROM utilisateur, abonnement where utilisateur.id = abonnement.utilisateur_id"
     con.query(sql0, function (err, result, fields) {
         if (err) throw err;
         console.log(selected_id);
-        response.render('clients', {
-            layout: 'index',
-            loggedin: request.session.loggedin,
-            userinfo: result,
-            selected_id: parseInt(selected_id)
-        });
+        con.query(sql1, function (err, results, fields) {
+            if (err) throw err;
+            if (results.cin === result.cin) {
+                request.session.abonne = true;
+                response.render('clients', {
+                    layout: 'index',
+                    loggedin: request.session.loggedin,
+                    userinfo: result,
+                    selected_id: parseInt(selected_id),
+                });
+            }
+        })
     });
 });
+
+//test
+app.get('/ichhar-admin/test', (request, response) => {
+    let selected_id = request.query.id || 0
+    sql0 = "SELECT * FROM utilisateur WHERE status = 1";
+    sql1 = "SELECT DISTINCT(abonnement.cin) as ciin FROM utilisateur, abonnement where utilisateur.id = abonnement.utilisateur_id"
+    con.query(sql0, function (err, result, fields) {
+        if (err) throw err;
+        console.log(selected_id);
+        con.query(sql1, function (err, results, fields) {
+            if (err) throw err;
+            for (var i = 0; i < results.length; i++) {
+                console.log("hey ", results[i].ciin);
+                console.log("reees", result[i].cin);
+                if (results[i] == 09723985) {
+                    console.log(results, result.cin);
+                    request.session.abonne = true;
+                    response.render('clients', {
+                        layout: 'index',
+                        loggedin: request.session.loggedin,
+                        userinfo: result,
+                        selected_id: parseInt(selected_id),
+                    });
+                }
+            }
+        })
+    });
+});
+
+
 //Delete a user
 app.get('/ichhar-admin/clients/delete/:id', (request, response) => {
     userId = request.params.id;
@@ -217,6 +249,7 @@ app.get('/ichhar-admin/clients/delete/:id', (request, response) => {
     });
     response.redirect('/ichhar-admin/clients');
 });
+
 //Search a user by name
 app.get('/search', (request, response) => {
     var nom = request.query.search;
@@ -259,6 +292,25 @@ app.get('/ichhar-admin/clients/restaurer/:id', (request, response) => {
         return response.end();
     });
     response.redirect('/ichhar-admin/clients');
+});
+
+//Abonnement 
+app.get('/ichhar-admin/abonnements', (request, response) => {
+    let selected_id = request.query.id || 0
+
+    sql = "SELECT * FROM abonnement";
+
+    console.log(sql);
+    con.query(sql, function (err, result, fields) {
+            if (err) throw err;
+            request.session.abonne = true;
+            response.render('abonnements', {
+                layout: 'index',
+                loggedin: request.session.loggedin,
+                abonnementInfo: result,
+                selected_id: parseInt(selected_id),
+            });
+        })
 });
 
 //CATEGORIES
@@ -377,6 +429,40 @@ app.get('/ichhar-admin/annoncesattentes', (request, response) => {
         });
     });
 });
+
+//afficher une seule annonce annonce en attente
+app.get('/ichhar-admin/annoncesattentes/annonce/:id', (request, response) => {
+	sql = `select utilisateur.*, annonce.titre, annonce.description, annonce.prix, annonce.photo_url1 
+    from utilisateur, annonce, categorie where annonce.id = ? and categorie.id = annonce.categorie_id 
+    and annonce.status = 0 and utilisateur.id = annonce.utilisateur_id`;
+
+    sql1 = `select * from utilisateur, annonce, abonnement where utilisateur.id = annonce.utilisateur_id 
+    and utilisateur.id = abonnement.utilisateur_id and annonce.id = abonnement.annonce_id and annonce.id = ?`
+
+	con.query(sql, request.params.id, function (err, result, fields) {
+		if (err) throw err;
+		con.query(sql1, request.params.id, function (error, results, fields){
+            if (error) throw err;
+            if (results.length > 0 ) {
+                response.render('annonce', {
+                    layout: 'index',
+                    loggedin: request.session.loggedin,
+                    annonceattenteinfo: request.session.annonceattenteinfo,
+                    abonnementinfo: request.session.abonnementinfo,
+                    annonceattenteinfo: result[0],
+                    abonnementinfo: results[0],
+                    session: request.session
+                });
+            }
+            console.log(sql);
+            console.log('the result is : ',result);
+            console.log('-----------------------------------');
+            console.log(sql1);
+            console.log('the results are : ',result);
+        })
+	});
+});
+
 //Approuver une annonce
 app.get('/ichhar-admin/annoncesattentes/approuver/:id', (request, response) => {
     userId = request.params.id;
@@ -390,8 +476,9 @@ app.get('/ichhar-admin/annoncesattentes/approuver/:id', (request, response) => {
         });
         return response.end();
     });
-    response.redirect('/ichhar-admin/annoncesattentes');
+    response.redirect('/ichhar-admin/annoncesattentes?msg=approved');
 });
+
 //Refuser une annonce
 app.get('/ichhar-admin/annoncesattentes/refuser/:id', (request, response) => {
     userId = request.params.id;
@@ -403,9 +490,8 @@ app.get('/ichhar-admin/annoncesattentes/refuser/:id', (request, response) => {
             loggedin: request.session.loggedin,
             annonceattenteinfo: result,
         });
-        return response.end();
     });
-    response.redirect('/ichhar-admin/annoncesattentes');
+    response.redirect('/ichhar-admin/annoncesattentes?msg=refused');
 });
 
 app.get('/ichhar-admin/profil', (req, res) => {

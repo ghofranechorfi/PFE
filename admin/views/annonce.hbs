@@ -1,0 +1,45 @@
+<div>
+    <div class="md:flex">
+        <div>
+            {{> sidebar}}
+        </div>
+
+        <div class="md:w-full">
+            {{> header}}
+
+            <div style='background-color:rgba(0, 0, 0, 0)'>
+<div class="container px-5 py-10 mx-auto" style="cursor: auto;">
+    <form method="get" action="/ichhar-admin/annoncesattentes/annonce" class="lg:w-4/5 mx-auto flex flex-wrap">
+    <div class="lg:w-1/2 w-full lg:h-auto h-64">
+    <img alt="photo de l'annonce " class="w-full h-full" src="{{annonceattenteinfo.photo_url1}}" style="cursor: auto;">
+    </div>
+    <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0" style="cursor: auto;">
+        <h2 class="text-md title-font text-gray-500 tracking-widest" style="cursor: auto;">+ Informations personnelles de l'annonceur </h2>
+            <p class="leading-relaxed text-md title-font">NOM COMPLET : {{annonceattenteinfo.nom}} {{annonceattenteinfo.prenom}}</p>
+            <p class="leading-relaxed text-md title-font">NUMERO DE TELEPHONE : {{annonceattenteinfo.telephone}}</p>
+            <p class="leading-relaxed text-md title-font">EMAIL : {{annonceattenteinfo.email}}</p>
+            <p class="leading-relaxed text-md title-font mb-2">VILLE : {{annonceattenteinfo.ville}}</p>
+
+        <h2 class="text-md title-font text-gray-500 tracking-widest" style="cursor: auto;">+ Informations de l'annonce </h2>
+        <h1 class="text-gray-900 text-lg title-font font-normal" style="cursor: auto;"> <span class="leading-relaxed text-md title-font"> Titre : </span> {{annonceattenteinfo.titre}}</h1>
+        <h1 class="text-gray-900 text-lg title-font font-normal" style="cursor: auto;"> <span class="leading-relaxed text-md title-font"> Description : </span> {{annonceattenteinfo.description}}</h1>
+        <span class="text-gray-900 text-lg title-font font-normal" style="cursor: auto;"> <span class="leading-relaxed text-md title-font"> Prix : </span> {{annonceattenteinfo.prix}} DT</span>
+      
+        <h2 class="text-md title-font text-gray-500 tracking-widest mt-2" style="cursor: auto;">+ Informations de l'abonnement </h2>
+      <div>
+        {{#if abonnementinfo}}
+        <h1 class="text-green-800 font-medium title-font">Paiement effectué</h1>
+        <h1 class="text-gray-900 text-lg title-font font-normal">CIN: {{abonnementinfo.cin}}</h1>
+        <h1 class="text-gray-900 text-lg title-font font-normal">Nombre de la carte : {{abonnementinfo.nbrcarte}}</h1>
+        <h1 class="text-gray-900 text-lg title-font font-normal">Date de création : Jun 12 2022</h1>
+        <h1 class="title-font font-normal text-lg text-gray-900">Montant :{{abonnementinfo.montant}} DT</h1>
+        <h1 class="text-gray-900 text-lg title-font font-normal">Durée : {{abonnementinfo.duree}} jours</h1>
+        {{else}}
+        <h1 class="text-red-800 font-medium title-font">Paiement n'est pas effectué</h1>
+        {{/if}}
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+</div>

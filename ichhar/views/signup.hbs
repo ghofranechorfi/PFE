@@ -1,5 +1,5 @@
 <body class="bg-gray-50">
-  <form action="/signup" method="POST" 
+  <form action="/signup" method="POST" enctype="multipart/form-data"
     class="w-96 bg-white rounded-lg shadow-xl mt-6 mb-6 md:mt-4 ml-10 md:w-3/5 md:grid md:grid-cols-2 md:gap-4 md:mx-auto">
      <h1 style="color: #393e46;" class="text-2xl text-center pt-6 font-bold md:ml-80 ">
       S'inscrire
@@ -127,7 +127,7 @@
       <div class="flex justify-center w-72">
         <div class="">
           <label for="formFile" class="form-label inline-block text-sm font-medium mt-4 mb-2 text-gray-700">Télecharger une image</label>
-          <input class="form-control
+          <input name="image" class="form-control
           block
           w-full
           px-2

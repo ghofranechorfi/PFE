@@ -1,14 +1,12 @@
 <div>
     <div class="md:flex">
-        <div>
-            {{> sidebar}}
-        </div>
-        
+        <div> {{> sidebar}} </div>
         <div class="md:w-full">
             {{> header}}
-            <h1 class="text-xl font-semibold p-6">Liste des annonces</h1>   
-            <table class="md:w-3/5 ml-6 items-center bg-transparent border-collapse">
-                    <thead>
+            <h1 class="text-xl font-semibold p-6 italic">Liste des annonces publiées</h1>   
+            <table class="md:w-11/12 ml-6 items-center bg-transparent border-collapse">
+
+                <thead>
                         <tr>
                             <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
                                 ID
@@ -18,7 +16,7 @@
                                 TITRE
                             </th>
 
-                            <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
+                            <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 font-semibold text-left bg-blue-800 text-white border-blue-700">
                                 DESCRIPTION
                             </th>
 
@@ -38,42 +36,43 @@
                                 Action
                             </th>
                         </tr>
-                    </thead>
+                </thead>
 
-                    {{#each annonceinfo}}
-                    <tbody>
+                {{#each annonceinfo}}
+                <tbody>
                         <tr>
-                            <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                            <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-left flex items-center">
                                 {{id}}
                             </th>
-                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                     {{titre}}
                                 </td>
 
-                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <td class="border-t-0 px-10 align-middle border-l-0 border-r-0 text-md p-4">
                                     {{description}}
                                 </td>
 
-                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                     <img class="w-28 h-16" src="{{photo_url1}}" alt="image de l'annonce ">
                                 </td>
                                         
-                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                     {{prix}}
                                 </td>
                                         
-                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                     {{telephone}}
                                 </td>
 
-                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                    <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center border border-blue-400 bg-blue-400"> 
+                                <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-right">
+                                    <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center border border-red-500 bg-red-500 hover:bg-red-700"> 
                                         Supprimer 
                                     </button>
                                 </td>
                         </tr>            
-                    </tbody>
-                    {{/each}}   
+                 </tbody>
+                {{/each}} 
+
             </table>
         </div>
     </div>

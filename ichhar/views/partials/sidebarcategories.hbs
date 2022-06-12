@@ -7,9 +7,11 @@
     style="background-color: #f2f2f2;"
   ></i>
 </span>
+
 <div
   class="sidebar absolute md:h-full md:mt-1 p-2 w-72 overflow-y-auto text-center"
-  style="background-color: #f2f2f2;">
+  style="background-color: #f2f2f2;"
+>
 
   <div class="text-gray-900 text-xl">
     <div class="p-2.5 mt-1 flex items-center">
@@ -22,156 +24,150 @@
     <div class="my-2 bg-gray-600 h-[1px]"></div>
   </div>
 
-  
   <div class="my-4 bg-gray-600 h-[1px]"></div>
-    <div
-        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
-        onclick="dropdown()"
-    >
-        <div class="flex justify-between w-full items-center">
-        <span name="vehicule" class="text-[15px] ml-4 text-black font-bold">Véhicule</span>
-        <span class="text-sm text-black rotate-180" id="arrow">
-            <i class="bi bi-chevron-down"></i>
-        </span>
-        </div>
+  <div
+    class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
+    onclick="dropdown()"
+  >
+    <div class="flex justify-between w-full items-center">
+      <span
+        name="vehicule"
+        class="text-[15px] ml-4 text-black font-bold"
+      >Véhicule</span>
+      <span class="text-sm text-black rotate-180" id="arrow">
+        <i class="bi bi-chevron-down"></i>
+      </span>
     </div>
-    <div
-        class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
-        id="submenu"
-    >
-        <h1 name="voitures" class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-            Voitures
-        </h1>
-        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-          <a href="/categories/vehicule/motos">
-            Motos
-          </a>        
-        </h1>
-        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-          <a href="/categories/vehicule/camions">
-            Camions
-          </a> 
-        </h1>
-    </div>
+  </div>
+  <div
+    class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
+    id="submenu"
+  >
+    {{#each userInfo.vehicule}}
+      <h1
+        name="{{this.type}}"
+        class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1"
+      >
 
-    <!--//////////////-->
-    <div class="my-4 bg-gray-600 h-[1px]"></div>
-    <div
-        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
-        onclick="dropdown1()"
-    >
-        <div class="flex justify-between w-full items-center">
-        <span class="text-[15px] ml-4 text-black font-bold">Immobilier</span>
-        <span class="text-sm text-black rotate-180" id="arrow">
-            <i class="bi bi-chevron-down"></i>
-        </span>
-        </div>
-    </div>
-    <div
-        class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
-        id="submenu1"
-    >
-        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-          Appartements
-        </h1>
-        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-          <a href="/categories/immobilier/villa">
-            Maisons et Villas
-          </a>
-        </h1>
-    </div>
-
-    <!--//////////////-->
-    <div class="my-4 bg-gray-600 h-[1px]"></div>
-    <div
-        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
-        onclick="dropdown2()"
-    >
-        <div class="flex justify-between w-full items-center">
-        <span class="text-[15px] ml-4 text-black font-bold">Habillement</span>
-        <span class="text-sm text-black rotate-180" id="arrow">
-            <i class="bi bi-chevron-down"></i>
-        </span>
-        </div>
-    </div>
-    <div
-        class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
-        id="submenu2"
-    >
-        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-          Vetments
-        </h1>
-        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-          <a href="/categories/habillement/chaussures">
-          Chaussures
-          </a>
-        </h1>
-        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-          <a href="/categories/habillement/sacsetaccessoires">
-          Sacs et accessoires
-          </a>
-        </h1>
-    </div>
-
-
-    <!--//////////////-->
-    <div class="my-4 bg-gray-600 h-[1px]"></div>
-    <div
-        class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
-        onclick="dropdown3()"
-    >
-        <div class="flex justify-between w-full items-center">
-        <span name="electronique" class="text-[15px] ml-4 text-black font-bold">Electronique</span>
-        <span class="text-sm text-black rotate-180" id="arrow">
-            <i class="bi bi-chevron-down"></i>
-        </span>
-        </div>
-    </div>
-    <div
-        class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
-        id="submenu3">
-        <h1 name="telephone" class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-          Téléphones
-        </h1>
-        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-        <a href="/categories/electronique/ordinateurs">
-          Ordinateurs
+        <a href="/categories/vehicule/{{this.type}}">
+          {{this.type}}
         </a>
-        </h1>
-        <h1 class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1">
-        <a href="/categories/electronique/televisions">
-          Télévisions
-        </a>
-        </h1>
+
+      </h1>
+    {{/each}}
+
+  </div>
+
+  <!--//////////////-->
+  <div class="my-4 bg-gray-600 h-[1px]"></div>
+  <div
+    class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
+    onclick="dropdown1()"
+  >
+    <div class="flex justify-between w-full items-center">
+      <span class="text-[15px] ml-4 text-black font-bold">Immobilier</span>
+      <span class="text-sm text-black rotate-180" id="arrow">
+        <i class="bi bi-chevron-down"></i>
+      </span>
     </div>
+  </div>
+  <div
+    class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
+    id="submenu1"
+  >
+    {{#each userInfo.immobilier}}
+      <h1
+        name="{{this.type}}"
+        class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1"
+      >
+
+        <a href="/categories/immobilier/{{this.type}}">
+          {{this.type_name}}
+        </a>
+
+      </h1>
+    {{/each}}
+  </div>
+
+  <!--//////////////-->
+  <div class="my-4 bg-gray-600 h-[1px]"></div>
+  <div
+    class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
+    onclick="dropdown2()"
+  >
+    <div class="flex justify-between w-full items-center">
+      <span class="text-[15px] ml-4 text-black font-bold">Habillement</span>
+      <span class="text-sm text-black rotate-180" id="arrow">
+        <i class="bi bi-chevron-down"></i>
+      </span>
+    </div>
+  </div>
+  <div
+    class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
+    id="submenu2"
+  >
+    {{#each userInfo.habillement}}
+      <h1
+        name="{{this.type}}"
+        class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1"
+      >
+
+        <a href="/categories/habillement/{{this.type}}">
+          {{this.type}}
+        </a>
+
+      </h1>
+    {{/each}}
+  </div>
+
+  <!--//////////////-->
+  <div class="my-4 bg-gray-600 h-[1px]"></div>
+  <div
+    class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-gray-300 text-white"
+    onclick="dropdown3()"
+  >
+    <div class="flex justify-between w-full items-center">
+      <span
+        name="electronique"
+        class="text-[15px] ml-4 text-black font-bold"
+      >Electronique</span>
+      <span class="text-sm text-black rotate-180" id="arrow">
+        <i class="bi bi-chevron-down"></i>
+      </span>
+    </div>
+  </div>
+  <div
+    class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
+    id="submenu3"
+  >
+    {{#each userInfo.electronique}}
+      <h1
+        name="{{this.type}}"
+        class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1"
+      >
+        <a href="/categories/electronique/{{this.type}}">
+          {{this.type}}
+        </a>
+
+      </h1>
+    {{/each}}
+  </div>
 
 </div>
 
 <script type="text/javascript">
   function dropdown() {
-    document.querySelector("#submenu").classList.toggle("hidden");
-    document.querySelector("#arrow").classList.toggle("rotate-0"); 
-  } 
-  dropdown();
-
+  document.querySelector("#submenu").classList.toggle("hidden");
+  document.querySelector("#arrow").classList.toggle("rotate-0"); } dropdown();
   function dropdown1() {
-    document.querySelector("#submenu1").classList.toggle("hidden");
-    document.querySelector("#arrow").classList.toggle("rotate-0"); 
-  } 
-  dropdown1();
-
-    function dropdown2() {
-    document.querySelector("#submenu2").classList.toggle("hidden");
-    document.querySelector("#arrow").classList.toggle("rotate-0"); 
-  } 
-  dropdown2();
-
+  document.querySelector("#submenu1").classList.toggle("hidden");
+  document.querySelector("#arrow").classList.toggle("rotate-0"); } dropdown1();
+  function dropdown2() {
+  document.querySelector("#submenu2").classList.toggle("hidden");
+  document.querySelector("#arrow").classList.toggle("rotate-0"); } dropdown2();
   function dropdown3() {
-    document.querySelector("#submenu3").classList.toggle("hidden");
-    document.querySelector("#arrow").classList.toggle("rotate-0"); 
-  } 
-  dropdown3();
-
+  document.querySelector("#submenu3").classList.toggle("hidden");
+  document.querySelector("#arrow").classList.toggle("rotate-0"); } dropdown3();
   function openSidebar() {
   document.querySelector(".sidebar").classList.toggle("hidden"); }
 </script>

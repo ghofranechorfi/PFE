@@ -20,6 +20,7 @@ const hbs = handlebars.create({
 
 //database connection
 var con = mysql.createConnection({
+	multipleStatements: true,
 	host: "localhost",
 	user: "root",
 	password: "",
@@ -28,6 +29,19 @@ var con = mysql.createConnection({
 con.connect(function (err) {
 	if (err) throw err;
 	console.log("Connected!");
+});
+
+var storage = multer.diskStorage ({
+	destination : function (req, file, cb){
+		cb(null, "./public/src/images");
+	},
+	filename: function (req, file, cb){
+		return cb(null, file.fieldname + '_' + Date.now() + path.extname (file.originalname));
+	}
+});
+
+var upload = multer({
+	storage: storage
 });
 
 app.engine('hbs', handlebars.engine({
@@ -78,7 +92,7 @@ app.use(cookieParser());
 
 
 app.use(express.static('public'));
-
+app.use('./public/src/images', express.static('public/src/images'));
 
 //page d'accueil
 app.get('/', function (request, response) {
@@ -110,19 +124,38 @@ app.post('/signin', function (request, response) {
 			if (error) throw error;
 			// If the account exists
 			if (results.length > 0) {
-				// Authenticate the user
-				request.session.loggedin = true;
-				request.session.email = email;
-				request.session.nom_utilisateur = results[0].nom_utilisateur;
-				request.session.userInfo = results[0];
-				request.session.id = results[0].id;
-				console.log("user's id is : " + results[0].id);
-				// Redirect to home page
-				response.redirect('/');
+
+				let sqlS = `
+				SELECT DISTINCT type FROM vehicule;
+				SELECT DISTINCT type, type_name FROM immobilier;
+				SELECT DISTINCT type FROM habillement;
+				SELECT DISTINCT type FROM electronique;
+				`;
+
+				con.query(sqlS, function (err, resultType, fields) {
+					if (err) throw err;
+					// Authenticate the user
+					request.session.loggedin = true;
+					request.session.email = email;
+					request.session.nom_utilisateur = results[0].nom_utilisateur;
+					request.session.userInfo = results[0];
+					request.session.id = results[0].id;
+
+					request.session.userInfo.vehicule = resultType[0];
+					request.session.userInfo.immobilier = resultType[1];
+					request.session.userInfo.habillement = resultType[2];
+					request.session.userInfo.electronique = resultType[3];
+
+					console.log("user's id is : " + results[0].id);
+					// Redirect to home page
+					response.redirect('/');
+				});
+
+
 			} else {
 				response.redirect('/signin?msg=errorlogin');
 			}
-			response.end();
+			//response.end();
 		});
 	} else {
 		response.redirect('/signin?msg=fillfields');
@@ -139,7 +172,7 @@ app.get('/signup', (request, response) => {
 	});
 });
 
-app.post('/signup', function (request, response) {
+app.post('/signup', upload.single('image'), function (request, response) {
 	let date_ob = new Date();
 	let date = ("0" + date_ob.getDate()).slice(-2);
 	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
@@ -147,8 +180,9 @@ app.post('/signup', function (request, response) {
 	let datefinal = year + "-" + month + "-" + date;
 
 	request.session.datefinal = datefinal;
+	let image = request.file.filename;
 
-	var sql = "INSERT INTO `utilisateur`(`cin`,`nom`,`prenom`, `nom_utilisateur`, `ville`,`telephone`,`email`, `password`, `status`, `date_creation`) VALUES ('" + request.body.cin + "','" + request.body.nom + "','" + request.body.prenom + "','" + request.body.nom_utilisateur + "','" + request.body.ville + "','" + request.body.telephone + "','" + request.body.email + "','" + request.body.password + "', 1,'" + datefinal + "')";
+	var sql = "INSERT INTO `utilisateur`(`cin`,`nom`,`prenom`, `nom_utilisateur`, `ville`,`telephone`,`email`, `password`, `photo_url`, `status`, `date_creation`) VALUES ('" + request.body.cin + "','" + request.body.nom + "','" + request.body.prenom + "','" + request.body.nom_utilisateur + "','" + request.body.ville + "','" + request.body.telephone + "','" + request.body.email + "','" + request.body.password + "', '" + image + "', 1,'" + datefinal + "')";
 	var sql0 = "SELECT * FROM utilisateur where cin = ?"
 	var sql1 = "SELECT * FROM utilisateur WHERE email = ?"
 	var sql2 = "SELECT * FROM utilisateur WHERE nom_utilisateur = ?"
@@ -243,23 +277,24 @@ app.get('/search', (request, response) => {
 });
 
 ///////////teeeeeeeeeeeest
-app.get('/test/id', (request, response) => {
-	var sql = "SELECT favoris.annonce_id as fav, favoris.date_creation FROM favoris, utilisateur where utilisateur.id = ? and utilisateur.id = favoris.utilisateur_id "
-	con.query(sql, request.session.userInfo.id, function (error, results, fields) {
-		if (error) {
-			console.log(error);
-		}
-		console.log(results.length);
-		for (var i = 0; i < results.length; i++) {
-			console.log(JSON.stringify(results[i].fav));
-			if (JSON.stringify(results[i].fav) == '4') {
-				console.log("nope ddeja existe");
-				break;
-			}
+app.get('/profile/gh/:nom_utilisateur', (request, response) => {
+	sql0 = "SELECT * FROM utilisateur"
+	con.query(sql0, request.params.nom_utilisateur, function (err, result, fields) {
+		response.render('test', {
+			layout: 'index',
+			loggedin: request.session.loggedin,
+			email: request.session.email,
+			datefinal: request.session.datefinal,
+			nom: request.session.nom,
+			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
+			userChosenInfo: result[0],
+			session: request.session
+		});
+		console.log(result);
+	});
+});
 
-		}
-	})
-})
 
 ///////////teeeeeeeeeeeest
 app.get('/checkusername/:nom', (request, response) => {
@@ -282,13 +317,12 @@ app.get('/checkusername/:nom', (request, response) => {
 app.get('/profile/:nom_utilisateur', (request, response) => {
 	sql0 = "SELECT * FROM utilisateur, annonce where nom_utilisateur = ? and utilisateur.id = annonce.utilisateur_id and annonce.status = 1 "
 	sql1 = "SELECT * FROM utilisateur where nom_utilisateur = ? "
-	//sql = "SELECT * FROM utilisateur, annonce where nom_utilisateur = ?"
 	con.query(sql0, request.params.nom_utilisateur, function (err, result, fields) {
 		if (err) throw err;
-		console.log('Current Profile CIN: ' + result[0].cin);
 		if ((request.session.userInfo !== undefined) && (request.session.userInfo.cin === result[0].cin)) {
-			console.log('Session CIN: ' + request.session.userInfo.cin);
 			console.log('Its my profile');
+			console.log('Current Profile CIN: ' + result[0].cin);
+			console.log('Session CIN: ' + request.session.userInfo.cin);
 			response.render('profile_me', {
 				layout: 'index',
 				loggedin: request.session.loggedin,
@@ -301,6 +335,7 @@ app.get('/profile/:nom_utilisateur', (request, response) => {
 			});
 		} else {
 			console.log('Its someone elses profile');
+			console.log('Current Profile CIN: ' + result[0].cin);
 			response.render('profile_other', {
 				layout: 'index',
 				loggedin: request.session.loggedin,
@@ -309,11 +344,12 @@ app.get('/profile/:nom_utilisateur', (request, response) => {
 				nom: request.session.nom,
 				userInfo: request.session.userInfo,
 				userChosenInfo: request.session.userChosenInfo,
-				userChosenInfo: result,
+				userChosenInfo1: request.session.userChosenInfo1,
+				userChosenInfo: result[0],
+				userChosenInfo1: result,
 				session: request.session
 			});
-
-			console.log("the nbr of results is ", result.length);
+			console.log("the nbr of published ads of this user is : ", result.length);
 		}
 	});
 });
@@ -371,7 +407,18 @@ app.get('/profile/:nom_utilisateur/annonces', (request, response) => {
 	});
 });
 
-//supprimer une annonce
+//Supprimer votre compte 
+app.get('/profile/delete/:nom_utilisateur', (request, response) => {
+	nom_utilisateur = request.params.nom_utilisateur;
+	sql0 = "DELETE FROM utilisateur WHERE nom_utilisateur = ?"
+	con.query(sql0, nom_utilisateur, function (err, result, fields) {
+		if (err) {
+			console.log(err);
+		} else {
+			return response.redirect('/');
+		}
+	});
+});
 
 
 //Ajouter une annonce
@@ -596,6 +643,11 @@ app.post('/add-ads/step1/step2/payement', (request, response) => {
 	}
 });
 
+//Modifier une annonce
+
+//supprimer une annonce
+
+
 //categories
 app.get('/categories/:nom', (request, response) => {
 	var sql = "SELECT * FROM categorie, annonce where nom = ? and categorie.id = annonce.categorie_id and annonce.status = 1"
@@ -644,7 +696,7 @@ app.get('/categories/:nom', (request, response) => {
 	});
 });
 
-//sous-catégories
+//filtrer les catégories par le type choisi 
 app.get('/categories/:nom/:type', (request, response) => {
 
 	var sql = "SELECT * FROM categorie, annonce, " + request.params.nom + " where categorie.nom =  ?  and categorie.id = annonce.categorie_id and categorie.id = " + request.params.nom + ".categorie_id and " + request.params.nom + ".annonce_id = annonce.id and " + request.params.nom + ".type = ? and annonce.status = 1 "
@@ -653,6 +705,112 @@ app.get('/categories/:nom/:type', (request, response) => {
 		if (err) throw err;
 		if (request.params.nom == 'vehicule') {
 			if (request.params.type == 'motos') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+			if (request.params.type == 'voitures') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+			if (request.params.type == 'camions') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+		}
+		if (request.params.nom == 'immobilier') {
+			if (request.params.type == 'villa_maisons') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+			if (request.params.type == 'appartements') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+		}
+		if (request.params.nom == 'habillement') {
+			if (request.params.type == 'vetements') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+			if (request.params.type == 'chaussures') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+			if (request.params.type == 'sacsaccessoires') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+		}
+		if (request.params.nom == 'electronique') {
+			if (request.params.type == 'telephones') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+			if (request.params.type == 'televisions') {
+				response.render('categorie', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					nomm: request.session.nom,
+					catinfo: result
+				});
+			}
+			if (request.params.type == 'ordinateurs') {
 				response.render('categorie', {
 					layout: 'index',
 					loggedin: request.session.loggedin,
@@ -701,21 +859,19 @@ app.get('/annonce/delete/:id', (request, response) => {
 app.post('/like', (request, response) => {
 	let annonceId = request.body.id;
 	sqlInc = "UPDATE annonce SET likes = likes + 1 where id = ?";
-	con.query(sqlInc , annonceId, function (err, result, fields) {
-		if(err) {
+	con.query(sqlInc, annonceId, function (err, result, fields) {
+		if (err) {
 			response.json({
 				"status": 'error'
 			});
-		}
-		else {
+		} else {
 			let sqlCount = "SELECT likes FROM annonce WHERE id = ?";
-			con.query(sqlCount , annonceId, function (err, result, fields) {
-				if(err) {
+			con.query(sqlCount, annonceId, function (err, result, fields) {
+				if (err) {
 					response.json({
 						"status": 'error'
 					});
-				}
-				else {
+				} else {
 					response.json({
 						"status": 'success',
 						"newCount": result[0].likes
@@ -730,21 +886,19 @@ app.post('/like', (request, response) => {
 app.post('/dislike', (request, response) => {
 	let annonceId = request.body.id;
 	sqlInc = "UPDATE annonce SET dislikes = dislikes + 1 where id = ?";
-	con.query(sqlInc , annonceId, function (err, result, fields) {
-		if(err) {
+	con.query(sqlInc, annonceId, function (err, result, fields) {
+		if (err) {
 			response.json({
 				"status": 'error'
 			});
-		}
-		else {
+		} else {
 			let sqlCount = "SELECT dislikes FROM annonce WHERE id = ?";
-			con.query(sqlCount , annonceId, function (err, result, fields) {
-				if(err) {
+			con.query(sqlCount, annonceId, function (err, result, fields) {
+				if (err) {
 					response.json({
 						"status": 'error'
 					});
-				}
-				else {
+				} else {
 					response.json({
 						"status": 'success',
 						"newCount": result[0].dislikes
@@ -769,32 +923,30 @@ app.get('/contact', (request, response) => {
 					if (err) throw err;
 					else {
 						response.render('contact', {
-						layout: 'index',
-						loggedin: request.session.loggedin,
-						userInfo: request.session.userInfo,
-						userChosenInfo: request.session.userChosenInfo,
-						contactinfo: results1,
-						connectedcontactinfo : results,
-						len : results.length
+							layout: 'index',
+							loggedin: request.session.loggedin,
+							userInfo: request.session.userInfo,
+							userChosenInfo: request.session.userChosenInfo,
+							contactinfo: results1,
+							connectedcontactinfo: results,
+							len: results.length
 						});
 					}
 				});
-			}	
+			}
 		});
-	}
-
-	else if ((request.session.loggedin == false) || (request.session.userInfo.id == undefined)) {
+	} else if ((request.session.loggedin == false) || (request.session.userInfo.id == undefined)) {
 		con.query(sql, function (err, results1, fields) {
 			if (err) throw err;
 			response.render('contact', {
-			layout: 'index',
-			loggedin: request.session.loggedin,
-			userInfo: request.session.userInfo,
-			userChosenInfo: request.session.userChosenInfo,
-			contactinfo: results1,
-			});	
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				contactinfo: results1,
+			});
 		});
-	}	
+	}
 
 });
 
@@ -829,7 +981,7 @@ app.get('/contact/update/:id', (request, response) => {
 
 	CurrentUserId = request.params.id;
 	let msg = request.body.message;
-	console.log("I hope it's not undefined :) : " ,msg);
+	console.log("I hope it's not undefined :) : ", msg);
 	sql0 = "UPDATE contact set message = '" + msg + "', date_message = '" + datefinal + "' where utilisateur_id = ?";
 
 	con.query(sql0, CurrentUserId, function (err, results, fields) {
@@ -844,7 +996,7 @@ app.get('/contact/delete/:id', (request, response) => {
 	CurrentUserId = request.params.id;
 	sql0 = "DELETE FROM contact WHERE utilisateur_id = '" + CurrentUserId + "'";
 	con.query(sql0, CurrentUserId, function (err, results, fields) {
-		if (err) throw err;	
+		if (err) throw err;
 	});
 	response.redirect('/contact?msg=commentdeleted');
 });
@@ -952,6 +1104,11 @@ app.get('/favoris/delete/:id', (request, response) => {
 			return response.redirect('/favoris');
 		}
 	});
+});
+
+//Afficher la page "about"
+app.get('/contact', (request, response) => {
+
 });
 
 app.listen(port, () => {

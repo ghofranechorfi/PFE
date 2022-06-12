@@ -11,7 +11,7 @@
       }
 </script>
 <form action="/profile/{{userInfo.nom_utilisateur}}/reglages" method="post" 
-  class="px-8 pb-8 mb-4 bg-white rounded">
+  class="px-8 mb-2 bg-white rounded">
 
   <div class="mt-2 grid grid-cols-2 gap-8">
 
@@ -64,15 +64,15 @@
 
     <div class="md:ml-2">
       <label class="block mb-2 text-sm font-bold text-gray-700" for="c_password">Confirmer mot de passe</label>
-      <input name="c_password" id="c_password" type="password" value="{{userInfo.password}}" class="w-full px-3 py-2 mb-3 
+      <input name="c_password" id="c_password" type="password" value="{{userInfo.password}}" class="w-full px-3 py-2 
       text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"/>
     </div>
 
   </div>
+</form>
 
-  <button type="submit" style="background-color: #00b906;" class="block mx-auto w-72 px-4 py-2 mt-1 mb-2 text-sm 
+  <button type="submit" style="background-color: #00b906;" class="block mx-auto w-72 px-4 py-2 mb-2 text-sm 
   font-medium text-center text-white border border-transparent rounded-lg focus:outline-none 
   focus:shadow-outline-gray"> Mettre à jour mes informations </button>
-  <a href="#" class="text-red-600 font-semibold text-md">Supprimer mon compte</a>
+  <a href="/profile/delete/{{userInfo.nom_utilisateur}}" class="text-red-600 font-semibold text-md">Supprimer mon compte</a>
 
-</form>

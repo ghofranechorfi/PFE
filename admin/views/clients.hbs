@@ -3,8 +3,8 @@
         <div>{{> sidebar}}</div>
         <div class="md:w-full">
             {{> header}}
-            <div class="flex ml-16 mt-2">
-                <h1 class="text-xl font-semibold p-6 pr-96 italic">Liste des inscrits</h1>
+            <div class="flex mt-2">
+                <h1 class="text-xl font-semibold p-6 pl-4 pr-96 italic">Liste des inscrits</h1>
                 <button class="ml-44 mt-4 relative group overflow-hidden px-4 h-9 rounded-full flex space-x-2 items-center
                     bg-green-500 hover:bg-green-700 text-white" type="button" data-modal-toggle="defaultModal">
                         <a href="/ichhar-admin/clients-restaurer">
@@ -13,7 +13,7 @@
                 </button>
             </div>  
             <form action="/ichhar-admin/clients/delete/{{this.id}}" method="get">
-                <table class="w-96 md:w-4/5 ml-20 items-center bg-transparent border-collapse" >
+                <table class="w-96 md:w-10/12 ml-4 items-center bg-transparent border-collapse" >
                         <thead>
                             <tr style="background-color: #FFEFD5;">
                                 <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
@@ -36,10 +36,6 @@
                                     email
                                 </th>
 
-                                <th class="px-5 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                                    Abonné
-                                </th>
-
                                 <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
                                     téléphone
                                 </th>
@@ -57,34 +53,30 @@
                         {{#each userinfo}}
                         <tbody {{#ifeq ../selected_id this.id}} class="bg-red-200" {{/ifeq}}>
                             <tr>
-                                <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                <th class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-left flex items-center">
                                     {{id}}
                                 </th>
-                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                         {{cin}}
                                     </td>
 
-                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                         {{nom}}
                                     </td>
 
-                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                         {{prenom}}
                                     </td>
                                             
-                                    <td class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    <td class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                         {{email}}
                                     </td>
 
-                                    <td class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                        Oui
-                                    </td>
-                                            
-                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                         {{telephone}}
                                     </td>
                                             
-                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                    <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                         {{ville}}
                                     </td>
 
