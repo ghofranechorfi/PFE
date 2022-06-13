@@ -6,8 +6,44 @@
 
         <div class="md:w-full">
             {{>header}}
+            <div id ="alert" class="md:w-full md:h-10 bg-green-500" style="display: none;">
+            <p class="text-sm font-semibold p-2 text-white">Catégorie modifiée aves succés</p>
+            </div>
+            <div id ="alert1" class="md:w-full md:h-10 bg-red-500" style="display: none;">
+            <p class="text-sm font-semibold p-2 text-white">Catégorie archivée aves succés</p>
+            </div>
+            <div id ="alert2" class="md:w-full md:h-10 bg-red-500" style="display: none;">
+            <p class="text-sm font-semibold p-2 text-white">Catégorie ajoutée aves succés</p>
+            </div>
+            <script>
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const msg = urlParams.get('msg')
+                if (msg == "updatedsuccessfully") {
+                    var div2 = document.getElementById("alert");
+                    div2.style.display= 'block';
+                    setTimeout(function() {
+                    div2.style.display = 'none';
+                    }, 3000);
+                }
+                if (msg == "deleted") {
+                    var div2 = document.getElementById("alert1");
+                    div2.style.display= 'block';
+                    setTimeout(function() {
+                    div2.style.display = 'none';
+                    }, 3000);
+                }
+                if (msg == "addedsuccessfully") {
+                    var div2 = document.getElementById("alert2");
+                    div2.style.display= 'block';
+                    setTimeout(function() {
+                    div2.style.display = 'none';
+                    }, 3000);
+                }
+            </script>
+
             <div class="flex space-x-80">
-                <h1 class="text-xl font-semibold p-6 pr-8 italic">Liste des catégories</h1>
+                <h1 class="text-xl font-semibold p-6 pl-14 pr-8 italic">Liste des catégories</h1>
 
                 <!--<button class="mt-4 relative group overflow-hidden px-4 h-10 rounded-full flex space-x-2 items-center
                     bg-gradient-to-r from-blue-400 to-blue-600 hover:to-blue-200">
@@ -21,52 +57,14 @@
                 </button>-->
                 <div class="flex space-x-4">
                     <div>
-                        <!-- Modal toggle -->
                         <button class="mt-6 font-semibold text-xs relative group overflow-hidden px-4 h-8 rounded-full flex space-x-2 items-center
                         border border-blue-500 bg-blue-500 hover:bg-blue-700 text-white" type="button" data-modal-toggle="defaultModal">
-                            Ajouter une catégorie
+                            <a href="/ichhar-admin/ajout-categorie">
+                                Ajouter une catégorie
+                            </a>
                         </button>
-                        <!-- Main modal -->
-                        <div id="defaultModal" tabindex="-1" aria-hidden="true" style="width: 750px; margin:auto; margin-top: 70px"
-                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
-                            <div class="relative p-4 w-full max-w-2md h-full md:h-auto">
-                                <!-- Modal content -->
-                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                    <!-- Modal header -->
-                                    <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
-                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                            Ajouter une nouvelle catégorie
-                                        </h3>
-                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
-                                        </button>
-                                    </div>
-                                    <!-- Modal body -->
-                                    <div class="ml-28 p-6 space-y-6">
-                                        <div>
-                                            <label for="nom" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Nom</label><br>
-                                            <input type="text" class="border border-gray-200 mb-2 w-96 p-1 rounded rounded-md" name="nom" placeholder="entrez le nom du catégorie "> <br>
-                                            
-                                            <label for="description" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Message</label>
-                                            <textarea id="description" name="description" rows="6"
-                                            class="w-96 py-1.5 px-3 border rounded-md border-gray-300 shadow-sm focus:ring-gray-500 focus:border-gray-500 mt-1 block w-80 sm:text-sm"
-                                            placeholder="Décrire la nouvelle catégorie"></textarea>
-                                            
-                                            <label for="photo" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Photo</label><br>
-                                            <input type="file" class="border border-gray-200 mb-2 w-96 p-1 rounded rounded-md" name="photo" placeholder="entrez la photo du catégorie ">
-                                            
-                                        </div>
-
-                                    </div>
-                                    <!-- Modal footer -->
-                                    <div class="shadow-lg items-center text-center p-6 rounded-b border-t border-gray-200 dark:border-gray-600">
-                                        <button data-modal-toggle="defaultModal" type="button" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Confirmer</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
+                    
                     <div>
                         <button class="mt-6 font-semibold text-xs relative group overflow-hidden px-4 h-8 rounded-full flex space-x-2 items-center
                         border border-green-500 bg-green-500 hover:bg-green-700 text-white" type="button" data-modal-toggle="defaultModal">
@@ -79,7 +77,7 @@
                     
             </div>
             
-            <table class="w-96 md:w-4/5 ml-6 items-center bg-transparent border-collapse">
+            <table class="w-96 md:w-4/5 ml-14 items-center bg-transparent border-collapse">
                 <thead>
                     <tr>
                         <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
@@ -95,7 +93,7 @@
                         </th>
 
                         <th class="px-3 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
-                            Action
+                            Actions
                         </th>
                     </tr>
                 </thead>

@@ -54,7 +54,7 @@
       </svg>
       Liste des annonces </a>
 
-      <a class="flex gap-4 block px-4 py-2 mt-2 mb-96 text-sm font-semibold text-gray-900 bg-transparent rounded-lg 
+      <a class="flex gap-4 block px-4 py-2 mt-2 mb-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg 
       hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none 
       focus:shadow-outline" href="/ichhar-admin/annoncesattentes"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock mt-2" viewBox="0 0 16 16">
@@ -63,16 +63,21 @@
       </svg>
       Liste des annonces en attente </a>
 
-      <hr class="md:invisible bg-gray-200 mt-4 mb-4">
+      <hr class="md:none block bg-gray-200 mt-4 mb-4">
 
       {{#if loggedin}}
-        <a class="md:invisible block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg 
+        <a class="flex gap-2 md:invisible block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg 
         hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none 
-        focus:shadow-outline" href="/ichhar_admin/logout"> Se déconnecter </a>
+        focus:shadow-outline" href="/ichhar_admin/logout"> 
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        Se déconnecter </a>
       {{else}}
         <a class="md:invisible block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg 
         hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none 
-        focus:shadow-outline" href="/ichhar-admin/signin"> Se connecter </a>
+        focus:shadow-outline" href="/ichhar-admin/signin"> 
+        Se connecter </a>
       {{/if}}
     </nav>
   </div>

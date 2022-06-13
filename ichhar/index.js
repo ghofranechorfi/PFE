@@ -33,7 +33,7 @@ con.connect(function (err) {
 
 var storage = multer.diskStorage ({
 	destination : function (req, file, cb){
-		cb(null, "./public/src/images");
+		cb(null, "./public/images");
 	},
 	filename: function (req, file, cb){
 		return cb(null, file.fieldname + '_' + Date.now() + path.extname (file.originalname));
@@ -436,7 +436,7 @@ app.get('/add-ads', (request, response) => {
 	}
 });
 
-app.post('/add-ads/step1', (request, response) => {
+app.post('/add-ads/step1', upload.single('image'), (request, response) => {
 	let date_ob = new Date();
 	let date = ("0" + date_ob.getDate()).slice(-2);
 	let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
@@ -448,11 +448,11 @@ app.post('/add-ads/step1', (request, response) => {
 	let prix = request.body.prix;
 	let telephone = request.body.telephone;
 	let categorie = request.body.categorie;
-	let photo1 = request.body.photo1;
-	console.log(titre, description, prix, telephone, categorie, photo1);
+	let image = request.file.filename;
+	console.log(titre, description, prix, telephone, categorie, image);
 
-	sql = "INSERT INTO `annonce`(`utilisateur_id`,`status`,`titre`,`description`, `photo_url1`, `prix`, `telephone`, `categorie_id`, `date_creation`) VALUES ('" + request.session.userInfo.id + "','0','" + titre + "','" + description + "', '" + photo1 + "', '" + prix + "', '" + telephone + "', '" + categorie + "', '" + datefinal + "')";
-	if (titre && description && prix && telephone && categorie && photo1) {
+	sql = "INSERT INTO `annonce`(`utilisateur_id`,`status`,`titre`,`description`, `photo_url1`, `prix`, `telephone`, `categorie_id`, `date_creation`) VALUES ('" + request.session.userInfo.id + "','0','" + titre + "','" + description + "', '" + image + "', '" + prix + "', '" + telephone + "', '" + categorie + "', '" + datefinal + "')";
+	if (titre && description && prix && telephone && categorie && image) {
 		con.query(sql, function (error, results, next) {
 			if (error) {
 				console.log(error);
@@ -536,10 +536,10 @@ app.post('/add-ads/step1/step2', (request, response) => {
 	let taille = request.body.taille;
 	let type3 = request.body.type3;
 
-	sql1 = "INSERT INTO `vehicule`(`categorie_id`, `type`,`marque`, `etat`, `modele`, `couleur`) VALUES ('" + request.session.categorie + "', '" + request.session.type + "', '" + marque1 + "','" + etat1 + "', '" + modele1 + "', '" + couleur1 + "')";
-	sql2 = "INSERT INTO `immobilier`(`categorie_id`, `type`, `superficie`,`chambres`) VALUES ('" + request.session.categorie + "', '" + request.session.type1 + "' ,'" + superficie + "', '" + nbrch + "')";
-	sql3 = "INSERT INTO `habillement`(`taille`,`genre`,`etat`, `couleur`, `categorie_id`, `type`) VALUES ('" + taille + "', '" + genre + "', '" + etat2 + "', '" + couleur2 + "', '" + request.session.categorie + "', '" + request.session.type2 + "' )";
-	sql4 = "INSERT INTO `electronique`(`marque`,`etat`, `couleur`, `categorie_id`, `type`) VALUES ('" + marque2 + "', '" + etat3 + "', '" + couleur3 + "', '" + request.session.categorie + "', '" + request.session.type3 + "' )";
+	sql1 = "INSERT INTO `vehicule`(`categorie_id`, `annonce_id`, `type`, `marque`, `etat`, `modele`, `couleur`) VALUES ('" + request.session.categorie + "', '" + request.session.x + "','" + type + "', '" + marque1 + "','" + etat1 + "', '" + modele1 + "', '" + couleur1 + "')";
+	sql2 = "INSERT INTO `immobilier`(`categorie_id`, `annonce_id` ,`type`, `superficie`,`chambres`) VALUES ('" + request.session.categorie + "', '" + request.session.x + "', '" + type1 + "' ,'" + superficie + "', '" + nbrch + "')";
+	sql3 = "INSERT INTO `habillement`(`taille`,`genre`,`etat`, `couleur`, `categorie_id`, `annonce_id`, `type`) VALUES ('" + taille + "', '" + genre + "', '" + etat2 + "', '" + couleur2 + "', '" + request.session.categorie + "', '" + request.session.x + "', '" + type2 + "' )";
+	sql4 = "INSERT INTO `electronique`(`marque`,`etat`, `couleur`, `categorie_id`, `annonce_id`, `type`) VALUES ('" + marque2 + "', '" + etat3 + "', '" + couleur3 + "', '" + request.session.categorie + "', '" + request.session.x + "' ,'" + type3 + "' )";
 
 	if (request.session.categorie == '1') {
 		if (type && (marque1 || etat1 || modele1 || couleur1)) {
@@ -827,7 +827,7 @@ app.get('/categories/:nom/:type', (request, response) => {
 //ANNONCE
 //afficher une annonce
 app.get('/annonce/:id', (request, response) => {
-	sql = "select utilisateur.photo_url, utilisateur.nom_utilisateur, utilisateur.nom, utilisateur.prenom, utilisateur.telephone, utilisateur.ville, annonce.titre, annonce.description, annonce.prix, annonce.photo_url1 from utilisateur, annonce, categorie where annonce.id = ? and categorie.id = annonce.categorie_id and annonce.status = 1 and utilisateur.id = annonce.utilisateur_id"
+	sql = "select utilisateur.photo_url, utilisateur.nom_utilisateur, utilisateur.nom, utilisateur.prenom, utilisateur.telephone, utilisateur.ville, annonce.id, annonce.titre, annonce.description, annonce.prix, annonce.photo_url1 from utilisateur, annonce, categorie where annonce.id = ? and categorie.id = annonce.categorie_id and annonce.status = 1 and utilisateur.id = annonce.utilisateur_id"
 	//sql1 = "SELECT * FROM categorie, annonce where annonce.id = ? and categorie.id = annonce.categorie_id and annonce.status = 1"
 	con.query(sql, request.params.id, function (err, result, fields) {
 		if (err) throw err;

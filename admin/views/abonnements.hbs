@@ -1,14 +1,13 @@
 <div>
     <div class="md:flex">
         <div>{{> sidebar}}</div>
-        <div class="md:w-full">
+        <div class="md:w-full ">
             {{> header}}
             <div class="flex mt-2">
-                <h1 class="text-xl font-semibold p-6 pl-4 pr-96 italic">Liste des abonnements</h1>
-            
+                <h1 class="text-xl font-semibold p-6 pl-14 pr-96 italic">Liste des abonnements</h1>
             </div>  
             <form action="/ichhar-admin/clients/delete/{{this.id}}" method="get">
-                <table class="w-96 md:w-10/12 ml-4 items-center bg-transparent border-collapse" >
+                <table class="w-96 md:w-10/12 ml-14 items-center bg-transparent border-collapse" >
                         <thead>
                             <tr style="background-color: #FFEFD5;">
                                 <th class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blue-800 text-white border-blue-700">
@@ -76,7 +75,11 @@
                                     </td>
                                             
                                     <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                                        {{annonce_id}}
+                                        <button class="ml-5 text-white title-font font-semibold w-10 h-10 bg-green-500 hover:bg-green-900 rounded-md shadow-xl">
+                                            <a href="/ichhar-admin/annoncesattentes/annonce/{{annonce_id}}">
+                                                {{annonce_id}}
+                                            </a>
+                                        </button>
                                     </td>
                             </tr>            
                         </tbody>

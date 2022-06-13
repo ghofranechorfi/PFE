@@ -5,15 +5,22 @@
             {{> header}}
             <h1 class="text-xl font-semibold p-6">Modifier la catégorie</h1> 
             {{#each catinfo}}
-            <form action="/ichhar-admin/categories/update/{{this.id}}" method="post"
+            <form action="/ichhar-admin/categories/update/{{this.id}}" method="post" enctype="multipart/form-data"
                 class="w-96 pl-20 border rounded-lg mx-auto shadow-xl md:w-3/6 md:h-fit p-6 mt-6">
+
                 <label for="noom" class="font-semibold text-md space-y-4 pr-10 md:pr-24">Nom</label>
-                <input name="noom" class="p-2 md:mt-4 md:ml-2 h-8 w-56 rounded-md border border-gray-200 shadow-lg focus:ring-gray-500 focus:border-gray-500 mb-2" type="text" value="{{this.nom}}"><br>
+                <input name="noom" class="p-2 md:mt-4 md:ml-2 h-8 w-56 rounded-md border border-gray-200 shadow-lg 
+                focus:ring-gray-500 focus:border-gray-500 mb-2" type="text" value="{{this.nom}}">
+
                 <label for="desc" class="font-semibold text-md pr-10 md:pr-14">Description</label>
-                <textarea name="desc" class="p-2 md:mt-4 h-8 w-56 rounded-md border border-gray-200 shadow-lg focus:ring-gray-500 focus:border-gray-500 mb-2" type="text" >{{this.description}}</textarea><br>
-                <label for="photo_url" class="font-semibold text-md pr-10">URL du photo</label>
-                <textarea name="photo_url" class="p-2 md:mt-4 h-8 w-56 rounded-md border border-gray-200 shadow-lg focus:ring-gray-500 focus:border-gray-500 mb-2" type="text" >{{this.photo_url}}</textarea>
-                <button class="mt-4 px-4 ml-14 md:mt-8 md:ml-36 text-white h-8 rounded-full flex space-x-2 items-center border border-blue-400 bg-blue-400" type="submit">
+                <textarea name="desc" class="p-2 md:mt-4 h-8 w-56 rounded-md border border-gray-200 shadow-lg 
+                focus:ring-gray-500 focus:border-gray-500 mb-2" type="text" >{{this.description}}</textarea>
+
+                <label for="formFile" class="font-semibold text-md pr-10">Télécharger une image</label>
+                <input type="file" id="formFile" name="image" value="{{this.photo_url}}"
+                    class="form-control p-2 border border-gray-200 mt-2 mb-4 w-56 md:w-96 rounded rounded-md">
+
+                <button class="mt-4 px-4 ml-14 md:mt-8 md:ml-36 text-white h-8 rounded-full flex space-x-2 items-center border border-green-500 bg-green-500" type="submit">
                     Confirmer
                 </button>
             </form>

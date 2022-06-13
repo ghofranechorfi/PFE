@@ -4,26 +4,55 @@
 <form method="post" action="/add-ads/step1/step2/payement"  class="flex justify-center items-center pt-10 pb-20">
   <div class="w-4/5 md:w-2/5 bg-white p-3 rounded-lg shadow-xl" >
     <p class="text-xl font-semibold pt-6 pb-6 text-center">Détails de payement </p>
-    <p class="text-sm font-semibold pb-3 ml-16 ">Valable pendant un mois </p>
-    <div class="input_text mt-6 relative ml-16">
-      <input type="text" name="cin" class="h-9 pl-7 outline-none px-2 focus:border-black transition-all w-56 md:w-96 border rounded-md mt-2"
-        placeholder="CIN"/>
-      <span class="absolute left-0 text-sm font-medium text-gray-700 -top-4">CIN</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-2 top-3 text-gray-400 h-6 w-6 pr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    </div>
+    <div class="flex">
+      <div class="input_text mt-6 relative ml-16">
+        <input type="text" name="cin" class="h-9 pl-7 outline-none px-2 focus:border-black transition-all w-44 md:w-44 border rounded-md mt-2"
+          placeholder="CIN"/>
+        <span class="absolute left-0 text-sm font-medium text-gray-700 -top-4">CIN</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-2 top-3 text-gray-400 h-6 w-6 pr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      </div>
 
-    <div class="input_text mt-6 relative ml-16">
-      <input type="text" name="np" class="h-9 pl-7 outline-none px-2 focus:border-black transition-all w-56 md:w-96 border rounded-md mt-2"
-        placeholder="nom et prénom"
-      />
-      <span class="absolute left-0 text-sm font-medium text-gray-700 -top-4">Nom et prénom </span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-2 top-3 text-gray-400 h-6 w-6 pr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-      </svg>
-      
+      <div class="input_text mt-6 relative ml-8">
+        <input type="text" name="np" class="h-9 pl-7 outline-none px-2 focus:border-black transition-all w-44 md:w-44 border rounded-md mt-2"
+          placeholder="nom et prénom"/>
+        <span class="absolute left-0 text-sm font-medium text-gray-700 -top-4">Nom et prénom </span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-2 top-3 text-gray-400 h-6 w-6 pr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      </div>
+
     </div>
+    
+    <div class="flex">
+
+      <div class="mt-2 ml-16">
+        <label for="duree" class="block text-sm font-medium text-gray-700">Durée</label>
+          <select id="duree" name="duree" 
+          class="mt-1 block w-44 h-9 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm 
+          focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm">
+            <option name="7" value="7">7 Jours</option> 
+            <option name="15" value="15">15 Jours</option>
+            <option name="20" value="20">20 Jours</option>
+            <option name="30" value="30">30 Jours</option>
+          </select>
+      </div>
+
+      <div class="input_text mt-6 relative ml-8">
+        <input type="text" name="montant" class="h-9 pl-7 outline-none px-2 focus:border-black transition-all w-44 md:w-44 border rounded-md mt-2"
+          placeholder="montant"/>
+        <span class="absolute left-0 text-sm font-medium text-gray-700 -top-4">Montant </span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-2 top-3 text-gray-400 h-6 w-6 pr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      </div>
+
+    </div>
+    <p class="title-font text-normal text-gray-400 text-xs uppercase">*Pour 7 jours : 5 DT </p>
+    <p class="title-font text-normal text-gray-400 text-xs uppercase">*Pour 15 jours : 10 DT</p>
+    <p class="title-font text-normal text-gray-400 text-xs uppercase">*Pour 20 jours : 15 DT </p>
+    <p class="title-font text-normal text-gray-400 text-xs uppercase">*Pour 30 jours : 20 DT</p>
 
     <div class="input_text mt-8 relative ml-16">
       <input

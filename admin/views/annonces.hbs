@@ -3,8 +3,23 @@
         <div> {{> sidebar}} </div>
         <div class="md:w-full">
             {{> header}}
-            <h1 class="text-xl font-semibold p-6 italic">Liste des annonces publiées</h1>   
-            <table class="md:w-11/12 ml-6 items-center bg-transparent border-collapse">
+            <div id ="alert" class="md:w-full md:h-10 bg-red-300" style="display: none;">
+            <p class="text-sm font-semibold p-2 color-red-800">Annonce supprimée</p>
+            </div>
+            <script>
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const msg = urlParams.get('msg')
+                if (msg == "deleted") {
+                    var div2 = document.getElementById("alert");
+                    div2.style.display= 'block';
+                    setTimeout(function() {
+                    div2.style.display = 'none';
+                    }, 2000);
+                }
+            </script>
+            <h1 class="text-xl font-semibold p-6 pl-14 italic">Liste des annonces publiées</h1>   
+            <table class="md:w-11/12 ml-14 items-center bg-transparent border-collapse">
 
                 <thead>
                         <tr>
@@ -65,8 +80,10 @@
                                 </td>
 
                                 <td class="border-t-0 px-3 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-right">
-                                    <button class="text-white px-4 h-8 rounded-full flex space-x-2 items-center border border-red-500 bg-red-500 hover:bg-red-700"> 
-                                        Supprimer 
+                                    <button type="submit" class="text-white px-4 h-8 rounded-full flex space-x-2 items-center border border-red-500 bg-red-500 hover:bg-red-700"> 
+                                        <a href="/ichhar-admin/annonces/delete/{{id}}">
+                                            Supprimer
+                                        </a> 
                                     </button>
                                 </td>
                         </tr>            

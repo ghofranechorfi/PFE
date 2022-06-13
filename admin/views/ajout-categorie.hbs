@@ -1,0 +1,82 @@
+<div>
+    <div class="md:flex">
+        <div>
+            {{> sidebar}}
+        </div>
+
+        <div class="md:w-full">
+            {{>header}}
+          
+            <h1 class="text-xl font-semibold p-6 pl-14 pr-8 italic">Ajouter une nouvelle catégorie</h1>
+            <div class="border border-gray-200 shadow-xl w-8/12 ml-14 rounded-lg">
+               <form action="/ichhar-admin/ajout-categorie/add" method="post" class="p-5" enctype="multipart/form-data">
+                    <p class="text-sm text-gray-500 title-font pb-2"> Entrez les informations du catégories</p>
+                    <div>
+                        <label class="title-font font-normal" for="nom">Nom</label>
+                        <input type="text" name="nom" class="border border-gray-200 p-1 rounded-md w-56 ml-12 mb-1" placeholder="nom de la catégorie" required>
+                    </div>
+
+                    <div>
+                        <label class="title-font font-normal" for="desc">Description</label>
+                        <textarea name="desc" class="border border-gray-200 rounded-md w-56 ml-1" id="desc" cols="20" rows="3"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="title-font font-normal" for="filename">Image</label>
+                        <input type="file" class="border border-gray-200 rounded-md p-1 w-56 ml-10" name="image" id="formFile">
+                    </div>
+
+                    <p class="text-sm text-gray-500 title-font pt-5 pb-2"> Entrez les attributs convenables et leurs types </p>
+                    <div>
+                        <label class="title-font font-normal" for="">Nom</label>
+                        <input name="n1" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mr-4 mb-1">
+                        <label class="title-font font-normal" for="">Type</label>
+                        <input name="t1" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mb-1">
+                    </div>
+                    
+                    <div>
+                        <label class="title-font font-normal" for="">Nom</label>
+                        <input name="n2" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mr-4 mb-1">
+                        <label class="title-font font-normal" for="">Type</label>
+                        <input name="t2" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mb-1">
+                    </div>
+
+                    <div>
+                        <label class="title-font font-normal" for="">Nom</label>
+                        <input name="n3" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mr-4 mb-1">
+                        <label class="title-font font-normal" for="">Type</label>
+                        <input name="t3" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mb-1">
+                    </div>
+
+                    <div>
+                        <label class="title-font font-normal" for="">Nom</label>
+                        <input name="n4" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mr-4 mb-1">
+                        <label class="title-font font-normal" for="">Type</label>
+                        <input name="t4" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mb-1">
+                    </div>
+
+                    <div >
+                        <label class="title-font font-normal" for="">Nom</label>
+                        <input name="n5" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mr-4 mb-1">
+                        <label class="title-font font-normal" for="">Type</label>
+                        <input name="t5" type="text" class="border border-gray-200 p-1 rounded-md w-56 ml-4 mb-1">
+                    </div>
+
+                    <div class="mt-4 mb-1 ml-64">
+                        <button class="text-center h-10 w-20 bg-green-500 hover:bg-green-700 text-white title-font font-semibold
+                        rounded-full" type="submit">
+                            Ajouter
+                        </button>
+                    </div>
+
+               </form>
+                    
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
