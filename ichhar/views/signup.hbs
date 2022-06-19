@@ -8,25 +8,40 @@
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const msg = urlParams.get('msg')
+      if (msg == "fillfields") {
+        document.write('<h2 class="text-red-600 font-bold ml-20 text-xs">Tous les champs doivent etre remplis</h2>');
+      }
+
+      if (msg == 'invalidcinnumber') {
+        document.write('<h2 class="text-red-600 font-bold ml-20 text-xs">cin déjà utilisé</h2>');
+      }
+      if (msg == 'cinmustbeeight') {
+        document.write('<h2 class="text-red-600 font-bold ml-20 text-xs">cin ne doit pas dépasser 8 nombres</h2>');
+      }
+
+      if (msg == 'numberinuse') {
+        document.write('<h2 class="text-red-600 font-bold ml-20 text-xs">Numéro de téléphone invalid</h2>');
+      }
+
       if (msg == "errorsignup") {
         document.write('<h2 class="text-red-600 font-bold text-center text-xs">Email déjà existant</h2>');
       }
-      if (msg == "fillfields") {
-        document.write('<h2 class="text-red-600 font-bold text-center text-xs">Tous les champs doivent etre remplis</h2>');
-      }
+      
       if (msg == "passwordsdoesntmatch") {
-        document.write('<h2 class="text-red-600 font-bold text-center text-xs">Les mots de passes ne se correspant pas</h2>');
+        document.write('<h2 class="text-red-600 font-bold ml-20 text-xs">Les mots de passes ne se correspant pas</h2>');
       }
       if (msg == 'usernamealreadyinuse') {
-        document.write('<h2 class="text-red-600 font-bold text-center text-xs">Nom d`utilisateur déjà existant</h2>');
-      }
-      if (msg == 'invalidcinnumber') {
-        document.write('<h2 class="text-red-600 font-bold text-center text-xs">cin invalide</h2>');
-      }
-      if (msg == 'numberinuse') {
-        document.write('<h2 class="text-red-600 font-bold text-center text-xs">Numéro de téléphone invalid</h2>');
+        document.write('<h2 class="text-red-600 font-bold ml-20 text-xs">Nom d`utilisateur déjà existant</h2>');
       }
     </script>
+    
+    {{#if messages.error}}
+    <p style="color:red" class="ml-20 font-semibold title-font">{{messages.error}}</p>
+    {{/if}}
+
+    {{#if messages.success}}
+    <p style="color:green" class="ml-20 font-semibold title-font">{{messages.success}}</p>
+    {{/if}}
     
     <br>
 

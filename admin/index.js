@@ -38,6 +38,8 @@ con.connect(function (err) {
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "./public/images");
+        cb(null, "C:/Users/ghofr/Desktop/PFE/ichhar/public/images");
+
     },
     filename: function (req, file, cb) {
         return cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname));
@@ -100,7 +102,7 @@ app.get('/ichhar-admin/home', (request, response) => {
     } else {
         sql = "SELECT COUNT(*) as stat FROM utilisateur"
         sql1 = "SELECT COUNT(*) as stat FROM categorie"
-        sql2 = "SELECT COUNT(*)-14 as stat FROM annonce where status = 1"
+        sql2 = "SELECT COUNT(*) as stat FROM annonce where status = 1"
         sql3 = "SELECT COUNT(*) as stat FROM annonce where status = 0"
         sql4 = "SELECT COUNT(*) as stat from abonnement"
         sql5 = "SELECT COUNT(distinct utilisateur_id) as stat FROM abonnement"
@@ -630,9 +632,9 @@ app.get('/ichhar-admin/annoncesattentes/approuver/:id', (request, response) => {
     if (request.session.loggedin === undefined) {
         return response.redirect('/ichhar-admin/signin');
     } else {
-        userId = request.params.id;
+        AnnonceID = request.params.id;
         sql = "UPDATE annonce SET status = 1 where id = ?"
-        con.query(sql, userId, function (err, result, fields) {
+        con.query(sql, AnnonceID, function (err, result, fields) {
             if (err) throw err;
             response.render('annonceattente', {
                 layout: 'index',
@@ -650,9 +652,9 @@ app.get('/ichhar-admin/annoncesattentes/refuser/:id', (request, response) => {
     if (request.session.loggedin === undefined) {
         return response.redirect('/ichhar-admin/signin');
     } else {
-        userId = request.params.id;
+        AnnonceID = request.params.id;
         sql = "UPDATE annonce SET status = 2 where id = ?"
-        con.query(sql, userId, function (err, result, fields) {
+        con.query(sql, AnnonceID, function (err, result, fields) {
             if (err) throw err;
             response.render('annonceattente', {
                 layout: 'index',

@@ -1,83 +1,92 @@
-{{> header}}
-
-<div class="grid grid-cols-12 md:mb-44">
-
-	<div class="col-span-3">
-        {{> sidebarcategories}}
+<div class="flex-col">
+    <div>
+        {{> header}}
     </div>
-	
-	<div class="banner col-span-9 text-white font-sans font-bold">
-	
-	<main class="mt-8">
-                
-            <div class="container mx-auto px-6">
-            
-                <select  class="h-8 w-24 ml-56 md:absolute md:right-20 border-r bg-gray-50 rounded-md shadow-xl text-center text-black">
-                        <option>Trier par</option>
-                        <option>le plus récent</option>
-                        <option>prix le plus bas</option>
-                        <option>prix le plus élévé</option>
-                </select>
 
-                <div class="flex-rows mb-4 md:grid md:grid-cols-3 ">
+    <div class="h-full">
+        <div class="grid grid-cols-12">
 
-                {{#each catinfo}}
-                <div class="mt-6 md:mt-16 w-72 h-fit md:space-x-18">
-                    
-                    <div class="border rounded-md shadow-md overflow-hidden">
-                        <a href="/annonce/{{this.id}}">
-                            <div class="flex items-end justify-end h-56 w-full bg-cover">
-                                <img class="md:rounded-md mx-auto w-64 h-56 pt-2" src="{{this.photo_url1}}" alt="">
-                            </div>
-                            <div class="px-5 py-3">
-                                
-                                <h3 class="text-black">{{this.titre}} </h3>
-                                <span class="text-gray-800 mt-2">{{this.prix}} DT</span><br>
-                                <div class="text-black text-sm h-10 font-normal ">{{this.description}}</div>
-                            </div>
-                        </a>
-
-                        <div class="flex flex-row justify-center mb-4 px-5">
-							<div class="flex flex-row justify-center w-60">
-								<div class="flex flex-row justify-center items-center reaction-box mr-8">
-									<span class="text-gray-800 mr-2 likes-count">{{this.likes}}</span>
-									<button class="btn-like text-gray-700 hover:text-green-600" data-id="{{this.id}}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                                        </svg>
-                                    </button>
-								</div>
-								<div class="flex flex-row justify-center items-center reaction-box">
-									<span class="text-gray-800 mr-2 dislikes-count">{{this.dislikes}}</span>
-									<button class="btn-dislike text-gray-700 hover:text-green-600" data-id="{{this.id}}">
-										<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
-                                        </svg>
-                                    </button>
-								</div>
-							</div>
-							<div class="w-40 text-right ">
-								<button class="text-gray-800 hover:text-red-600">
-                                    <a href="/favoris/add/{{id}}">
-									    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-                                    </a>
-                                </button>
-							</div>
-						</div>
-							
-                    </div>
-                    
-                </div>   
-                {{/each}} 
-                </div>
-
+            <div class="col-span-3 h-full">
+                {{> sidebarcategories}}
             </div>
-        </main>
-	
-	</div>
+            
+            <div class="banner col-span-9 text-white font-sans font-bold">
+            
+            <main class="mt-8">
+                        
+                    <div class="container mx-auto px-6">
+                    
+                        <select  class="h-8 w-24 ml-56 md:absolute md:right-20 border-r bg-gray-50 rounded-md shadow-xl text-center text-black">
+                                <option>Trier par</option>
+                                <option>le plus récent</option>
+                                <option>prix le plus bas</option>
+                                <option>prix le plus élévé</option>
+                        </select>
+
+                        <div class="flex-rows mb-4 md:grid md:grid-cols-3 ">
+
+                        {{#each catinfo}}
+                        <div class="mt-6 md:mt-16 w-72 h-fit md:space-x-18">
+                            
+                            <div class="border rounded-md shadow-md overflow-hidden">
+                                <a href="/annonce/{{id}}">
+                                    <div class="flex items-end justify-end h-56 w-full bg-cover">
+                                        <img class="md:rounded-md mx-auto w-64 h-56 pt-2" src="/images/{{this.photo_url1}}" alt="">
+                                    </div>
+                                    <div class="px-5 py-3">
+                                        
+                                        <h3 class="text-black">{{this.titre}} </h3>
+                                        <span class="text-gray-800 mt-2">{{this.prix}} DT</span><br>
+                                        <div class="text-black text-sm h-10 font-normal ">{{this.description}}</div>
+                                    </div>
+                                </a>
+
+                                <div class="flex flex-row justify-center mb-4 px-5">
+                                    <div class="flex flex-row justify-center w-60">
+                                        <div class="flex flex-row justify-center items-center reaction-box mr-8">
+                                            <span class="text-gray-800 mr-2 likes-count">{{this.likes}}</span>
+                                            <button class="btn-like text-gray-700 hover:text-green-600" data-id="{{this.id}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="flex flex-row justify-center items-center reaction-box">
+                                            <span class="text-gray-800 mr-2 dislikes-count">{{this.dislikes}}</span>
+                                            <button class="btn-dislike text-gray-700 hover:text-green-600" data-id="{{this.id}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="w-40 text-right ">
+                                        <button class="text-gray-800 hover:text-red-600">
+                                            <a href="/favoris/add/{{id}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                                            </a>
+                                        </button>
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                            
+                        </div>   
+                        {{/each}} 
+                        </div>
+
+                    </div>
+                </main>
+            
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="mt-2">
+        {{> footer}}
+    </div>
 
 </div>
-
-{{> footer}}
-
 

@@ -9,7 +9,7 @@
 </span>
 
 <div
-  class="sidebar absolute md:h-full md:mt-1 p-2 w-72 overflow-y-auto text-center"
+  class="sidebar absolute md:h-full md:mt-2 md:ml-2 p-2 w-72 overflow-y-auto text-center"
   style="background-color: #f2f2f2;"
 >
 
@@ -43,7 +43,7 @@
     class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
     id="submenu"
   >
-    {{#each userInfo.vehicule}}
+    {{#each typeInfo.vehicule}}
       <h1
         name="{{this.type}}"
         class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1"
@@ -75,7 +75,7 @@
     class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
     id="submenu1"
   >
-    {{#each userInfo.immobilier}}
+    {{#each typeInfo.immobilier}}
       <h1
         name="{{this.type}}"
         class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1"
@@ -106,7 +106,7 @@
     class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
     id="submenu2"
   >
-    {{#each userInfo.habillement}}
+    {{#each typeInfo.habillement}}
       <h1
         name="{{this.type}}"
         class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1"
@@ -140,7 +140,7 @@
     class="text-left text-sm mt-2 w-4/5 mx-auto text-black font-bold"
     id="submenu3"
   >
-    {{#each userInfo.electronique}}
+    {{#each typeInfo.electronique}}
       <h1
         name="{{this.type}}"
         class="cursor-pointer p-2 hover:bg-gray-300 rounded-md mt-1"

@@ -5,6 +5,9 @@ const app = express();
 var multer = require('multer')
 var bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
+var expressValidator = require('express-validator');
+var sanitizer = require('sanitize')();
+var flash = require('express-flash');
 var session = require('express-session');
 const cors = require('cors');
 
@@ -31,12 +34,13 @@ con.connect(function (err) {
 	console.log("Connected!");
 });
 
-var storage = multer.diskStorage ({
-	destination : function (req, file, cb){
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
 		cb(null, "./public/images");
+		cb(null, "C:/Users/ghofr/Desktop/PFE/admin/public/images");
 	},
-	filename: function (req, file, cb){
-		return cb(null, file.fieldname + '_' + Date.now() + path.extname (file.originalname));
+	filename: function (req, file, cb) {
+		return cb(null, file.fieldname + '_' + Date.now() + path.extname(file.originalname));
 	}
 });
 
@@ -68,6 +72,7 @@ app.engine('hbs', handlebars.engine({
 		}
 	}
 }));
+
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
@@ -77,6 +82,9 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+
+app.use(flash());
+app.use(expressValidator());
 
 // parse application/json
 app.use(bodyParser.json());
@@ -120,7 +128,7 @@ app.post('/signin', function (request, response) {
 	let password = request.body.password;
 	// Ensure the input fields exists and are not empty
 	if (email && password) {
-		con.query('SELECT * FROM utilisateur WHERE email = ? AND password = ?', [email, password], function (error, results, fields) {
+		con.query('SELECT * FROM utilisateur WHERE email = ? AND password = ? and status = 1', [email, password], function (error, results, fields) {
 			if (error) throw error;
 			// If the account exists
 			if (results.length > 0) {
@@ -182,6 +190,7 @@ app.post('/signup', upload.single('image'), function (request, response) {
 	request.session.datefinal = datefinal;
 	let image = request.file.filename;
 
+
 	var sql = "INSERT INTO `utilisateur`(`cin`,`nom`,`prenom`, `nom_utilisateur`, `ville`,`telephone`,`email`, `password`, `photo_url`, `status`, `date_creation`) VALUES ('" + request.body.cin + "','" + request.body.nom + "','" + request.body.prenom + "','" + request.body.nom_utilisateur + "','" + request.body.ville + "','" + request.body.telephone + "','" + request.body.email + "','" + request.body.password + "', '" + image + "', 1,'" + datefinal + "')";
 	var sql0 = "SELECT * FROM utilisateur where cin = ?"
 	var sql1 = "SELECT * FROM utilisateur WHERE email = ?"
@@ -190,40 +199,45 @@ app.post('/signup', upload.single('image'), function (request, response) {
 
 	if (request.body.cin && request.body.nom && request.body.prenom && request.body.nom_utilisateur && request.body.ville && request.body.telephone && request.body.email && request.body.password && request.body.confirmpassword) {
 		con.query(sql0, [request.body.cin], function (error, results) {
-			if ((request.body.cin.length == 8) && (results.length == 0)) {
-				con.query(sql3, [request.body.telephone], function (error, results) {
-					if (error) throw error;
-					if (results.length > 0) {
-						response.redirect('/signup?msg=numberinuse');
-					}
-					if (results.length == 0) {
-						con.query(sql1, [request.body.email], function (error, results) {
-							if (error) throw error;
-							if (results.length > 0) {
-								response.redirect('/signup?msg=errorsignup');
-							}
-							if (results.length == 0) {
-								con.query(sql2, [request.body.nom_utilisateur], function (error, results, fields) {
-									if (error) throw error;
-									if (results.length == 0) {
-										if (request.body.password == request.body.confirmpassword) {
-											con.query(sql, function (error, results, fields) {
-												if (error) throw error;
-											});
-											response.redirect('/signin');
+			if (results.length == 0) {
+				if (error) throw error;
+				if (request.body.cin.length > 8 || request.body.cin.length < 8) {
+					response.redirect('/signup?msg=cinmustbeeight');
+				} 
+				else {
+					con.query(sql3, [request.body.telephone], function (error, results) {
+						if (error) throw error;
+						if (results.length > 0) {
+							response.redirect('/signup?msg=numberinuse');
+						}
+						if (results.length == 0) {
+							con.query(sql1, [request.body.email], function (error, results) {
+								if (error) throw error;
+								if (results.length > 0) {
+									response.redirect('/signup?msg=errorsignup');
+								}
+								if (results.length == 0) {
+									con.query(sql2, [request.body.nom_utilisateur], function (error, results, fields) {
+										if (error) throw error;
+										if (results.length == 0) {
+											if (request.body.password === request.body.confirmpassword) {
+												con.query(sql, function (error, results, fields) {
+													if (error) throw error;
+												});
+												response.redirect('/signin');
+											} else {
+												response.redirect('/signup?msg=passwordsdoesntmatch');
+											}
 										} else {
-											response.redirect('/signup?msg=passwordsdoesntmatch');
+											response.redirect('/signup?msg=usernamealreadyinuse');
 										}
-									} else {
-										res = results.length;
-										response.redirect('/signup?msg=usernamealreadyinuse');
-									}
-								})
-								//response.end();
-							}
-						})
-					}
-				})
+									})
+									//response.end();
+								}
+							})
+						}
+					})
+				}
 			} else {
 				response.redirect('/signup?msg=invalidcinnumber');
 			}
@@ -319,37 +333,75 @@ app.get('/profile/:nom_utilisateur', (request, response) => {
 	sql1 = "SELECT * FROM utilisateur where nom_utilisateur = ? "
 	con.query(sql0, request.params.nom_utilisateur, function (err, result, fields) {
 		if (err) throw err;
-		if ((request.session.userInfo !== undefined) && (request.session.userInfo.cin === result[0].cin)) {
-			console.log('Its my profile');
-			console.log('Current Profile CIN: ' + result[0].cin);
-			console.log('Session CIN: ' + request.session.userInfo.cin);
-			response.render('profile_me', {
-				layout: 'index',
-				loggedin: request.session.loggedin,
-				email: request.session.email,
-				datefinal: request.session.datefinal,
-				nom: request.session.nom,
-				userInfo: request.session.userInfo,
-				userChosenInfo: result[0],
-				session: request.session,
-			});
-		} else {
-			console.log('Its someone elses profile');
-			console.log('Current Profile CIN: ' + result[0].cin);
-			response.render('profile_other', {
-				layout: 'index',
-				loggedin: request.session.loggedin,
-				email: request.session.email,
-				datefinal: request.session.datefinal,
-				nom: request.session.nom,
-				userInfo: request.session.userInfo,
-				userChosenInfo: request.session.userChosenInfo,
-				userChosenInfo1: request.session.userChosenInfo1,
-				userChosenInfo: result[0],
-				userChosenInfo1: result,
-				session: request.session
-			});
-			console.log("the nbr of published ads of this user is : ", result.length);
+		if (result.length > 0) {
+			if ((request.session.userInfo !== undefined) && (request.session.userInfo.cin === result[0].cin)) {
+				console.log('Its my profile');
+				console.log('Current Profile CIN: ' + result[0].cin);
+				console.log('Session CIN: ' + request.session.userInfo.cin);
+				response.render('profile_me', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					email: request.session.email,
+					datefinal: request.session.datefinal,
+					nom: request.session.nom,
+					userInfo: request.session.userInfo,
+					userChosenInfo: result[0],
+					session: request.session,
+				});
+			} else {
+				console.log('Its someone elses profile');
+				console.log('Current Profile CIN: ' + result[0].cin);
+				response.render('profile_other', {
+					layout: 'index',
+					loggedin: request.session.loggedin,
+					email: request.session.email,
+					datefinal: request.session.datefinal,
+					nom: request.session.nom,
+					userInfo: request.session.userInfo,
+					userChosenInfo: request.session.userChosenInfo,
+					userChosenInfo1: request.session.userChosenInfo1,
+					userChosenInfo: result[0],
+					userChosenInfo1: result,
+					session: request.session
+				});
+				console.log("the nbr of published ads of this user is : ", result.length);
+			}
+		} else if (result.length == 0) {
+			con.query(sql1, request.params.nom_utilisateur, function (err, result, fields) {
+				if (err) throw err;
+				if ((request.session.userInfo !== undefined) && (request.session.userInfo.cin === result[0].cin) && (result.length > 0)) {
+					console.log('Its my profile');
+					console.log('Current Profile CIN: ' + result[0].cin);
+					console.log('Session CIN: ' + request.session.userInfo.cin);
+					response.render('profile_me', {
+						layout: 'index',
+						loggedin: request.session.loggedin,
+						email: request.session.email,
+						datefinal: request.session.datefinal,
+						nom: request.session.nom,
+						userInfo: request.session.userInfo,
+						userChosenInfo: result[0],
+						session: request.session,
+					});
+				} else {
+					console.log('Its someone elses profile');
+					console.log('Current Profile CIN: ' + result[0].cin);
+					response.render('profile_other', {
+						layout: 'index',
+						loggedin: request.session.loggedin,
+						email: request.session.email,
+						datefinal: request.session.datefinal,
+						nom: request.session.nom,
+						userInfo: request.session.userInfo,
+						userChosenInfo: request.session.userChosenInfo,
+						userChosenInfo1: request.session.userChosenInfo1,
+						userChosenInfo: result[0],
+						userChosenInfo1: result,
+						session: request.session
+					});
+					console.log("the nbr of published ads of this user is : ", result.length);
+				}
+			})
 		}
 	});
 });
@@ -402,7 +454,14 @@ app.get('/profile/:nom_utilisateur/annonces', (request, response) => {
 				info: result,
 			});
 		} else {
-			console.log('aucune annonce')
+			console.log('aucune annonce');
+			response.render('aucune_annonce', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				info: result,
+			});
 		}
 	});
 });
@@ -413,13 +472,191 @@ app.get('/profile/delete/:nom_utilisateur', (request, response) => {
 	sql0 = "DELETE FROM utilisateur WHERE nom_utilisateur = ?"
 	con.query(sql0, nom_utilisateur, function (err, result, fields) {
 		if (err) {
-			console.log(err);
+			console.log("Error: ", err);
 		} else {
+			delete request.session.loggedin,
+				console.log("The account has been deleted sucessfully and you'll be redirected to HOME page");
 			return response.redirect('/');
 		}
 	});
 });
 
+//Supprimer votre annonce 
+app.get('/profile/:nom_utilisateur/annonces/delete/:id', (request, response) => {
+	nom = request.params.nom;
+	itemId = request.params.id;
+
+	sqlAB = "SELECT * from utilisateur, annonce, abonnement where utilisateur.id = annonce.utilisateur_id and utilisateur.id = abonnement.utilisateur_id and annonce.id = abonnement.annonce_id and annonce.id = ?"
+	sql0 = "SELECT * FROM annonce WHERE id = ?"
+	sql1 = "DELETE FROM annonce WHERE id = ?"
+	sql3 = "DELETE FROM vehicule where annonce_id = ? "
+	sql4 = "DELETE FROM immobilier where annonce_id = ? "
+	sql5 = "DELETE FROM habillement where annonce_id = ? "
+	sql6 = "DELETE FROM electronique where annonce_id = ? "
+	sql7 = "DELETE FROM abonnement where annonce_id = ? "
+
+	con.query(sqlAB, itemId, function (err, results, fields) {
+
+		if (results.length > 0) {
+			con.query(sql0, itemId, function (err, result, fields) {
+				console.log(sql0);
+				console.log("The categorie's id is : ", result[0].categorie_id);
+				if (err) throw err;
+				if (result[0].categorie_id == 1) {
+					con.query(sql7, itemId, function (err, result1, fields) {
+						con.query(sql3, itemId, function (err, result, fields) {
+							console.log(sql3);
+							if (err) throw err;
+							con.query(sql1, itemId, function (err, result, fields) {
+								console.log(sql1);
+								if (err) throw err;
+								console.log("DELETED SUCCESSFULLY");
+								return response.redirect('/profile/:nom_utilisateur/annonces?msg=deleted');
+							})
+						});
+					})
+				} else if (result[0].categorie_id == 2) {
+					con.query(sql7, itemId, function (err, result1, fields) {
+						con.query(sql4, itemId, function (err, result1, fields) {
+							console.log(sql4);
+							if (err) throw err;
+							con.query(sql1, itemId, function (err, result, fields) {
+								console.log(sql1);
+								if (err) throw err;
+								console.log("DELETED SUCCESSFULLY");
+								return response.redirect('/profile/:nom_utilisateur/annonces?msg=deleted');
+							})
+						});
+					})
+				} else if (result[0].categorie_id == 3) {
+					con.query(sql7, itemId, function (err, result1, fields) {
+						con.query(sql5, itemId, function (err, result1, fields) {
+							console.log(sql5);
+							if (err) throw err;
+							con.query(sql1, itemId, function (err, result, fields) {
+								console.log(sql1);
+								if (err) throw err;
+								console.log("DELETED SUCCESSFULLY");
+								return response.redirect('/profile/:nom_utilisateur/annonces?msg=deleted');
+							})
+						});
+					})
+				} else if (result[0].categorie_id == 5) {
+					con.query(sql7, itemId, function (err, result1, fields) {
+						con.query(sql6, itemId, function (err, result, fields) {
+							console.log(sql6);
+							if (err) throw err;
+							con.query(sql1, itemId, function (err, result, fields) {
+								console.log(sql1);
+								if (err) throw err;
+								console.log("DELETED SUCCESSFULLY");
+								return response.redirect('/profile/:nom_utilisateur/annonces?msg=deleted');
+							})
+						});
+					})
+				}
+			})
+		} else {
+			con.query(sql0, itemId, function (err, result, fields) {
+				console.log(sql0);
+				console.log("The categorie's id is : ", result[0].categorie_id);
+				if (err) throw err;
+				if (result[0].categorie_id == 1) {
+					con.query(sql3, itemId, function (err, result, fields) {
+						console.log(sql3);
+						if (err) throw err;
+						con.query(sql1, itemId, function (err, result, fields) {
+							console.log(sql1);
+							if (err) throw err;
+							console.log("DELETED SUCCESSFULLY");
+							return response.redirect('/profile/:nom_utilisateur/annonces?msg=deleted');
+						})
+					});
+				} else if (result[0].categorie_id == 2) {
+					con.query(sql4, itemId, function (err, result, fields) {
+						console.log(sql4);
+						if (err) throw err;
+						con.query(sql1, itemId, function (err, result, fields) {
+							console.log(sql1);
+							if (err) throw err;
+							console.log("DELETED SUCCESSFULLY");
+							return response.redirect('/profile/:nom_utilisateur/annonces?msg=deleted');
+						})
+					});
+				} else if (result[0].categorie_id == 3) {
+					con.query(sql5, itemId, function (err, result, fields) {
+						console.log(sql5);
+						if (err) throw err;
+						con.query(sql1, itemId, function (err, result, fields) {
+							console.log(sql1);
+							if (err) throw err;
+							console.log("DELETED SUCCESSFULLY");
+							return response.redirect('/profile/:nom_utilisateur/annonces?msg=deleted');
+						})
+					});
+				} else if (result[0].categorie_id == 5) {
+					con.query(sql6, itemId, function (err, result, fields) {
+						console.log(sql6);
+						if (err) throw err;
+						con.query(sql1, itemId, function (err, result, fields) {
+							console.log(sql1);
+							if (err) throw err;
+							console.log("DELETED SUCCESSFULLY");
+							return response.redirect('/profile/:nom_utilisateur/annonces?msg=deleted');
+						})
+					});
+				}
+			})
+		}
+
+	})
+
+});
+
+//Modifier votre annonce 
+app.get('/profile/:nom_utilisateur/annonces/update/:id', (request, response) => {
+	let AnnonceId = request.params.id;
+	sql = "SELECT * FROM utilisateur, annonce where nom_utilisateur = ? and annonce.id = ? and utilisateur.id = annonce.utilisateur_id"
+	con.query(sql, [request.session.userInfo.nom_utilisateur, AnnonceId], (error, results, fields) => {
+		if (error) throw error;
+		else {
+			response.render('modifier_annonce', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				updateannonce: request.session.updateannonce,
+				updateannonce: results
+			});
+		}
+	})
+});
+
+app.post('/profile/:nom_utilisateur/annonces/update/:id', upload.single('image'), (request, response) => {
+	titre = request.body.titre1;
+	description = request.body.description1;
+	prix = request.body.prix1;
+	telephone = request.body.telephone1;
+	categorie = request.body.categorie1;
+	annonceId = request.params.id;
+
+	console.log(titre, description, prix, telephone, categorie, annonceId);
+
+	sql = "SELECT * FROM utilisateur, annonce where nom_utilisateur = ? and annonce.id = ? and utilisateur.id = annonce.utilisateur_id"
+	con.query(sql, [request.session.userInfo.nom_utilisateur, annonceId], (errors, results, fields)=>{
+	sql0 = "UPDATE annonce SET titre = '" + titre + "', description = '" + description + "', prix = '" + prix + "', telephone = '" + telephone + "', categorie_id = '" + categorie + "' WHERE id = '" + annonceId + "' ";	
+		if (errors) throw errors;
+		else {
+			con.query(sql0, [titre, description, prix, telephone, categorie, annonceId], (errors, results, fields) => {
+				if (errors) throw errors;
+				else {
+					console.log("Annonce numéro " + annonceId + " est mise à jour.");
+					response.redirect('/profile/:nom_utilisateur/annonces')
+				}
+			})
+		}
+	})
+});
 
 //Ajouter une annonce
 app.get('/add-ads', (request, response) => {
@@ -643,11 +880,6 @@ app.post('/add-ads/step1/step2/payement', (request, response) => {
 	}
 });
 
-//Modifier une annonce
-
-//supprimer une annonce
-
-
 //categories
 app.get('/categories/:nom', (request, response) => {
 	var sql = "SELECT * FROM categorie, annonce where nom = ? and categorie.id = annonce.categorie_id and annonce.status = 1"
@@ -696,7 +928,7 @@ app.get('/categories/:nom', (request, response) => {
 	});
 });
 
-//filtrer les catégories par le type choisi 
+//filtrer les catégories par le type des annonces choisi 
 app.get('/categories/:nom/:type', (request, response) => {
 
 	var sql = "SELECT * FROM categorie, annonce, " + request.params.nom + " where categorie.nom =  ?  and categorie.id = annonce.categorie_id and categorie.id = " + request.params.nom + ".categorie_id and " + request.params.nom + ".annonce_id = annonce.id and " + request.params.nom + ".type = ? and annonce.status = 1 "
@@ -979,12 +1211,13 @@ app.get('/contact/update/:id', (request, response) => {
 	let year = date_ob.getFullYear();
 	let datefinal = year + "-" + month + "-" + date;
 
-	CurrentUserId = request.params.id;
-	let msg = request.body.message;
-	console.log("I hope it's not undefined :) : ", msg);
-	sql0 = "UPDATE contact set message = '" + msg + "', date_message = '" + datefinal + "' where utilisateur_id = ?";
+	CurrentCommentId = request.params.id;
 
-	con.query(sql0, CurrentUserId, function (err, results, fields) {
+	console.log("I hope it's not undefined :) : ", request.body.message);
+	console.log("Current selected comment ID : ", CurrentCommentId);
+	sql0 = "UPDATE contact set utilisateur_id = '" + request.session.userInfo.id + "' , message = '" + request.body.message + "', date_message = '" + datefinal + "' where utilisateur_id = ?";
+
+	con.query(sql0, request.session.userInfo.id, function (err, results, fields) {
 		if (err) throw err;
 		return response.redirect('/contact?msg=commentedited');
 	});
@@ -1107,7 +1340,7 @@ app.get('/favoris/delete/:id', (request, response) => {
 });
 
 //Afficher la page "about"
-app.get('/contact', (request, response) => {
+app.get('/about', (request, response) => {
 
 });
 
