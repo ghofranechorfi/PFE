@@ -1,5 +1,20 @@
 {{> header}}
 
+    <div id ="alert" class="md:w-full md:h-10 bg-red-300" style="display: none;">
+        <p class="text-sm font-semibold p-2 color-red-800">Vous devez se connecter ! </p>
+    </div>
+    <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const msg = urlParams.get('msg')
+        if (msg == "mustconnect") {
+            var div2 = document.getElementById("alert");
+            div2.style.display= 'block';
+            setTimeout(function() {
+            div2.style.display = 'none';
+            }, 2000);
+        }
+    </script>
    <form method="get" action="/annonce">
    {{#each annonceinfo}}
         <div class="container mx-auto px-6">
@@ -51,59 +66,34 @@
                     
                     <div class="flex items-center mt-6 space-x-4">
                         <button type="submit" style="background-color:#00b906" 
-                            class="block text-white text-sm font-medium rounded-full focus:outline-none px-5 py-2.5 
-                            text-center">
+                            class="btn-fav block text-white text-sm font-medium rounded-full focus:outline-none px-5 
+                            py-2.5 text-center">
                             <a href="/favoris/add/{{this.id}}"> Ajouter au favoris </a>
                         </button>  
                     </div>
                 </div>
 
             </div>
+    {{/each}}
 
-            <div class="mt-12 mb-10">
-               <h3 class="text-gray-700 text-xl font-medium">Des autres annonces</h3>
-                <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-                    <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                        <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1563170351-be82bc888aa4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=376&q=80')">
-                           
+            <h3 class="mt-12 ml-10 text-gray-700 text-xl font-medium">Des autres annonces</h3>
+            <div class="flex gap-20 mt-1 mb-10 ml-20">
+               {{#each annoncerandominfo}}
+                <div class="w-80 md:mt-6">
+                    <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden border border-gray-200">
+                        <div class="flex items-end justify-end h-56 w-full bg-cover">
+                           <img class="w-full bg-center" src="/images/{{this.photo_url1}}" alt="">
                         </div>
                         <div class="px-5 py-3">
-                            <h3 class="text-gray-700 uppercase">Chanel</h3>
-                            <span class="text-gray-500 mt-2">$12</span>
-                        </div>
-                    </div>
-                    <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                        <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1544441893-675973e31985?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80')">
-                           
-                        </div>
-                        <div class="px-5 py-3">
-                            <h3 class="text-gray-700 uppercase">Man Mix</h3>
-                            <span class="text-gray-500 mt-2">$12</span>
-                        </div>
-                    </div>
-                    <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                        <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1532667449560-72a95c8d381b?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')">
-
-                        </div>
-                        <div class="px-5 py-3">
-                            <h3 class="text-gray-700 uppercase">Classic watch</h3>
-                            <span class="text-gray-500 mt-2">$12</span>
-                        </div>
-                    </div>
-                    <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-                        <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1590664863685-a99ef05e9f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=345&q=80')">
-                           
-                        </div>
-                        <div class="px-5 py-3">
-                            <h3 class="text-gray-700 uppercase">woman mix</h3>
-                            <span class="text-gray-500 mt-2">$12</span>
+                            <h3 class="text-gray-700 uppercase">{{this.titre}}</h3>
+                            <span class="text-gray-500 mt-2">{{this.prix}} DT</span>
                         </div>
                     </div>
                 </div>
+                {{/each}}
             </div>
             
         </div>
-    {{/each}}
     </form>
 
 

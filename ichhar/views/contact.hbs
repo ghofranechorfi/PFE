@@ -82,25 +82,27 @@
         </div>
         <div class="md:ml-20 md:flex md:gap-4 md:w-3/5">
           
-        <button class="shadow-lg focus:shadow-outline focus:outline-none text-white text-sm font-semibold py-1.5 px-4 rounded" 
-          type="submit" style="background-color: #003bb9;">
-            Envoyer
-        </button>
-      </form>
-            <button class="shadow-lg focus:shadow-outline focus:outline-none text-white text-sm font-semibold py-1.5 px-4 rounded" 
-              type="submit" style="background-color: #00b906;">
-              <a href="/contact/update/{{connectedcontactinfo.0.id}}">
-                Modifier
-              </a>
-            </button>
-
-            <button class="shadow-lg focus:shadow-outline focus:outline-none text-white text-sm font-semibold py-1.5 px-4 rounded" 
-              type="submit" style="background-color: #dd1212;">
-              <a href="/contact/delete/{{connectedcontactinfo.0.id}}">
-                Supprimer
-              </a>
-            </button>
+          <button class="shadow-lg focus:shadow-outline focus:outline-none text-white text-sm font-semibold py-1.5 px-4 rounded" 
+            type="submit" style="background-color: #003bb9;">
+              Envoyer
+          </button>
+        
+          <button class="shadow-lg focus:shadow-outline focus:outline-none text-white text-sm font-semibold py-1.5 px-4 rounded" 
+            type="submit" style="background-color: #00b906;">
+            <a href="/contact/update/{{connectedcontactinfo.0.id}}">
+              Modifier
+            </a>
+          </button>
+      
+          <button class="shadow-lg focus:shadow-outline focus:outline-none text-white text-sm font-semibold py-1.5 px-4 rounded" 
+            type="submit" style="background-color: #dd1212;">
+            <a href="/contact/delete/{{connectedcontactinfo.0.id}}">
+              Supprimer
+            </a>
+          </button>
         </div>
+      </form>
+      
       
       {{/if}}  
   </div>

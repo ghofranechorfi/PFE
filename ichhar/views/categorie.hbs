@@ -15,13 +15,29 @@
             <main class="mt-8">
                         
                     <div class="container mx-auto px-6">
-                    
-                        <select  class="h-8 w-24 ml-56 md:absolute md:right-20 border-r bg-gray-50 rounded-md shadow-xl text-center text-black">
-                                <option>Trier par</option>
-                                <option>le plus récent</option>
-                                <option>prix le plus bas</option>
-                                <option>prix le plus élévé</option>
-                        </select>
+                        <button id="dropdownDefault" data-dropdown-toggle="dropdown" style="margin-left: 800px;" class="text-black bg-gray-100 focus:ring-4 focus:outline-none 
+                        focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button">Trier par
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                </path>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44">
+                            <ul class="py-1 text-sm text-gray-700" aria-labelledby="dropdownDefault">
+                            <li>
+                                <a href="/categories/{{catinfo.0.nom}}/timerecent" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Le plus récent</a>
+                            </li>
+                            <li>
+                                <a href="/categories/{{catinfo.0.nom}}/prixdesc" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Prix le plus élévé</a>
+                            </li>
+                            <li>
+                                <a href="/categories/{{catinfo.0.nom}}/prixasc" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Prix le plus bas</a>
+                            </li>
+
+                            </ul>
+                        </div>
+                        
 
                         <div class="flex-rows mb-4 md:grid md:grid-cols-3 ">
 
@@ -84,7 +100,7 @@
     </div>
 
 
-    <div class="mt-2">
+    <div class="mt-32">
         {{> footer}}
     </div>
 

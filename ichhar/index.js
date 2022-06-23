@@ -20,7 +20,6 @@ const hbs = handlebars.create({
 	extname: 'hbs'
 });
 
-
 //database connection
 var con = mysql.createConnection({
 	multipleStatements: true,
@@ -441,7 +440,7 @@ app.post('/profile/:nom_utilisateur/reglages', (request, response) => {
 });
 
 app.get('/profile/:nom_utilisateur/annonces', (request, response) => {
-	sql = "SELECT * FROM utilisateur, annonce where utilisateur.id = annonce.utilisateur_id and annonce.utilisateur_id = ? and annonce.status = 1"
+	sql = "SELECT * FROM utilisateur, annonce where utilisateur.id = annonce.utilisateur_id and annonce.utilisateur_id = ?"
 	con.query(sql, [request.session.userInfo.id], function (err, result, fields) {
 		if (err) throw err;
 		if (result.length > 0) {
@@ -928,11 +927,152 @@ app.get('/categories/:nom', (request, response) => {
 	});
 });
 
+app.get('/categories/:nom/prixdesc', (request, response) => {
+	var sql = "SELECT * FROM categorie, annonce where nom = ? and categorie.id = annonce.categorie_id and annonce.status = 1 order by annonce.prix desc"
+	con.query(sql, request.params.nom, function (err, result, fields) {
+		if (err) throw err;
+		if (request.params.nom == 'vehicule') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+		if (request.params.nom == 'immobilier') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+		if (request.params.nom == 'habillement') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+		if (request.params.nom == 'electronique') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+	});
+});
+
+app.get('/categories/:nom/prixasc', (request, response) => {
+	var sql = "SELECT * FROM categorie, annonce where nom = ? and categorie.id = annonce.categorie_id and annonce.status = 1 order by annonce.prix asc"
+	con.query(sql, request.params.nom, function (err, result, fields) {
+		if (err) throw err;
+		if (request.params.nom == 'vehicule') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+		if (request.params.nom == 'immobilier') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+		if (request.params.nom == 'habillement') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+		if (request.params.nom == 'electronique') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+	});
+});
+
+app.get('/categories/:nom/timerecent', (request, response) => {
+	var sql = "SELECT * FROM categorie, annonce where nom = ? and categorie.id = annonce.categorie_id and annonce.status = 1 order by annonce.date_creation asc"
+	con.query(sql, request.params.nom, function (err, result, fields) {
+		if (err) throw err;
+		if (request.params.nom == 'vehicule') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+		if (request.params.nom == 'immobilier') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+		if (request.params.nom == 'habillement') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+		if (request.params.nom == 'electronique') {
+			response.render('categorie', {
+				layout: 'index',
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+				nomm: request.session.nom,
+				catinfo: result
+			});
+		}
+	});
+});
+
 //filtrer les catégories par le type des annonces choisi 
 app.get('/categories/:nom/:type', (request, response) => {
-
 	var sql = "SELECT * FROM categorie, annonce, " + request.params.nom + " where categorie.nom =  ?  and categorie.id = annonce.categorie_id and categorie.id = " + request.params.nom + ".categorie_id and " + request.params.nom + ".annonce_id = annonce.id and " + request.params.nom + ".type = ? and annonce.status = 1 "
 	console.log(sql);
+	
 	con.query(sql, [request.params.nom, request.params.type], function (err, result, fields) {
 		if (err) throw err;
 		if (request.params.nom == 'vehicule') {
@@ -1057,19 +1197,24 @@ app.get('/categories/:nom/:type', (request, response) => {
 });
 
 //ANNONCE
-//afficher une annonce
+//afficher l'annonce aves l id demandé et afficher 3 autres annonces "randomly"
 app.get('/annonce/:id', (request, response) => {
 	sql = "select utilisateur.photo_url, utilisateur.nom_utilisateur, utilisateur.nom, utilisateur.prenom, utilisateur.telephone, utilisateur.ville, annonce.id, annonce.titre, annonce.description, annonce.prix, annonce.photo_url1 from utilisateur, annonce, categorie where annonce.id = ? and categorie.id = annonce.categorie_id and annonce.status = 1 and utilisateur.id = annonce.utilisateur_id"
+	sql1 = "SELECT * FROM annonce where status = 1  ORDER BY RAND ( ) limit 3"
 	//sql1 = "SELECT * FROM categorie, annonce where annonce.id = ? and categorie.id = annonce.categorie_id and annonce.status = 1"
 	con.query(sql, request.params.id, function (err, result, fields) {
 		if (err) throw err;
-		response.render('annonce', {
-			layout: 'index',
-			annonceinfo: result,
-			loggedin: request.session.loggedin,
-			userInfo: request.session.userInfo,
-			userChosenInfo: request.session.userChosenInfo,
-		});
+		con.query(sql1, function(err, result1, fields){
+			if (err) throw err;
+			response.render('annonce', {
+				layout: 'index',
+				annonceinfo: result,
+				annoncerandominfo: result1,
+				loggedin: request.session.loggedin,
+				userInfo: request.session.userInfo,
+				userChosenInfo: request.session.userChosenInfo,
+			});
+		})
 	});
 });
 
@@ -1197,12 +1342,29 @@ app.post('/contact', (request, response) => {
 		sql = "INSERT INTO `contact` (`utilisateur_id`, `status`, `message`, `date_message`) values ( '" + request.session.userInfo.id + "', '1', '" + request.body.message + "', '" + datefinal + "')";
 		con.query(sql, function (err, results, fields) {
 			if (err) throw err;
+			response.redirect('/contact?msg=commentposted');
+			response.end();
 		});
-		response.redirect('/contact?msg=commentposted');
-		response.end();
 	}
+		
 });
 
+//text area de modification du commentaire
+app.get('/contact/update/:id', (request, response) => {
+	sql="select * from contact where utilisateur_id = ?" 
+	con.query(sql, request.session.userInfo.id, function (err, results, fields) {
+		if (err) throw err;
+		response.render('contact', {
+			layout: 'index',
+			loggedin: request.session.loggedin,
+			userInfo: request.session.userInfo,
+			userChosenInfo: request.session.userChosenInfo,
+			contactinfo: results1,
+			connectedcontactinfo: results,
+		});
+	});
+	response.end;
+});
 //modifier un commentaire
 app.get('/contact/update/:id', (request, response) => {
 	let date_ob = new Date();
@@ -1211,11 +1373,9 @@ app.get('/contact/update/:id', (request, response) => {
 	let year = date_ob.getFullYear();
 	let datefinal = year + "-" + month + "-" + date;
 
-	CurrentCommentId = request.params.id;
-
 	console.log("I hope it's not undefined :) : ", request.body.message);
-	console.log("Current selected comment ID : ", CurrentCommentId);
-	sql0 = "UPDATE contact set utilisateur_id = '" + request.session.userInfo.id + "' , message = '" + request.body.message + "', date_message = '" + datefinal + "' where utilisateur_id = ?";
+	console.log("Current connected user's ID : ", request.session.userInfo.id);
+	sql0 = "UPDATE contact set message = '" + request.body.message + "', date_message = '" + datefinal + "' where utilisateur_id = ?";
 
 	con.query(sql0, request.session.userInfo.id, function (err, results, fields) {
 		if (err) throw err;
@@ -1337,11 +1497,6 @@ app.get('/favoris/delete/:id', (request, response) => {
 			return response.redirect('/favoris');
 		}
 	});
-});
-
-//Afficher la page "about"
-app.get('/about', (request, response) => {
-
 });
 
 app.listen(port, () => {
